@@ -1,0 +1,34 @@
+复仇计划
+
+[X] 1. 代理日本雅虎 已失败，因为经过多方证明是没办法的。
+ [X] 1. 确定使用什么库
+ 先试试http-proxy
+   [X] 1. 使用redbird对localhost:8080/代理到auctions.yahoo.co.jp/
+   [X] 2. 使用client来获取目标网址，然后通过express回传？
+     首先，css文件是通过html里面嵌的标签，然后通过浏览器来自动获取的，这说明html里面的链接是没办法控制的。是否只能通过api来代理？
+	 
+ [X] 2 确定代理的精细度，比如是否可以阻断某个特定域名(*/user/*)的连接
+ 已知： 现在日本雅虎官方是不再支持api操作了，可能是因为害怕对普通客户不公平，所以我要做的就是，让客户通过我的代理服务器对雅虎进行浏览
+ [ ] 3 全面面向手机用户，所以代理的网站应当返回手机版网页，而不是桌面版
+   [ ] 1. 弄明白雅虎拍卖是嗅探了user-agent还是怎样
+   假设	： 是通过嗅探user-agent，盗用user-agent发请求尝试
+[ ] 2. 显示购物进度
+[ ] 3. 自动入札
+[ ] 4. 显示实时汇率，根据支付宝汇率api
+[ ] 5. 使用爬虫代理雅虎拍卖
+ [ ] 1. 首先实现单个商品页面的显示，至少能让用户通过aid对商品进行信息浏览
+  [ ] 1. 必要信息：
+    [ ] 图片，
+	    在入口文件没有找到，那应该是追加的
+  	[X] title， $('.ProductTitle__text').text()
+  	[X] 现在价格（税），价格 $('.Price__value').text().trim() 税 $('.Price__tax').text()
+  	[ ] 剩余时间（终止时间），
+  	  [X] 剩余时间 $('.StickyNavigation__number').text().replace('詳細','').trim()
+  	  [ ] 终止时间 
+  	[X] 商品说明 $('.ProductExplanation__commentBody').text().trim()
+  	  更好的方案： $('.ProductExplanation__body').html()
+  	[ ] 出品者情报
+  [ ] 2. aid q331259778，用axios获取https://page.auctions.yahoo.co.jp/jp/auction/q331259778，看看上述信息能否只通过一个请求获取
+	[ ] 3. 访问localhost:8088/auction/q331259778, 能够显示正确信息
+  
+ 

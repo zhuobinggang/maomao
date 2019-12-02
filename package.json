@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "http-proxy": "^1.18.0",
+    "pug": "^2.0.4",
+    "redbird": "^0.9.1",
+    "yarn": "^1.19.2"
+  },
+  "name": "maomao",
+  "version": "1.0.0",
+  "description": "Fuck you gougoujp.com",
+  "main": "index.js",
+  "author": "kobako",
+  "license": "MIT"
+}
