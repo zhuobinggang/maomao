@@ -17,18 +17,32 @@
 [ ] 4. 显示实时汇率，根据支付宝汇率api
 [ ] 5. 使用爬虫代理雅虎拍卖
  [ ] 1. 首先实现单个商品页面的显示，至少能让用户通过aid对商品进行信息浏览
-  [ ] 1. 必要信息：
-    [ ] 图片，
-	    在入口文件没有找到，那应该是追加的
+  [X] 1. 必要信息：
+    [X] 图片，
+	    [X] 在入口文件没有找到，那应该是追加的 不是追加的
+		  [X] 搞清楚是怎么加载图片的，假设存在一个接口，是通过aid获取图片地址，然后在js里面获取之后，追加到html
+			[X] 首先追加部分，应该是可以查得到的, 在html里，或者js里面，搜索对应的追加语句即可，比如xxx.append啥的
+			  通过对比原始html，就可以知道哪些是追加的
+		  [X] 小图 $('.ProductImage__thumbnail').map(i => {
+				const img = $(i).find('img')
+				img.attr('src')
+			})
+			  [X] 小图的cheerio方法, 将map换成each就完事
+
+			[?] 大图
   	[X] title， $('.ProductTitle__text').text()
   	[X] 现在价格（税），价格 $('.Price__value').text().trim() 税 $('.Price__tax').text()
-  	[ ] 剩余时间（终止时间），
+  	[X] 剩余时间（终止时间），
   	  [X] 剩余时间 $('.StickyNavigation__number').text().replace('詳細','').trim()
-  	  [ ] 终止时间 
+  	  [X] 终止时间 
+			[X] 获取nanotime
+			  冗余信息:
+				  1. GET "https://page.auctions.yahoo.co.jp/now?aID=g389045696&nowtime=" + new Date().getTime() 
+
   	[X] 商品说明 $('.ProductExplanation__commentBody').text().trim()
   	  更好的方案： $('.ProductExplanation__body').html()
   	[ ] 出品者情报
   [ ] 2. aid q331259778，用axios获取https://page.auctions.yahoo.co.jp/jp/auction/q331259778，看看上述信息能否只通过一个请求获取
 	[ ] 3. 访问localhost:8088/auction/q331259778, 能够显示正确信息
-  
+[ ] 6. 使用react架构写前端
  

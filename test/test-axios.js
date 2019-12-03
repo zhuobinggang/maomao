@@ -1,5 +1,5 @@
 const axios = require('axios')
-//var fs = require("fs");
+const fs = require("fs");
 const cheerio = require('cheerio')
 
 function getData(){
@@ -7,17 +7,7 @@ function getData(){
   return axios.get('https://page.auctions.yahoo.co.jp/jp/auction/q331259778')
     .then(res => {
       return res.data;
-        // let text = '';
-        // Object.getOwnPropertyNames(res).map(name => {
-          // text += name + ': \n\r';
-          // text += res[name] + '\n\r --------------------------------- \n\r';
-        // })
-        // try {
-          // fs.writeFileSync("yahooauc.txt", text);
-          // console.log('write end');
-        // }catch(e){
-          // console.log(e);
-        // }
+        
       });
 }
 
@@ -35,4 +25,21 @@ function cheerioParseAndShow(){
   })
 }
 
-cheerioParseAndShow();
+function writeHtmlToFile(html){
+    try {
+      fs.writeFileSync("yahooauc.txt", html);
+      console.log('write end');
+    }catch(e){
+      console.log(e);
+    }
+}
+
+function printInfoFetchByAxios(){
+  axios.get('https://page.auctions.yahoo.co.jp/now?aID=g389045696&nowtime=' + new Date().getTime()).then(res => {
+    console.log(res.data)
+  })
+}
+
+//cheerioParseAndShow();
+//getData().then(data => { writeHtmlToFile(data) })
+//printInfoFetchByAxios()

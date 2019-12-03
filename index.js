@@ -10,9 +10,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/auction/:aid', (req,res) => {
-  // const aid = req.params['aid']
-  // syncGetItemInfo(aid).then(info => {
-  //   res.send(JSON.stringify(info))
+  const aid = req.params['aid']
+  res.render('item', {
+    title: 'dd',
+    price: 9999
+  })
+  // yahooAucSpider.getWholeItemInfo(aid).then(info => {
+    // res.render('item', info)
   // })
 })
 
