@@ -40,6 +40,10 @@ function getWholeItemInfo(aid, nowTime = new Date().getTime()){
     // console.log(info.parsedTimeString)
     
     return info
+  }).catch(err => {
+    return Promise.resolve({
+      err: 'AID不正确',
+    })
   });
 }
 

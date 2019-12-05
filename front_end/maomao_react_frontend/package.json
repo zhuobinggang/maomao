@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.3.1",
+    "jquery": "^3.4.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
@@ -28,5 +29,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:8088"
 }
