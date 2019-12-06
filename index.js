@@ -1,12 +1,10 @@
 const express = require('express')
 const yahooAucSpider = require('./spiders/yahooauc_item_spider')
 const app = express()
-app.set('view engine', 'pug');
+app.use(express.static('static'))
 
 app.get('/', (req, res) => {
-  res.render('index', {
-    msg: 'this is msg from index.js'
-  })
+  res.send('fuck!')
 })
 
 app.get('/auction/:aid', (req,res) => {
