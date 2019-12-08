@@ -1,5 +1,6 @@
 const express = require('express')
 const yahooAucSpider = require('./spiders/yahooauc_item_spider')
+const mercariSpider = require('./spiders/merica_item_spider')
 const G = require('./global')
 const app = express()
 app.use(express.static('static'))
@@ -19,6 +20,13 @@ app.get('/auction/:aid', (req,res) => {
       res.json(info)
     })
   }
+})
+
+app.get('/mercari/:id', (req,res) => {
+  const id = req.params['id']
+  mercariSpider.getItemInfo(id).then(info => {
+    res.json(info)
+  })
 })
 
 

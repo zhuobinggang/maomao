@@ -18,6 +18,8 @@ class HomePage extends React.Component{
           猫猫网，日本海淘就上猫猫网！
         </div>
         <Button onClick={() => {this.props.navToYahooItemShow()}} type="primary">雅虎商品查看器</Button>
+        <WhiteSpace />
+        <Button onClick={() => {this.props.navToMercariItemShow()}} type="primary">煤炉商品查看器</Button>
       </WingBlank>
     )
   }
