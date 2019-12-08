@@ -16,7 +16,7 @@
 [ ] 3. 自动入札
 [ ] 4. 显示实时汇率，根据支付宝汇率api
 [ ] 5. 使用爬虫代理雅虎拍卖
- [ ] 1. 首先实现单个商品页面的显示，至少能让用户通过aid对商品进行信息浏览
+ [X] 1. 首先实现单个商品页面的显示，至少能让用户通过aid对商品进行信息浏览
   [X] 1. 必要信息：
     [X] 图片，
 	    [X] 在入口文件没有找到，那应该是追加的 不是追加的
@@ -42,8 +42,10 @@
   	[X] 商品说明 $('.ProductExplanation__commentBody').text().trim()
   	  更好的方案： $('.ProductExplanation__body').html()
   	[ ] 出品者情报
-  [ ] 2. aid q331259778，用axios获取https://page.auctions.yahoo.co.jp/jp/auction/q331259778，看看上述信息能否只通过一个请求获取
-	[ ] 3. 访问localhost:8088/auction/q331259778, 能够显示正确信息
+  [X] 2. aid q331259778，用axios获取https://page.auctions.yahoo.co.jp/jp/auction/q331259778，看看上述信息能否只通过一个请求获取
+	[X] 3. 访问localhost:8088/auction/q331259778, 能够显示正确信息
+ [ ] 代理搜索功能，按照推荐顺序显示，并且显示页数 
+  
 [X] 6. 使用react架构写前端
   [X] 1. 制作首页HomePage component, 显示logo, 显示：雅虎拍卖商品查看器
 	[X] 2. 制作商品查看Component
@@ -52,4 +54,6 @@
   [X] 4. 通过jq获取服务器信息，测试模式下访问独立服务器，用全局变量来切换url
 [X] 7. 部署网站到服务器
   [X] 尝试启动react服务器，并且从远端访问，看是不是防火墙的锅
+[ ] 8. 代理煤炉商品
+[ ] 9. 打包时注意关闭soursemap
  
