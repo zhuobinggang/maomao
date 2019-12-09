@@ -10,6 +10,15 @@ class YahooItemShow extends React.Component{
     }
   }
 
+  componentDidMount = () => {
+    if(this.props.itemId != null){
+      this.getItemInfo(this.props.itemId).then(this.renderItemInfo)
+      this.setState({
+        itemId: this.props.itemId,
+      })
+    }
+  }
+
   getItemInfo = (aid) => {
     // return Promise.resolve({
     //   title: '[O-12.2] Canon 7 シャッターOK フィルムカメラ レンジファインダー 比較的良品 売り切り 一眼レフ',
@@ -68,7 +77,11 @@ class YahooItemShow extends React.Component{
         >雅虎商品查看器</NavBar><WhiteSpace/>
 
         <WingBlank>
-          <SearchBar onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={15} />
+          <SearchBar value={this.state.itemId} onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={15} onChange={(newId) => {
+            this.setState({
+              itemId: newId,
+            })
+          }} />
           <WhiteSpace size='lg' />
           {(() => {
             if(this.isValidItem()){

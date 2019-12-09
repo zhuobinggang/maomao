@@ -17,9 +17,29 @@ class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      page: pages.home
+      page: pages.home,
+      initialItemId: null,
     }
   }
+
+  componentDidMount = () => {
+    const params = new URLSearchParams(window.location.search.slice(1));
+    window.params = params;
+    if(params.get('mid') != null){ // mercari item id
+      console.log('mid set')
+      this.setState({
+        page: pages.mercariItemShow,
+        initialItemId: params.get('mid'),
+      })
+    }else if(params.get('aid') != null){ // yahoo auction item id
+      console.log('aid set')
+      this.setState({
+        page: pages.yahooItemShow,
+        initialItemId: params.get('mid'),
+      })
+    }
+  }
+
   showItemInfo(value){
     alert(value)
   }
@@ -31,6 +51,11 @@ class App extends React.Component{
   renderItemInfo(info){
     alert(info.title)
   }
+  clearInitialItemId = () => {
+    this.setState({
+      initialItemId: null,
+    })
+  }
   render(){
     switch(this.state.page){
       case pages.home: return <Home navToYahooItemShow={() => this.setState({
@@ -38,12 +63,18 @@ class App extends React.Component{
       })} navToMercariItemShow={() => this.setState({
         page: pages.mercariItemShow
       })} />
-      case pages.yahooItemShow: return <YahooItemShow navToHome={() => this.setState({
-        page: pages.home
-      })} />
-      case pages.mercariItemShow: return <MercariItemShow navToHome={() => this.setState({
-        page: pages.home
-      })} />
+      case pages.yahooItemShow: return <YahooItemShow itemId={this.state.initialItemId} navToHome={() => {
+        this.setState({
+          page: pages.home,
+        })
+        this.clearInitialItemId()
+      }} />
+      case pages.mercariItemShow: return <MercariItemShow itemId={this.state.initialItemId} navToHome={() => {
+        this.setState({
+          page: pages.home,
+        })
+        this.clearInitialItemId()
+      }} />
       default: return <Home />
     }
   }

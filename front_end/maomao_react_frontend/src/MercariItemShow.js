@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
+import { Toast,Flex, SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
 const $ = require('jquery');
 
 class MercariItemShow extends React.Component{
@@ -10,7 +10,23 @@ class MercariItemShow extends React.Component{
     }
   }
 
+  componentDidMount = () => {
+    if(this.props.itemId != null){
+      this.getItemInfo(this.props.itemId).then(this.renderItemInfo)
+      this.setState({
+        itemId: this.props.itemId,
+      })
+    }
+  }
+
+
   getItemInfo = (id) => {
+    if(id.length > 15){ // If copy the url
+      id = id.slice(28).replace(/\/.*/,'');
+      this.setState({
+        itemId: id
+      })
+    }
     return new Promise((resolve, reject) => {
       $.get(`/mercari/${id}`, res => {
         resolve(res)
@@ -22,7 +38,7 @@ class MercariItemShow extends React.Component{
     window.fuck = info
     console.log('check fuck')
     this.setState({
-      itemInfo: info
+      itemInfo: info,
     })
   }
   
@@ -54,26 +70,34 @@ class MercariItemShow extends React.Component{
     }
   }
 
+  priceToRmb = (priceString) => {
+    const price = Math.floor(parseFloat(priceString.slice(1).replace(',','')) * 0.065)
+    return price
+  }
+
   render(){
     return (
 
       <div>
-        {/* <SearchBar onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={8} /> */}
         <NavBar
           mode="light"
           icon={<Icon type="left" />}
           onLeftClick={() => this.props.navToHome()}
         >煤炉商品查看器</NavBar><WhiteSpace/>
 
-        <WingBlank>
-          <SearchBar onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={15} />
+        <WingBlank> <div className="contents">
+          <SearchBar onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={99} value={this.state.itemId} onChange={(newId) => {
+            this.setState({
+              itemId: newId,
+            })
+          }} />
           <WhiteSpace size='lg' />
           {(() => {
             if(this.isValidItem()){
               return (<div>
                 <div className='title'>{this.state.itemInfo.itemName}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
-                <div className='sub-title'>{'简单描述: ' + this.state.itemInfo.itemDescription}</div>
+                <div className='sub-title'>{'简单描述: ' + this.state.itemInfo.itemWording}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
                 <div className='sub-title'>{'价格: ' + this.state.itemInfo.itemPrice}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
@@ -103,7 +127,9 @@ class MercariItemShow extends React.Component{
                   }
                 </Carousel>
                 <WhiteSpace size='lg'></WhiteSpace>
-                <div className='sub-title'>{this.state.itemInfo.itemWording}</div>
+                <div className='sub-title'>{this.state.itemInfo.itemDescription}</div>
+
+
               </div>)
             }else if(this.isAidWrong()){
               return (<div className='title'>没有这个商品! 请检查商品id是否正确</div>)
@@ -111,7 +137,31 @@ class MercariItemShow extends React.Component{
               return (<div></div>)
             }
           })()}
-        </WingBlank>
+        </div> </WingBlank>
+
+
+        {
+          (() => {
+            if(this.isValidItem()){
+              return (
+                <div className="footer maroon bold-font">
+                  <div className="width-80-percent"  >
+                    <Flex className="height-100-per" justify="center" align="center">估算金额: {this.priceToRmb(this.state.itemInfo.itemPrice)} 元 </Flex>
+                  </div>
+        
+                  <div className="width-20-percent red"  >
+                    <Flex className="height-100-per" justify="center" align="center" onClick={() => {
+                      Toast.info('目前只支持人工代购哦，请复制商品ID并咨询客服')
+                    }}> 购买 </Flex>
+                  </div>
+                </div>
+              )
+            }
+          })()
+        }
+
+
+
       </div>
     )
   }

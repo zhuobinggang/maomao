@@ -24,9 +24,16 @@ app.get('/auction/:aid', (req,res) => {
 
 app.get('/mercari/:id', (req,res) => {
   const id = req.params['id']
-  mercariSpider.getItemInfo(id).then(info => {
-    res.json(info)
-  })
+
+  if(G.IS_TEST_ENV){
+    const mockData = {"itemName":"BURBERRYBLUE LABELニーハイソックス","itemWording":"『BURBERRYBLUE LABELニーハイソックス』は、261回の取引実績を持つなおさんから出品されました。バーバリー ブルーレーベル（ソックス/レディース）の商品で、千葉県から2~3日で発送されます。","itemPrice":"¥1,900","itemTax":" (税込)","itemShippingFee":"送料込み","itemDescription":"ニーハイソックス(ベージュ)24㎝。\n数十年前に、西武のBURBERRYBLUE LABELで可愛いくて購入しました。可愛いすぎてはけず、、今に至ります。\n薄手の素材。\nシミや汚れは見当たりません。\n中古品、自宅保管にご理解のあるかたのご購入をお待ちしています。","likes":"1","imgs":["https://static.mercdn.net/item/detail/orig/photos/m49943271059_1.jpg?1575249631","https://static.mercdn.net/item/detail/orig/photos/m49943271059_2.jpg?1575249631","https://static.mercdn.net/item/detail/orig/photos/m49943271059_3.jpg?1575249631","https://static.mercdn.net/item/detail/orig/photos/m49943271059_4.jpg?1575249631"]};
+    res.json(mockData)
+  }else{
+    mercariSpider.getItemInfo(id).then(info => {
+      res.json(info)
+    })
+  }
+
 })
 
 
