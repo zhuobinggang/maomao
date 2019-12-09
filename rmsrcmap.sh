@@ -1,0 +1,1 @@
+rm static/static/js/*map -rf

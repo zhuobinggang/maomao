@@ -12,8 +12,8 @@
 2. yarn start
 
 ## 生产环境
-1. 打包: cd `front_end/maomao_react_frontend`, `yarn build`
-2. 复制到static文件夹下: `cp build ../../static -r`
+1. 打包: cd `front_end/maomao_react_frontend`, `yarn build --nomaps`
+2. 复制到static文件夹下: `\cp build ../../static -rf`
 3. 启动后端: `cd ../..` && `node index.js`
 
 
