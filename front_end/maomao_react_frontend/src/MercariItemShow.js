@@ -19,14 +19,19 @@ class MercariItemShow extends React.Component{
     }
   }
 
-
-  getItemInfo = (id) => {
+  validateItemId = () => {
+    let id = this.state.itemId
     if(id.length > 15){ // If copy the url
-      id = id.slice(28).replace(/\/.*/,'');
+      id = id.match(/\/(m[0-9].*)\//)[1]
       this.setState({
         itemId: id
       })
     }
+  }
+
+  getItemInfo = (id) => {
+    this.validateItemId()
+    
     return new Promise((resolve, reject) => {
       $.get(`/mercari/${id}`, res => {
         resolve(res)
@@ -86,7 +91,7 @@ class MercariItemShow extends React.Component{
         >煤炉商品查看器</NavBar><WhiteSpace/>
 
         <WingBlank> <div className="contents">
-          <SearchBar onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={99} value={this.state.itemId} onChange={(newId) => {
+          <SearchBar onBlur={() => {this.validateItemId()}} onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={99} value={this.state.itemId} onChange={(newId) => {
             this.setState({
               itemId: newId,
             })
