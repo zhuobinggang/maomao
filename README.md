@@ -13,7 +13,8 @@
 
 ## 生产环境
 1. 打包: cd `front_end/maomao_react_frontend`, `yarn build --nomaps`
-2. 复制到static文件夹下: `\cp build ../../static -rf`
+2. 删除旧版本static: `rm ../../static -rf`
+3. 移动build文件夹: `mv build ../../static`
 3. 启动后端: `cd ../..` && `node index.js`
 
 

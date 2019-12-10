@@ -1,5 +1,42 @@
 const cheerio = require('cheerio')
 const axios = require('axios')
+const fs = require('fs')
+
+function downLoadImg(src, targetPath){
+  return axios({
+    method: "get",
+    url: src,
+    responseType: "stream"
+  }).then(function (response) {
+    return new Promise((resolve, reject) => {
+      const ws = fs.createWriteStream(targetPath)
+      response.data.pipe(ws);
+      ws.on('finish', () => {
+        resolve('All done')
+      })
+    })
+  });
+}
+
+function getImgsOnLocal(orgImgs, targetFoldPathExist){
+  const promises = orgImgs.map(orgSrc => {
+    const name = orgSrc.match(/(m[1-9].*jpg)/)[0]
+    const pathOnServer = targetFoldPathExist + name
+    const httpSrc = '/temp_imgs/' + name
+
+    return new Promise((resolve, reject) => {
+      if(!fs.existsSync(pathOnServer)){
+        return downLoadImg(orgSrc, pathOnServer).then(() => {
+          console.log('I have download a file!')
+          resolve(httpSrc)
+        })
+      }else{
+        resolve(httpSrc)
+      }
+    })
+  })
+  return Promise.all(promises)
+}
 
 function getItemInfo(itemId){
   return axios.get(`https://item.mercari.com/jp/${itemId}/`, {
@@ -18,7 +55,7 @@ function getItemInfo(itemId){
     const itemShippingFee = $($('.item-shipping-fee')[0]).text()
     const itemDescription = $('.item-description-inner').text()
     const likes = $('span[data-num="like"]').text()
-    const imgs = (() => {
+    const orgImgs = (() => {
       const result = []
       $('.owl-item-inner').each((id, item) => {
         const img = $(item).find('img')
@@ -27,7 +64,10 @@ function getItemInfo(itemId){
       return result
     })();
 
-    return {itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, imgs}
+    // 需要对图片进行代理
+    return getImgsOnLocal(orgImgs, './static/temp_imgs/').then(imgs => {
+      return {itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, imgs}
+    })
   }).catch(err => {
     return Promise.resolve({
       err: '商品id不正确',
