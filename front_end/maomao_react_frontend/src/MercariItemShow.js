@@ -21,8 +21,10 @@ class MercariItemShow extends React.Component{
 
   validateItemId = () => {
     let id = this.state.itemId
-    if(id.length > 15){ // If copy the url
-      id = id.match(/\/(m[0-9].*)\//)[1]
+    if(id == null){
+      
+    }else if(id.length > 15){ // If copy the url
+      id = id.match(/\/(m[0-9]*)/)[1]
       this.setState({
         itemId: id
       })
