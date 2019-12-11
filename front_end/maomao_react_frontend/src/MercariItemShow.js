@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toast,Flex, SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
+import { ActivityIndicator,Toast,Flex, SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
 const $ = require('jquery');
 
 class MercariItemShow extends React.Component{
@@ -7,6 +7,7 @@ class MercariItemShow extends React.Component{
     super(props)
     this.state = {
       itemInfo: null,
+      loading: false,
     }
   }
 
@@ -33,9 +34,16 @@ class MercariItemShow extends React.Component{
 
   getItemInfo = (id) => {
     this.validateItemId()
+
+    this.setState({
+      loading: true
+    })
     
     return new Promise((resolve, reject) => {
       $.get(`/mercari/${id}`, res => {
+        this.setState({
+          loading: false
+        })
         resolve(res)
       })
     })
@@ -98,6 +106,7 @@ class MercariItemShow extends React.Component{
               itemId: newId,
             })
           }} />
+          <div className={this.state.loading ? 'visible': 'invisible'}><ActivityIndicator animating /><WhiteSpace/></div>
           <WhiteSpace size='lg' />
           {(() => {
             if(this.isValidItem()){

@@ -70,6 +70,21 @@
 
 [ ] 13. 增加翻译功能
 [ ] 14. 煤炉搜索商品功能
+  [ ] 首先搜索一次看看，通过什么url，通过什么jq表达式来爬取
+	  [X] url: https://www.mercari.com/jp/search/?keyword=casio
+		  第二页: https://www.mercari.com/jp/search/?page=2&keyword=casio
+		[X] jq表达式
+		  1. 图片: $($($('.items-box')[0]).find('img')).attr('src')
+			2. 价格: $($($('.items-box')[0]).find('.items-box-price')).text()
+  [X] 冗余信息
+	  1. 每页显示132个似乎
+		2. 小图的地址似乎跟大图不一样: https://static.mercdn.net/thumb/photos/m68864320816_1.jpg?1575544634
+		  大图: https://static.mercdn.net/item/detail/orig/photos/m68864320816_1.jpg?1575544634
+  [X] 创建小图用的文件夹tmp_thumb_imgs
+	[X] 用grid来显示
+	[X] 点击图片后进入商品查看页面
+	[ ] 分页
 [X] 15. 煤炉图片代理
   [X] 搞清楚axios是怎么下载东西的, 写一个测试，下载一张图片到指定位置 (Solved, 检查test_axios.js/downloadImg)
 	[X] 提取图片名, 需要用正则匹配，并且提取出来 (Solved: str.match(/(m[1-9].*\.jpg)/)[0])
+[X] 16. 煤炉商品加载慢的时候，显示加载中的gif

@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import Home from './HomePage';
 import YahooItemShow from './YahooItemShow';
 import MercariItemShow from './MercariItemShow';
+import MercariSearch from './MercariSearchPage';
 
 import './App.css';
 import 'antd-mobile/dist/antd-mobile.css';  // or 'antd-mobile/dist/antd-mobile.less'
@@ -11,6 +12,7 @@ const pages = {
   home: 0,
   yahooItemShow: 1,
   mercariItemShow: 2,
+  mercariSearch: 3,
 }
 
 class App extends React.Component{
@@ -62,6 +64,8 @@ class App extends React.Component{
         page: pages.yahooItemShow
       })} navToMercariItemShow={() => this.setState({
         page: pages.mercariItemShow
+      })} navToMercariSearch={() => this.setState({
+        page: pages.mercariSearch
       })} />
       case pages.yahooItemShow: return <YahooItemShow itemId={this.state.initialItemId} navToHome={() => {
         this.setState({
@@ -75,6 +79,12 @@ class App extends React.Component{
         })
         this.clearInitialItemId()
       }} />
+      case pages.mercariSearch: return <MercariSearch navToHome={() => {
+        this.setState({
+          page: pages.home,
+        })
+        this.clearInitialItemId()
+      }} ></MercariSearch>
       default: return <Home />
     }
   }

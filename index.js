@@ -36,5 +36,13 @@ app.get('/mercari/:id', (req,res) => {
 
 })
 
+app.get(`/mercari/search/keyword/:keyword/page/:page`, (req, res) => {
+  const keyword = req.params['keyword']
+  const page = req.params['page']
+  mercariSpider.getSearchResult(keyword, page).then(result => {
+    res.json(result)
+  })
+})
+
 
 app.listen(8088, () => console.log('Example app listening on port 3000!'))

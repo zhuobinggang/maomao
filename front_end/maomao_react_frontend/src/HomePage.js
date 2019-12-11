@@ -20,6 +20,9 @@ class HomePage extends React.Component{
         <Button onClick={() => {this.props.navToYahooItemShow()}} type="primary">雅虎商品查看器</Button>
         <WhiteSpace />
         <Button onClick={() => {this.props.navToMercariItemShow()}} type="primary">煤炉商品查看器</Button>
+        <WhiteSpace />
+        <Button onClick={() => {this.props.navToMercariSearch()}} type="primary">煤炉商品搜索</Button>
+
       </WingBlank>
     )
   }
