@@ -60,6 +60,7 @@ class MercariSearch extends React.Component{
       this.setState({
         searchResult: result,
       })
+      window.scrollTo({top: 0});
     })
   }
 
@@ -115,7 +116,7 @@ class MercariSearch extends React.Component{
               if(this.state.searchResult.currentPage != null){
                 if(this.state.searchResult.hasNextPage){
                   return (
-                    <Pagination simple total={this.state.searchResult.currentPage + 1} current={this.state.searchResult.currentPage} onChange={(newPage) => {
+                    <Pagination simple total={parseInt(this.state.searchResult.currentPage) + 1} current={this.state.searchResult.currentPage} onChange={(newPage) => {
                       console.log(newPage)
                       this.setState({
                         page: newPage
@@ -126,7 +127,7 @@ class MercariSearch extends React.Component{
                   )
                 }else{
                   return (
-                    <Pagination simple total={this.state.searchResult.currentPage} current={this.state.searchResult.currentPage} onChange={(newPage) => {
+                    <Pagination simple total={parseInt(this.state.searchResult.currentPage)} current={this.state.searchResult.currentPage} onChange={(newPage) => {
                       this.setState({
                         page: newPage
                       }, () => {
