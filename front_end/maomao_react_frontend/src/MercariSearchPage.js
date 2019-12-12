@@ -103,7 +103,7 @@ class MercariSearch extends React.Component{
                   <img style={{width: '100%', height: '100%'}} src={data.src}></img>
                 </div>
                 <div className="merica-item-box-price">
-                  {data.price}円
+                  {data.sold ? '卖掉了' : data.price + '円'}
                 </div>
               </div>
               )
