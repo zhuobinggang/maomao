@@ -2,8 +2,15 @@ const express = require('express')
 const yahooAucSpider = require('./spiders/yahooauc_item_spider')
 const mercariSpider = require('./spiders/merica_item_spider')
 const G = require('./global')
+
 const app = express()
 app.use(express.static('static'))
+
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 app.get('/', (req, res) => {
   res.send('fuck!')
@@ -37,12 +44,48 @@ app.get('/mercari/:id', (req,res) => {
 })
 
 app.get(`/mercari/search/keyword/:keyword/page/:page`, (req, res) => {
-  const keyword = req.params['keyword']
-  const page = req.params['page']
-  mercariSpider.getSearchResult(keyword, page).then(result => {
-    res.json(result)
-  })
+  if(G.IS_TEST_ENV){
+    const mockItem = {"orgSrc":"https://static.mercdn.net/thumb/photos/m85127078642_1.jpg?1569063594","price":"¥140,700","sold":false,"mid":"m85127078642","src":"/temp_thumb_imgs/m85127078642_1.jpg"};
+    const items = []
+    for(let i = 0 ; i< 200; i++){
+      items.push(mockItem)
+    }
+    return res.json({
+      items,
+      currentPage: 1,
+      hasNextPage: true
+    })
+  }else{
+    const keyword = req.params['keyword']
+    const page = req.params['page']
+    mercariSpider.getSearchResult(keyword, page).then(result => {
+      res.json(result)
+    })
+  }
 })
+
+app.post('/mercari/search', (req, res) => {
+  if(G.IS_TEST_ENV){
+    const mockItem = {"orgSrc":"https://static.mercdn.net/thumb/photos/m85127078642_1.jpg?1569063594","price":"¥140,700","sold":false,"mid":"m85127078642","src":"/temp_thumb_imgs/m85127078642_1.jpg"};
+    const items = []
+    for(let i = 0 ; i< 200; i++){
+      items.push(mockItem)
+    }
+    return res.json({
+      items,
+      currentPage: 1,
+      hasNextPage: true
+    })
+  }else{
+    const keyword = req.body['keyword']
+    const page = req.body['page']
+    mercariSpider.getSearchResult(keyword, page).then(result => {
+      res.json(result)
+    })
+  }
+})
+
+
 
 
 app.listen(8088, () => console.log('Example app listening on port 3000!'))

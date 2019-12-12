@@ -85,25 +85,41 @@ function extractedMid(str){
 
 function getSearchResult(keyword='', page=1){
   keyword = keyword.replace(' ', '+')
-  return axios.get(`https://www.mercari.com/jp/search/?page=${page}&keyword=${keyword}`, {
+  const url = `https://www.mercari.com/jp/search/?page=${page}&keyword=${keyword}`
+  console.log(url)
+  return axios.get(encodeURI(url), {
     headers: HEADER
   }).then(res => {
-    const result = []
+    const result = {items: []};
     const $ = cheerio.load(res.data)
     $('.items-box').each((id, item) => {
       const orgSrc = $($(item).find('img')).attr('data-src')
       const price = $($(item).find('.items-box-price')).text()
       const sold = $(item).find('figcaption').length > 0;
       const mid = extractedMid($($(item).find('a')).attr('href'))
-      result.push({orgSrc, price, sold, mid})
+      result.items.push({orgSrc, price, sold, mid})
     })
+
+    //为result添加分页信息
+    result.currentPage = $($('.pager-cell.active')[0]).text().trim() || 1;
+    result.hasNextPage = (() => {
+      let flag = false
+      const nextPage = parseInt(result.currentPage) + 1;
+      $('.pager-cell').each((id, item) => {
+        if($(item).text().trim() == nextPage){
+          flag = true
+        }
+      })
+      return flag
+    })()
+
     return result
   }).then(result => {
     //Replace orgin src with local img src
-    const orgSrcs = result.map(item => {return item.orgSrc})
+    const orgSrcs = result.items.map(item => {return item.orgSrc})
     return getImgsOnLocal(orgSrcs, './static/temp_thumb_imgs/', '/temp_thumb_imgs/').then(localSrcs => {
       localSrcs.forEach((src, id) => {
-        result[id].src = src
+        result.items[id].src = src
       })
       return result
     })

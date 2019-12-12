@@ -69,8 +69,8 @@
 [X] 12. 在商品查看器页面增加购买组件, fixed在最下面
 
 [ ] 13. 增加翻译功能
-[ ] 14. 煤炉搜索商品功能
-  [ ] 首先搜索一次看看，通过什么url，通过什么jq表达式来爬取
+[X] 14. 煤炉搜索商品功能
+  [X] 首先搜索一次看看，通过什么url，通过什么jq表达式来爬取
 	  [X] url: https://www.mercari.com/jp/search/?keyword=casio
 		  第二页: https://www.mercari.com/jp/search/?page=2&keyword=casio
 		[X] jq表达式
@@ -83,8 +83,17 @@
   [X] 创建小图用的文件夹tmp_thumb_imgs
 	[X] 用grid来显示
 	[X] 点击图片后进入商品查看页面
-	[ ] 分页
 [X] 15. 煤炉图片代理
   [X] 搞清楚axios是怎么下载东西的, 写一个测试，下载一张图片到指定位置 (Solved, 检查test_axios.js/downloadImg)
 	[X] 提取图片名, 需要用正则匹配，并且提取出来 (Solved: str.match(/(m[1-9].*\.jpg)/)[0])
 [X] 16. 煤炉商品加载慢的时候，显示加载中的gif
+[ ] 17. 直链进入煤炉搜索页面(带keyword)
+[X] 18. 煤炉搜索商品添加分页
+  首先后端是知道页码信息的, 现在在第几页，可以去哪几页，都是可以返回的
+	使用隐藏页码的pagination, 因为煤炉本身也是隐藏总页数的
+	[X] 在search的时候，返回的result里面带上currentPage和hasNextPage, 前端根据currentPage是否为1判断上一页是否可用,
+    根据hasNextPage判断下一页是否可用
+[ ] 19. 统计日访问增长量, 以及搜索关键词
+[ ] 20. 评估sqlite作为生产及数据库
+[ ] 21. 雅虎拍卖出价接口，尝试出价一次
+[ ] 22. 煤炉sold标志

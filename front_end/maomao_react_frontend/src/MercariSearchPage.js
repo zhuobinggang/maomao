@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator,Grid,SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
+import { Pagination, ActivityIndicator,Grid,SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
 import MercariItemShow from './MercariItemShow';
 const $ = require('jquery');
 
@@ -9,7 +9,7 @@ class MercariSearch extends React.Component{
     this.state = {
       keyword: '',
       page: 1,
-      searchResult: [],
+      searchResult: {}, 
       enterDetail: false,
       mid: null,
       loading: false,
@@ -22,16 +22,23 @@ class MercariSearch extends React.Component{
 
   getSearchResult = () => {
     const state = this.state
+    console.log('IN getSearchResult, page: ' + state.page)
     this.setState({
       loading: true,
     })
     return new Promise((resolve, _) => {
-      $.get(`/mercari/search/keyword/${state.keyword}/page/${state.page}`, res => {
+      $.post('/mercari/search', {keyword: state.keyword, page: state.page}, res => {
         this.setState({
           loading: false,
         })
         resolve(res)
       })
+      // $.get(`/mercari/search/keyword/${state.keyword}/page/${state.page}` , res => {
+      //   this.setState({
+      //     loading: false,
+      //   })
+      //   resolve(res)
+      // })
     })
     // return Promise.resolve([{
     //   img: 'https://static.mercdn.net/thumb/photos/m74425838658_1.jpg?1576034667',
@@ -49,7 +56,6 @@ class MercariSearch extends React.Component{
   }
 
   search = () => {
-    const keyword = this.state.keyword
     return this.getSearchResult().then(result => {
       this.setState({
         searchResult: result,
@@ -81,7 +87,7 @@ class MercariSearch extends React.Component{
 
             <div className={this.state.loading ? 'visible': 'invisible'}><ActivityIndicator animating /><WhiteSpace/></div>
 
-            <Grid data={this.state.searchResult} itemStyle={{backgroundColor: '#f5f5f9'}} hasLine={false} columnNum={3} renderItem={data => {
+            <Grid data={this.state.searchResult.items} itemStyle={{backgroundColor: '#f5f5f9'}} hasLine={false} columnNum={3} renderItem={data => {
               return (
               <div className="merica-item-box" onClick={() => {
                 this.setState({
@@ -102,6 +108,36 @@ class MercariSearch extends React.Component{
               </div>
               )
             }} ></Grid>
+
+            <WhiteSpace />
+
+            {(() => {
+              if(this.state.searchResult.currentPage != null){
+                if(this.state.searchResult.hasNextPage){
+                  return (
+                    <Pagination simple total={this.state.searchResult.currentPage + 1} current={this.state.searchResult.currentPage} onChange={(newPage) => {
+                      console.log(newPage)
+                      this.setState({
+                        page: newPage
+                      }, () => {
+                        this.search()
+                      })
+                    }}  />
+                  )
+                }else{
+                  return (
+                    <Pagination simple total={this.state.searchResult.currentPage} current={this.state.searchResult.currentPage} onChange={(newPage) => {
+                      this.setState({
+                        page: newPage
+                      }, () => {
+                        this.search()
+                      })
+                    }} />
+                  )
+                }
+              }
+            })()}
+
           </WingBlank>
         </div>
 
@@ -112,6 +148,12 @@ class MercariSearch extends React.Component{
             })
           }} />) : <div />
         }
+
+        <WhiteSpace />
+
+        
+
+
       </div>
     )
   }
