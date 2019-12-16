@@ -4,6 +4,7 @@ import Home from './HomePage';
 import YahooItemShow from './YahooItemShow';
 import MercariItemShow from './MercariItemShow';
 import MercariSearch from './MercariSearchPage';
+import $ from 'jquery'
 
 import './App.css';
 import 'antd-mobile/dist/antd-mobile.css';  // or 'antd-mobile/dist/antd-mobile.less'
@@ -21,6 +22,7 @@ class App extends React.Component{
     this.state = {
       page: pages.home,
       initialItemId: null,
+      viewCount: null,
     }
   }
 
@@ -40,6 +42,14 @@ class App extends React.Component{
         initialItemId: params.get('mid'),
       })
     }
+
+    //顯示訪問人數
+    $.get('/stastics/view', ({count}) => {
+      window.viewCount = count
+      this.setState({
+        viewCount: count
+      })
+    });
   }
 
   showItemInfo(value){
@@ -60,7 +70,7 @@ class App extends React.Component{
   }
   render(){
     switch(this.state.page){
-      case pages.home: return <Home navToYahooItemShow={() => this.setState({
+      case pages.home: return <Home viewCount={this.state.viewCount} navToYahooItemShow={() => this.setState({
         page: pages.yahooItemShow
       })} navToMercariItemShow={() => this.setState({
         page: pages.mercariItemShow

@@ -2,8 +2,10 @@ const express = require('express')
 const yahooAucSpider = require('./spiders/yahooauc_item_spider')
 const mercariSpider = require('./spiders/merica_item_spider')
 const G = require('./global')
+const stastics = require('./stastics')
 
 const app = express()
+
 app.use(express.static('static'))
 
 var bodyParser = require('body-parser')
@@ -12,8 +14,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-app.get('/', (req, res) => {
-  res.send('fuck!')
+
+
+app.get('/stastics/view', (req, res) => {
+  stastics.incViewCount(req.ip).then(stastics.getTodayViewCnt).then(count => {
+    res.send({count})
+  })
 })
 
 app.get('/auction/:aid', (req,res) => {
@@ -88,4 +94,4 @@ app.post('/mercari/search', (req, res) => {
 
 
 
-app.listen(8088, () => console.log('Example app listening on port 3000!'))
+app.listen(8088, () => console.log('Example app listening on port 8088!'))

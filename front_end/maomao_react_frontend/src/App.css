@@ -108,6 +108,11 @@
   width: 100%;
 }
 
+.home-grid{
+  height: 80%;
+  width: 80%;
+}
+
 .merica-item-box-price {
   position: fixed;
   bottom: 16px;

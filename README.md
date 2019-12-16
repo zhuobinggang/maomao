@@ -2,6 +2,7 @@
 1. 安装node以及yarn
 2. 克隆仓库: git clone `https://github.com/zhuobinggang/maomao`
 3. 解决依赖: cd maomao & yarn install
+4. 解決sqlite數據庫依賴: 在項目根目錄執行`node scripts/initialise_maomaodb.js`
 
 ## 开发环境
 ### 后端

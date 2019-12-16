@@ -93,7 +93,16 @@
 	使用隐藏页码的pagination, 因为煤炉本身也是隐藏总页数的
 	[X] 在search的时候，返回的result里面带上currentPage和hasNextPage, 前端根据currentPage是否为1判断上一页是否可用,
     根据hasNextPage判断下一页是否可用
-[ ] 19. 统计日访问增长量, 以及搜索关键词
-[ ] 20. 评估sqlite作为生产及数据库
+[D] 19. 统计日访问增长量, 以及搜索关键词
+  [X] sqlite建表: view(ip, time), search_record(site, keyword, time)
+	[X] 訪問首頁的時候，添加view記錄
+	[ ] 煤爐搜索的時候，記錄search_record
+	[X] 限制where條件, time限制在今天: select date('now')
+	[X] knex的sqlite bug，不能自動用數字類型的timestamp跟日期類型的進行對比
+	  resolve: 在輸入的時候也要用date函數，保持一致
+  [ ] 初始化一個maomao.sqlite，然後移動為maomao.sqlite.template, 然後在ignore裏面加上.sqlite， 然後補充READEme
+[X] 20. 评估sqlite作为生产及数据库
 [ ] 21. 雅虎拍卖出价接口，尝试出价一次
 [ ] 22. 煤炉sold标志
+[X] 23. 增加购买流程显示, 在首页用九宫格显示, 但是图标怎么拿？ 
+  显示的菜单： 1. 煤炉商品搜索 2. 雅虎商品查看 3. 购买流程
