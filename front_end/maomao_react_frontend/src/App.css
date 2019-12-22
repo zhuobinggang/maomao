@@ -129,3 +129,12 @@
 .invisible{
   display: none;
 }
+
+.margin-right-small{
+  margin: 0 8px 0 0;
+}
+
+.link{
+  color: blue;
+  text-decoration: underline;
+}

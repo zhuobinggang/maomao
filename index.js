@@ -2,10 +2,19 @@ const express = require('express')
 const yahooAucSpider = require('./spiders/yahooauc_item_spider')
 const mercariSpider = require('./spiders/merica_item_spider')
 const G = require('./global')
+const U = require('./utils')
 const stastics = require('./stastics')
+const compression = require('compression')
+const knex = require('knex')({
+  client: 'sqlite3',
+  connection: () => ({
+    filename: './maomao.sqlite'
+  })
+});
 
 const app = express()
 
+app.use(compression()) //GZIP
 app.use(express.static('static'))
 
 var bodyParser = require('body-parser')
@@ -89,6 +98,28 @@ app.post('/mercari/search', (req, res) => {
       res.json(result)
     })
   }
+})
+
+app.post('/user/register', (req, res) => {
+  const username = req.body['username']
+  const nick = req.body['nick']
+  const password = req.body['password']
+
+  //TODO: md5
+  const md5Pass = U.md5hex(password)
+
+  //TODO: 用正則對用戶信息進行限制
+
+  knex('user').where({username}).then(users => {
+    if(users.length > 0){ //Repeated
+      res.json({err: '用戶名已被使用'})
+    }else{
+      const sql = `insert into user(nick, username, password, created_time, updated_time) values("${nick}","${username}","${md5Pass}",datetime("now"),datetime("now"))`;
+      return knex.raw(sql).then(() => {
+        res.json({ok: 1})
+      })
+    }
+  })
 })
 
 

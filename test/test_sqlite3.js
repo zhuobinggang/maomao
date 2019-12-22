@@ -53,14 +53,42 @@ function getTodayViewCnt(){
 }
 
 function rawInsert(){
-  knex.raw('insert into view_stastics(id, ip, time) values(3, "test", datetime("now"))').then(result => {
+  knex.raw('insert into view_stastics(id, ip, time) values(1, "test", datetime("now"))').then(result => {
     console.log(result)
     knex.destroy()
   })
 }
 
+function test_register(username, password, nick){
+  //Check if username used
+  knex('user').where({username}).then(users => {
+    console.log(users)
+    if(users.length > 0){ //Repeated
+      console.log('Used username!')
+      return Promise.resolve('yes')
+    }else{
+      const sql = `insert into user(nick, username, password, created_time, updated_time) values("${nick}","${username}","${password}",datetime("now"),datetime("now"))`;
+      console.log(sql)
+      return knex.raw(sql)
+      console.log('Insert done!')
+    }
+  }).finally(() => {
+    knex.destroy()
+  })
+}
+
+function getAllUsers(){
+  knex('user').select('*').then(res => {
+    console.log(res)
+  })
+}
+
+test_register('kobako', 'dd', 'kobako')
+
+// getAllUsers()
+
 // rawInsert()
-initialize()
+// initialize()
 
 // getTodayViewCnt()
 

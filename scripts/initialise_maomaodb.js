@@ -1,3 +1,5 @@
+//增加表之後可以直接運行，不用擔心破壞原來的數據
+
 const knex = require('knex')({
   client: 'sqlite3',
   connection: () => ({
@@ -16,6 +18,15 @@ function initialize(){
       table.increments('id')
       table.string('keyword')
       table.dateTime('time')
+    })
+  }).then(() => {
+    return knex.schema.createTableIfNotExists('user', table => {
+      table.increments('id')
+      table.string('nick')
+      table.string('username')
+      table.string('password')
+      table.dateTime('created_time')
+      table.dateTime('updated_time')
     })
   }).finally(() => {
     knex.destroy()
