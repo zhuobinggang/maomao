@@ -1,6 +1,8 @@
 import React from 'react';
-import {Flex, Grid, WhiteSpace, WingBlank, Button } from 'antd-mobile';
+import {Flex, Grid, WhiteSpace, WingBlank, Button, Toast } from 'antd-mobile';
 import RegisterTab from './RegisterTab';
+import LoginTab from './LoginTab';
+import $ from 'jquery';
 
 const tabs = {
   main: 1,
@@ -17,6 +19,20 @@ class HomePage extends React.Component{
     }
   }
 
+  getLoginInfo = () => {
+    //Check if I have logined
+    console.log('Check if I have logined')
+    $.get('/getLoginInfo', (res) => {
+      if(res.err != null){
+        Toast.info('獲取登錄信息失敗: ' + res.err)
+      }else{
+        this.setState({
+          userinfo: res.userinfo
+        })
+      }
+    })
+  }
+
   render(){
     const navRightElements = (() => {
       const result = []
@@ -26,7 +42,11 @@ class HomePage extends React.Component{
         const orderList = (<p key="2" className="link">訂單一覽</p>)
         result.push(welcome, comma, orderList)
       }else{
-        const loginLink = (<p className="link" key="1">登錄</p>)
+        const loginLink = (<p className="link" key="1" onClick={() => {
+          this.setState({
+            currentTab: tabs.login
+          })
+        }}>登錄</p>)
         const registerLink = (<p className="link" key="2" onClick={() => {
           this.setState({
             currentTab: tabs.register
@@ -69,13 +89,6 @@ class HomePage extends React.Component{
                   )
                 }} />
     
-            {/* <Button onClick={() => {this.props.navToYahooItemShow()}} type="primary">雅虎商品查看器</Button>
-            <WhiteSpace />
-            <Button onClick={() => {this.props.navToMercariItemShow()}} type="primary">煤炉商品查看器</Button>
-            <WhiteSpace />
-            <Button onClick={() => {this.props.navToMercariSearch()}} type="primary">煤炉商品搜索</Button> */}
-    
-    
             <WhiteSpace size="lg" />
     
             {(() => {
@@ -88,7 +101,19 @@ class HomePage extends React.Component{
     
           </WingBlank>
         </div>
-        <RegisterTab className={this.state.currentTab == tabs.register ? "" : "invisible"}></RegisterTab>
+
+        <RegisterTab successCallback={() => {
+          this.getLoginInfo();
+        }} navBack={() => {
+          this.setState({currentTab: tabs.main});
+        }} className={this.state.currentTab == tabs.register ? "" : "invisible"}></RegisterTab>
+
+        <LoginTab successCallback={() => {
+          this.getLoginInfo();
+        }} navBack={() => {
+          this.setState({currentTab: tabs.main});
+        }} className={this.state.currentTab == tabs.login ? "" : "invisible"}></LoginTab>
+
       </div>
     )
   }

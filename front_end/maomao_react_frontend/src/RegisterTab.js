@@ -26,6 +26,8 @@ class RegisterTab extends React.Component{
           Toast.info('注冊出錯: ' + res.err)
         }else{
           //TODO: 返回原頁面并且自動登錄
+          Toast.success('注冊成功, 已嘗試自動登錄，請點左上角返回');
+          me.props.successCallback();
         }
       })
     }else{

@@ -11,8 +11,15 @@ const knex = require('knex')({
     filename: './maomao.sqlite'
   })
 });
+const session = require('express-session')
 
 const app = express()
+
+//MemoryStore Session
+app.use(session({
+  resave: true, saveUninitialized: true,
+  unset: 'destroy', secret: 'maomaojb', cookie: { maxAge: 1000 * 60 * 30 /** 30min */ },
+}))
 
 app.use(compression()) //GZIP
 app.use(express.static('static'))
@@ -26,9 +33,13 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 app.get('/stastics/view', (req, res) => {
-  stastics.incViewCount(req.ip).then(stastics.getTodayViewCnt).then(count => {
-    res.send({count})
-  })
+  if(G.IS_TEST_ENV){
+    res.send({count: 99999})
+  }else{
+    stastics.incViewCount(req.ip).then(stastics.getTodayViewCnt).then(count => {
+      res.send({count})
+    })
+  }
 })
 
 app.get('/auction/:aid', (req,res) => {
@@ -101,28 +112,45 @@ app.post('/mercari/search', (req, res) => {
 })
 
 app.post('/user/register', (req, res) => {
-  const username = req.body['username']
-  const nick = req.body['nick']
-  const password = req.body['password']
-
-  //TODO: md5
-  const md5Pass = U.md5hex(password)
-
-  //TODO: 用正則對用戶信息進行限制
-
-  knex('user').where({username}).then(users => {
-    if(users.length > 0){ //Repeated
-      res.json({err: '用戶名已被使用'})
-    }else{
-      const sql = `insert into user(nick, username, password, created_time, updated_time) values("${nick}","${username}","${md5Pass}",datetime("now"),datetime("now"))`;
-      return knex.raw(sql).then(() => {
-        res.json({ok: 1})
-      })
-    }
-  })
+  if(G.IS_TEST_ENV){
+    setSessionUserInfo('kobako')
+    res.json({ok: 1, msg: '測試環境'})
+  }else{
+    const username = req.body['username']
+    const nick = req.body['nick']
+    const password = req.body['password']
+  
+    //TODO: md5
+    const md5Pass = U.md5hex(password)
+  
+    //TODO: 用正則對用戶信息進行限制
+    //TODO: 防止sql注入
+  
+    knex('user').where({username}).then(users => {
+      if(users.length > 0){ //Repeated
+        res.json({err: '用戶名已被使用'})
+      }else{
+        const sql = `insert into user(nick, username, password, created_time, updated_time) values("${nick}","${username}","${md5Pass}",datetime("now"),datetime("now"))`;
+        return knex.raw(sql).then(() => {
+          setSessionUserInfo(nick)
+          res.json({ok: 1})
+        })
+      }
+    })
+  }
 })
 
-
-
+app.get('/getLoginInfo', (req,res) => {
+  if(req.session.userinfo != null){
+    return res.json({userinfo: req.session.userinfo})
+  }else{
+    return res.json({err: '您還沒有登錄'})
+  }
+})
 
 app.listen(8088, () => console.log('Example app listening on port 8088!'))
+
+//Should be called when login or register successfully
+function setSessionUserInfo(nick){
+  req.session.userinfo={ nick }
+}

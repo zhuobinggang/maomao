@@ -119,3 +119,12 @@
 	[X] 在相應的初始化脚本処加上表
 	[ ] 將所有/user請求發送到user模塊
 	[ ] 使用session時，設定消亡時長為20分鐘
+	[ ] 登錄，保持session.userinfo對象，對象内存放整個app中常常會用到的數據，一開始只保存userinfo.username, nick即可
+  [ ] 登錄后跳轉到開始頁面，此時應該正確顯示用戶信息
+	[X] Q: 首頁在什麽時間點進行登錄信息的獲取？ solved: 在注冊，或者登錄tab返回的時候
+	[X] Q: 各個組件之間怎麽共享登錄信息？ solved: 由homepage通過props分發下去
+	[X] 注冊Navbar的leftClick回調上，添加homepage.getLoginInfo()的調用, 再增加tab switch的代碼
+	[X] 登錄和注冊的抽象: 後臺為session增加userinfo是判斷用戶登錄與否的唯一標準，注冊后自動增加userinfo, 登陸相當於請求後臺增加session.userinfo, 兩者都是成功之後請求getLoginInfo
+	[D] 增加登錄tab，複製自register即可，請求後端添加session.userinfo
+	  [X] 前端
+	  [D] 後端準確的登陸邏輯
