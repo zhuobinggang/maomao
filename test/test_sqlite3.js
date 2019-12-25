@@ -1,3 +1,5 @@
+const U = require('../utils')
+
 const knex = require('knex')({
   client: 'sqlite3',
   connection: () => ({
@@ -67,9 +69,9 @@ function test_register(username, password, nick){
       console.log('Used username!')
       return Promise.resolve('yes')
     }else{
-      const sql = `insert into user(nick, username, password, created_time, updated_time) values("${nick}","${username}","${password}",datetime("now"),datetime("now"))`;
+      const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
       console.log(sql)
-      return knex.raw(sql)
+      return knex.raw(sql, [nick, username, password])
       console.log('Insert done!')
     }
   }).finally(() => {
@@ -83,9 +85,26 @@ function getAllUsers(){
   })
 }
 
-test_register('kobako', 'dd', 'kobako')
+function insertUserWithMd5pass(username, password){
+  const md5Pass = U.md5hex(password)
+  return test_register(username, md5Pass, 'kobako')
+}
 
-// getAllUsers()
+function getUserByUsernameAndPass(username, password){
+  const md5Pass = U.md5hex(password)
+  return knex('user').where({
+    username, password: md5Pass
+  }).then(user => {
+    console.log(user)
+  })
+}
+
+// getUserByUsernameAndPass('kobako2', '124')
+// insertUserWithMd5pass('kobako2', '123')
+
+// test_register('kobako9', 'dd', 'kobako')
+
+getAllUsers()
 
 // rawInsert()
 // initialize()

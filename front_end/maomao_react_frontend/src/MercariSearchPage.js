@@ -56,6 +56,11 @@ class MercariSearch extends React.Component{
   }
 
   search = () => {
+    let noItemSearchResult = this.state.searchResult;
+    noItemSearchResult.items = [];
+    this.setState({
+      searchResult: noItemSearchResult,
+    });
     return this.getSearchResult().then(result => {
       this.setState({
         searchResult: result,

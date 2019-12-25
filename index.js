@@ -111,32 +111,55 @@ app.post('/mercari/search', (req, res) => {
   }
 })
 
+const validators = {
+  username: /[_a-zA-Z]\w{7,15}/,
+  password: /[_a-zA-Z]\w{7,15}/,
+}
+
+function isValidInput(input){
+  if(!validators.username.test(input.username)){
+    console.info('用戶名必須為: 8到16位,字母開頭的字符串')
+    return false
+  }else if(!validators.password.test(input.password)){
+    console.info('密碼必須為: 8到16位,字母開頭的字符串')
+    return false
+  }else if(input.nick.length < 2 || input.nick.length > 8){
+    console.info('昵稱必須為: 2到8位')
+    return false
+  }else{
+    return true
+  }
+}
+
 app.post('/user/register', (req, res) => {
   if(G.IS_TEST_ENV){
-    setSessionUserInfo('kobako')
+    setSessionUserInfo(req, 'kobako', 'kobako')
     res.json({ok: 1, msg: '測試環境'})
   }else{
     const username = req.body['username']
     const nick = req.body['nick']
     const password = req.body['password']
-  
-    //TODO: md5
-    const md5Pass = U.md5hex(password)
-  
-    //TODO: 用正則對用戶信息進行限制
-    //TODO: 防止sql注入
-  
-    knex('user').where({username}).then(users => {
-      if(users.length > 0){ //Repeated
-        res.json({err: '用戶名已被使用'})
-      }else{
-        const sql = `insert into user(nick, username, password, created_time, updated_time) values("${nick}","${username}","${md5Pass}",datetime("now"),datetime("now"))`;
-        return knex.raw(sql).then(() => {
-          setSessionUserInfo(nick)
-          res.json({ok: 1})
-        })
-      }
-    })
+
+    //用正則對用戶信息進行限制
+    if(isValidInput({username, nick, password})){
+      //Md5
+      const md5Pass = U.md5hex(password)
+
+      knex('user').where({username}).then(users => {
+        if(users.length > 0){ //Repeated
+          res.json({err: '用戶名已被使用'})
+        }else{
+          const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
+          //使用prepared parameter防止sql注入
+          return knex.raw(sql, [nick, username, password]).then(() => {
+            setSessionUserInfo(req, username, nick)
+            res.json({ok: 1})
+          })
+        }
+      })
+    }else{
+      res.json({err: '輸入不符合規範, 請重新檢查'})
+    }
   }
 })
 
@@ -148,9 +171,36 @@ app.get('/getLoginInfo', (req,res) => {
   }
 })
 
+function getUsersByUsernameAndPass(username, password){
+  const md5Pass = U.md5hex(password)
+  return knex('user').where({
+    username, password: md5Pass
+  })
+}
+
+app.post('/user/login', (req, res) => {
+  const username = req.body['username']
+  const password = req.body['password'] 
+
+  return getUsersByUsernameAndPass(username, password).then(users => {
+    if(users.length < 1){
+      res.json({
+        err: '錯誤的用戶名或密碼'
+      })
+    }else{ //Login successfully
+      const user = users[0]
+      req.session.userinfo = user
+      res.json({
+        ok: 1,
+        msg: '登錄成功'
+      })
+    }
+  })
+})
+
 app.listen(8088, () => console.log('Example app listening on port 8088!'))
 
 //Should be called when login or register successfully
-function setSessionUserInfo(nick){
-  req.session.userinfo={ nick }
+function setSessionUserInfo(req, username ,nick){
+  req.session.userinfo={username, nick }
 }

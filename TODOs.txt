@@ -127,4 +127,12 @@
 	[X] 登錄和注冊的抽象: 後臺為session增加userinfo是判斷用戶登錄與否的唯一標準，注冊后自動增加userinfo, 登陸相當於請求後臺增加session.userinfo, 兩者都是成功之後請求getLoginInfo
 	[D] 增加登錄tab，複製自register即可，請求後端添加session.userinfo
 	  [X] 前端
-	  [D] 後端準確的登陸邏輯
+	  [X] 後端準確的登陸邏輯: 獲取表單中的username & password, 將password通過md5變換，隨後檢索user表，看是否有符合的記錄, 如果有，將數據行裏的數據保存到session.userinfo
+		  測試: two function, first insertUserWithMd5pass, second getUserByUsernameAndPass
+		[X] 聯調，首先注冊，第一次輸入一個沒用過的用戶名，預測結果是返回主頁，顯示為歡迎xxx，刷新後重新注冊一個一樣的用戶名，預期為彈出錯誤提示
+		  然後是登錄，輸入正確的用戶名和密碼，輸入正確的用戶名但是密碼不正確
+		[X] 使用正則限制用戶名和昵稱和密碼: 用戶名限制為/[_a-zA-Z]\w{7,15}/, 密碼限制為/[_a-zA-Z]\w{7,15}/, 昵稱length < 8
+		[X] 使用Placehold在輸入框裏填寫注意事項, 用戶名: 8到16位字母開頭的字符串, 密碼: 同用戶名, 昵稱: 8個字符以下
+		[X] 使用knex的paramater sql防止sql注入
+[X] 28. 儅煤爐搜索的時候，將原來的list清空
+[X] 在商品的最下方，添加分享鏈接顯示

@@ -144,8 +144,8 @@ class MercariItemShow extends React.Component{
                 </Carousel>
                 <WhiteSpace size='lg'></WhiteSpace>
                 <div className='sub-title'>{this.state.itemInfo.itemDescription}</div>
-
-
+                <WhiteSpace size='lg'></WhiteSpace>
+                <div className='sub-title'>分享鏈接: maomaojp.org:8088/?mid={this.props.itemId}</div>
               </div>)
             }else if(this.isAidWrong()){
               return (<div className='title'>没有这个商品! 请检查商品id是否正确</div>)

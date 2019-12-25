@@ -2,6 +2,11 @@ import React from 'react';
 import { Toast, WingBlank, Icon, NavBar, Button, List, InputItem, WhiteSpace } from 'antd-mobile';
 import $ from 'jquery';
 
+const validators = {
+  username: /[_a-zA-Z]\w{7,15}/,
+  password: /[_a-zA-Z]\w{7,15}/,
+}
+
 class RegisterTab extends React.Component{
   constructor(props){
     super(props)
@@ -13,9 +18,26 @@ class RegisterTab extends React.Component{
     }
   }
 
-  confirmRegister = () => {
-    if(this.state.password == this.state.password2nd){
+  isValidInput = () => {
+    if(!validators.username.test(this.state.username)){
+      Toast.info('用戶名必須為: 8到16位,字母開頭的字符串')
+      return false
+    }else if(!validators.password.test(this.state.password)){
+      Toast.info('密碼必須為: 8到16位,字母開頭的字符串')
+      return false
+    }else if(this.state.nick.length < 2 || this.state.nick.length > 8){
+      Toast.info('昵稱必須為: 2到8位')
+      return false
+    }else if(this.state.password != this.state.password2nd){
+      Toast.info('兩次輸入的密碼不相同')
+      return false
+    }else{
+      return true
+    }
+  }
 
+  confirmRegister = () => {
+    if(this.isValidInput()){
       const me = this
       $.post('/user/register', {
         username: this.state.username, 
@@ -30,9 +52,6 @@ class RegisterTab extends React.Component{
           me.props.successCallback();
         }
       })
-    }else{
-      this.setState({password: '', password2nd: ''})
-      Toast.info('兩次輸入的密碼不正確! 請重試')
     }
   }
 
@@ -47,13 +66,13 @@ class RegisterTab extends React.Component{
       <WingBlank>
   
         <List renderHeader={() => "請填寫您的信息"}>
-          <InputItem value={this.state.username} onChange={(text) => {
+          <InputItem placeholder="8到16位,字母開頭" value={this.state.username} onChange={(text) => {
             this.setState({username: text})}}>用戶名</InputItem>
-          <InputItem value={this.state.nick} onChange={(text) => {
+          <InputItem placeholder="請不要超過8個字符" maxLength={8} value={this.state.nick} onChange={(text) => {
             this.setState({nick: text})}}>昵稱</InputItem>
-          <InputItem value={this.state.password} type="password" onChange={(text) => {
+          <InputItem placeholder="8到16位,字母開頭" value={this.state.password} type="password" onChange={(text) => {
             this.setState({password: text})}}>密碼</InputItem>
-          <InputItem value={this.state.password2nd} type="password" onChange={(text) => {
+          <InputItem placeholder="確保跟密碼一致" value={this.state.password2nd} type="password" onChange={(text) => {
             this.setState({password2nd: text})}}>確認密碼</InputItem>
         </List>
         <WhiteSpace></WhiteSpace>
