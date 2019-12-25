@@ -125,7 +125,7 @@
 	[X] Q: 各個組件之間怎麽共享登錄信息？ solved: 由homepage通過props分發下去
 	[X] 注冊Navbar的leftClick回調上，添加homepage.getLoginInfo()的調用, 再增加tab switch的代碼
 	[X] 登錄和注冊的抽象: 後臺為session增加userinfo是判斷用戶登錄與否的唯一標準，注冊后自動增加userinfo, 登陸相當於請求後臺增加session.userinfo, 兩者都是成功之後請求getLoginInfo
-	[D] 增加登錄tab，複製自register即可，請求後端添加session.userinfo
+	[X] 增加登錄tab，複製自register即可，請求後端添加session.userinfo
 	  [X] 前端
 	  [X] 後端準確的登陸邏輯: 獲取表單中的username & password, 將password通過md5變換，隨後檢索user表，看是否有符合的記錄, 如果有，將數據行裏的數據保存到session.userinfo
 		  測試: two function, first insertUserWithMd5pass, second getUserByUsernameAndPass
@@ -135,4 +135,5 @@
 		[X] 使用Placehold在輸入框裏填寫注意事項, 用戶名: 8到16位字母開頭的字符串, 密碼: 同用戶名, 昵稱: 8個字符以下
 		[X] 使用knex的paramater sql防止sql注入
 [X] 28. 儅煤爐搜索的時候，將原來的list清空
-[X] 在商品的最下方，添加分享鏈接顯示
+[X] 29. 在商品的最下方，添加分享鏈接顯示
+[ ] 30. App.js裏面所有鏈接，也都用隱藏代替切換
