@@ -151,7 +151,7 @@ app.post('/user/register', (req, res) => {
         }else{
           const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
           //使用prepared parameter防止sql注入
-          return knex.raw(sql, [nick, username, password]).then(() => {
+          return knex.raw(sql, [nick, username, md5Pass]).then(() => {
             setSessionUserInfo(req, username, nick)
             res.json({ok: 1})
           })
