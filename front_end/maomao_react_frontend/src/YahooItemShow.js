@@ -1,5 +1,6 @@
 import React from 'react';
-import { SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
+import { ActivityIndicator, SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
+import BottomPriceShow from './components/BottomPriceShow'
 const $ = require('jquery');
 
 class YahooItemShow extends React.Component{
@@ -7,6 +8,7 @@ class YahooItemShow extends React.Component{
     super(props)
     this.state = {
       itemInfo: null,
+      loading: false,
     }
   }
 
@@ -23,8 +25,14 @@ class YahooItemShow extends React.Component{
     // return Promise.resolve({
     //   title: '[O-12.2] Canon 7 シャッターOK フィルムカメラ レンジファインダー 比較的良品 売り切り 一眼レフ',
     // })
+    this.setState({
+      loading: true
+    })
     return new Promise((resolve, reject) => {
       $.get(`/auction/${aid}`, res => {
+        this.setState({
+          loading: false
+        })
         resolve(res)
       })
     })
@@ -65,6 +73,28 @@ class YahooItemShow extends React.Component{
     }
   }
 
+  priceTextToPrice = (priceText) => {
+    const noTax = priceText.search('税 0 円') > 0
+    const orgPrice = (() => {
+      if(noTax){
+        return parseInt(priceText.trim().replace('円（税 0 円）', '').replace(',', ''))
+      }else{
+        return parseInt(priceText.substr(priceText.search('税')).replace('税込 ', '').replace(' 円）', '').replace(',', ''))
+      }
+    })()
+    const price = Math.floor(parseFloat(orgPrice * 0.065))
+    return price
+  }
+
+  priceToRmb = (priceText, buyNowPriceText) => {
+    const current = `當前${this.priceTextToPrice(priceText)}`
+    let buyNow = ''
+    if(buyNowPriceText.length > 0){
+      buyNow = ` / 一口價${this.priceTextToPrice(buyNowPriceText)}`
+    }
+    return current + buyNow
+  }
+
   render(){
     return (
 
@@ -76,12 +106,13 @@ class YahooItemShow extends React.Component{
           onLeftClick={() => this.props.navToHome()}
         >雅虎商品查看器</NavBar><WhiteSpace/>
 
-        <WingBlank>
+        <WingBlank> <div className="contents">
           <SearchBar value={this.state.itemId} onSubmit={aid => this.getItemInfo(aid).then(this.renderItemInfo)} placeholder="请输入客服提供的商品ID" maxLength={15} onChange={(newId) => {
             this.setState({
               itemId: newId,
             })
           }} />
+          <div className={this.state.loading ? 'visible': 'invisible'}><ActivityIndicator animating /><WhiteSpace/></div>
           <WhiteSpace size='lg' />
           {(() => {
             if(this.isValidItem()){
@@ -89,6 +120,8 @@ class YahooItemShow extends React.Component{
                 <div className='title'>{this.state.itemInfo.title}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
                 <div className='sub-title'>{'当前价格: ' + this.state.itemInfo.price}</div>
+                <WhiteSpace size='lg'></WhiteSpace>
+                <div className='sub-title'>一口價: {this.state.itemInfo.buyNowPrice.length < 1 ? '賣家未設置一口價' : this.state.itemInfo.buyNowPrice}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
                 <div className='sub-title'>{'剩余时间: ' + this.timeLeftText(this.state.itemInfo.remainedTime)}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
@@ -113,6 +146,11 @@ class YahooItemShow extends React.Component{
                 </Carousel>
                 <WhiteSpace size='lg'></WhiteSpace>
                 <div className='sub-title'>{this.state.itemInfo.explain}</div>
+                <WhiteSpace size='lg'></WhiteSpace>
+                <div className='sub-title'>附加信息: </div>
+                <div className='sub-title'>{this.state.itemInfo.moreInfo}</div>
+                <WhiteSpace size='lg'></WhiteSpace>
+                <div className='sub-title'>分享鏈接: maomaojp.org:8088/?aid={this.state.itemId}</div>
               </div>)
             }else if(this.isAidWrong()){
               return (<div className='title'>没有这个商品! 请检查商品id是否正确</div>)
@@ -120,7 +158,14 @@ class YahooItemShow extends React.Component{
               return (<div></div>)
             }
           })()}
-        </WingBlank>
+        </div> </WingBlank>
+        {(() => {
+          if(this.isValidItem()){
+            return <BottomPriceShow price={this.priceToRmb(this.state.itemInfo.price, this.state.itemInfo.buyNowPrice)}></BottomPriceShow>
+          }else{
+            return <div/>
+          }
+        })()}
       </div>
     )
   }

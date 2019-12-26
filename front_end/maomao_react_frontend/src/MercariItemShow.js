@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator,Toast,Flex, SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
+import BottomPriceShow from './components/BottomPriceShow'
 const $ = require('jquery');
 
 class MercariItemShow extends React.Component{
@@ -87,7 +88,11 @@ class MercariItemShow extends React.Component{
 
   priceToRmb = (priceString) => {
     const price = Math.floor(parseFloat(priceString.slice(1).replace(',','')) * 0.065)
-    return price
+    if(this.state.itemInfo.sold){
+      return `(已售出)${price}`
+    }else{
+      return price
+    }
   }
 
   render(){
@@ -145,7 +150,7 @@ class MercariItemShow extends React.Component{
                 <WhiteSpace size='lg'></WhiteSpace>
                 <div className='sub-title'>{this.state.itemInfo.itemDescription}</div>
                 <WhiteSpace size='lg'></WhiteSpace>
-                <div className='sub-title'>分享鏈接: maomaojp.org:8088/?mid={this.props.itemId}</div>
+                <div className='sub-title'>分享鏈接: maomaojp.org:8088/?mid={this.state.itemId}</div>
               </div>)
             }else if(this.isAidWrong()){
               return (<div className='title'>没有这个商品! 请检查商品id是否正确</div>)
@@ -160,19 +165,21 @@ class MercariItemShow extends React.Component{
           (() => {
             if(this.isValidItem()){
               return (
-                <div className="footer maroon bold-font">
-                  <div className="width-80-percent"  >
-                    <Flex className="height-100-per" justify="center" align="center" onClick={() => {
-                      Toast.info('该金额不包括代购费和国际运费哦!详情请咨询客服')
-                    }}>估算金额: {this.priceToRmb(this.state.itemInfo.itemPrice)} 元 </Flex>
-                  </div>
+
+                // <div className="footer maroon bold-font">
+                //   <div className="width-80-percent"  >
+                //     <Flex className="height-100-per" justify="center" align="center" onClick={() => {
+                //       Toast.info('该金额不包括代购费和国际运费哦!详情请咨询客服')
+                //     }}>估算金额: {this.priceToRmb(this.state.itemInfo.itemPrice)} 元 </Flex>
+                //   </div>
         
-                  <div className="width-20-percent red"  >
-                    <Flex className="height-100-per" justify="center" align="center" onClick={() => {
-                      Toast.info('目前只支持人工代购哦，请复制商品id并咨询客服')
-                    }}> 购买 </Flex>
-                  </div>
-                </div>
+                //   <div className="width-20-percent red"  >
+                //     <Flex className="height-100-per" justify="center" align="center" onClick={() => {
+                //       Toast.info('目前只支持人工代购哦，请复制商品id并咨询客服')
+                //     }}> 购买 </Flex>
+                //   </div>
+                // </div>
+                <BottomPriceShow price={this.priceToRmb(this.state.itemInfo.itemPrice)}></BottomPriceShow>
               )
             }
           })()

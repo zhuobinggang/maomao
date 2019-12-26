@@ -6,9 +6,10 @@ function getItemInfo(aid){
     const $ = cheerio.load(res.data)
     const info = {
       title: $('.ProductTitle__text').text(),
-      price: $('.Price__value').text().trim(),
-      //tax: $('.Price__tax').text(),
-      //remainedTime: $('.StickyNavigation__number').text().replace('詳細','').trim(),
+      price: $('.Price--current .Price__value').text().trim(),
+      buyNowPrice: $('.Price--buynow .Price__value').text().trim(),
+      moreInfo: $('.ProductProcedures').text().trim(),
+      // postageValue: $('.Price__postageValue').text(),
       explain: $('.ProductExplanation__commentBody').text().trim(),
       imgs: (() => {
         const result = []

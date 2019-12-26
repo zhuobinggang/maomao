@@ -57,6 +57,7 @@ function getItemInfo(itemId){
     const itemShippingFee = $($('.item-shipping-fee')[0]).text()
     const itemDescription = $('.item-description-inner').text()
     const likes = $('span[data-num="like"]').text()
+    const sold = $($('.item-buy-btn')[0]).text() == '売り切れました'
     const orgImgs = (() => {
       const result = []
       $('.owl-item-inner').each((id, item) => {
@@ -68,7 +69,7 @@ function getItemInfo(itemId){
 
     // 需要对图片进行代理
     return getImgsOnLocal(orgImgs, './static/temp_imgs/').then(imgs => {
-      return {itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, imgs}
+      return {itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, imgs, sold}
     })
   }).catch(err => {
     return Promise.resolve({
