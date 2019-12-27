@@ -12,8 +12,9 @@ class MercariItemShow extends React.Component{
     }
   }
 
-  componentDidMount = () => {
-    if(this.props.itemId != null){
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevProps.itemId != this.props.itemId && this.props.itemId != null){
+      console.log('成功的嘗試')
       this.getItemInfo(this.props.itemId).then(this.renderItemInfo)
       this.setState({
         itemId: this.props.itemId,
@@ -66,24 +67,18 @@ class MercariItemShow extends React.Component{
   isAidWrong(){
     return this.state.itemInfo != null && this.state.itemInfo.err != null;
   }
-
-  extractedLeftTimeInfo(timeLeft){
-    var day = Math.floor(timeLeft / 86400);
-    var hour = Math.floor((timeLeft - day * 86400) / 3600);
-    var min = Math.floor((timeLeft - (day * 86400) - (hour * 3600)) / 60);
-    var sec = timeLeft - (day * 86400) - (hour * 3600) - (min * 60);
-    return {
-      day, hour, min, sec
-    }
-  }
-
-  timeLeftText = (timeLeft) => {
-    if(timeLeft < 1){
-      return '已结束'
-    }else{
-      const timeInfo = this.extractedLeftTimeInfo(timeLeft)
-      return `${timeInfo.day} 天 ${timeInfo.hour} 小时 ${timeInfo.min} 分钟 ${timeInfo.sec} 秒`
-    }
+  
+  buy = () => {
+    $.post('/buy', {
+      title: this.state.itemInfo.itemName,
+      url: `maomaojp.org:8088/?mid=${this.state.itemId}`,
+    }, (res) => {
+      if(res.err){
+        Toast.info('下單錯誤: ' + res.err)
+      }else{
+        Toast.success('下單成功, 請返回首頁查看訂單一覽')
+      }
+    })
   }
 
   priceToRmb = (priceString) => {
@@ -160,32 +155,15 @@ class MercariItemShow extends React.Component{
           })()}
         </div> </WingBlank>
 
-
         {
           (() => {
             if(this.isValidItem()){
               return (
-
-                // <div className="footer maroon bold-font">
-                //   <div className="width-80-percent"  >
-                //     <Flex className="height-100-per" justify="center" align="center" onClick={() => {
-                //       Toast.info('该金额不包括代购费和国际运费哦!详情请咨询客服')
-                //     }}>估算金额: {this.priceToRmb(this.state.itemInfo.itemPrice)} 元 </Flex>
-                //   </div>
-        
-                //   <div className="width-20-percent red"  >
-                //     <Flex className="height-100-per" justify="center" align="center" onClick={() => {
-                //       Toast.info('目前只支持人工代购哦，请复制商品id并咨询客服')
-                //     }}> 购买 </Flex>
-                //   </div>
-                // </div>
-                <BottomPriceShow price={this.priceToRmb(this.state.itemInfo.itemPrice)}></BottomPriceShow>
+                <BottomPriceShow buyBtnClick={() => {this.buy()}} price={this.priceToRmb(this.state.itemInfo.itemPrice)}></BottomPriceShow>
               )
             }
           })()
         }
-
-
 
       </div>
     )

@@ -198,6 +198,43 @@ app.post('/user/login', (req, res) => {
   })
 })
 
+function getOrdersByUserName(username){
+  return knex('order').where({ username })
+}
+
+app.get('/orders', (req, res) => {
+  if(req.session.userinfo != null){
+    return getOrdersByUserName(req.session.userinfo.username).then(orders => {
+      res.json({orders})
+    })
+  }else{
+    res.json({err: '您還沒有登錄'})
+  }
+})
+
+function createOrder(username, title, url){
+  const sql = 'insert into `order`(id, username, item_title, item_url, state, created_time, updated_time) values(null, ?, ?, ?, 1, datetime("now"), datetime("now"))';
+  return knex.raw(sql, [username, title, url])
+}
+
+app.post('/buy', (req, res) => {
+  //Check if logined
+  if(req.session.userinfo != null){
+    const username = req.session.userinfo.username
+    const title = req.body['title']
+    const url = req.body['url']
+    return createOrder(username, title, url).then(() => {
+      res.json({
+        ok: 1
+      })
+    })
+  }else{
+    res.json({
+      err: '您還沒登錄'
+    })
+  }
+})
+
 app.listen(8088, () => console.log('Example app listening on port 8088!'))
 
 //Should be called when login or register successfully

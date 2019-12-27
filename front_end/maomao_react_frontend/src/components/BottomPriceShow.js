@@ -18,7 +18,11 @@ class BottomPriceShow extends React.Component{
 
         <div className="width-20-percent red"  >
           <Flex className="height-100-per" justify="center" align="center" onClick={() => {
-            Toast.info('目前只支持人工代购哦，请复制商品id并咨询客服')
+            if(this.props.buyBtnClick != null){
+              this.props.buyBtnClick()
+            }else{
+              Toast.info('目前雅虎商品只支持人工代購，請咨詢客服');
+            }
           }}> 购买 </Flex>
         </div>
       </div>

@@ -3,11 +3,13 @@ import {Flex, Grid, WhiteSpace, WingBlank, Button, Toast } from 'antd-mobile';
 import RegisterTab from './RegisterTab';
 import LoginTab from './LoginTab';
 import $ from 'jquery';
+import OrdersTab from './components/OrdersTab';
 
 const tabs = {
   main: 1,
   register: 2,
   login: 3,
+  orders: 4,
 }
 
 class HomePage extends React.Component{
@@ -25,7 +27,11 @@ class HomePage extends React.Component{
       const comma = (<p className="margin-right-small" key="99">, </p>)
       if(this.props.context.userinfo != null){ //Logined
         const welcome = (<p key="1">歡迎, {this.props.context.userinfo.nick} </p>)
-        const orderList = (<p key="2" className="link">訂單一覽</p>)
+        const orderList = (<p key="2" className="link" onClick={() => {
+          // this.setState({
+          //   currentTab: tabs.orders
+          // })
+        }}>訂單一覽</p>)
         result.push(welcome, comma, orderList)
       }else{
         const loginLink = (<p className="link" key="1" onClick={() => {
@@ -100,6 +106,10 @@ class HomePage extends React.Component{
         }} navBack={() => {
           this.setState({currentTab: tabs.main});
         }} className={this.state.currentTab == tabs.login ? "" : "invisible"}></LoginTab>
+
+        <OrdersTab navBack={() => {
+          this.setState({currentTab: tabs.main});
+        }} className={this.state.currentTab == tabs.orders ? "" : "invisible"}></OrdersTab>
 
       </div>
     )

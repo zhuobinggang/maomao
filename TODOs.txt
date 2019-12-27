@@ -150,7 +150,10 @@
 [X] 33. 將登錄放到App.js.componentDidMount去做, 這樣才能保持全局一致，然後後臺session保持30分鐘
   測試: 登錄后，輸入鏈接訪問某商品頁，能夠正確識別為登錄狀態，將bottom的購買按鈕的邏輯換成提示是否已經登錄
 	[X] session30秒
-[ ] 34. 用戶點擊購買之後，創建order
-  [ ] order表: 商品title, state, 商品鏈接(本網站)
-	[ ] 測試驅動, 方法名: createOrder(title, url)
-	
+[X] 34. 用戶點擊購買之後，創建order
+  [X] order表: 商品title, state, 商品鏈接(本網站)
+	[X] 測試驅動, 方法名: createOrder(title, url)
+[X] BUG: 修改隱藏方式之後，不能通過mid直接進入商品查看頁面了
+    原因出於由於緩存，沒有重新加載煤爐商品查看組件
+		解決方案: 不要在didMount進行數據請求，而是在componentDidUpdate裏面進行操作
+[X]	35. 訂單一覽頁測試驅動 getAllOrdersByUsername()

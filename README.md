@@ -22,3 +22,6 @@
 ## 启动时可能会遇到的问题
 1. 防火墙开放问题，查询`centos8 open port`
 2. 啓動knex自動打印SQL模式: `DEBUG=knex:query node test/test_sqlite3.js`
+
+## 一些BUG
+1. SQLite的插入語句語法錯誤: order是保留語句，所以必須加上反引號
