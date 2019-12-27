@@ -19,26 +19,12 @@ class HomePage extends React.Component{
     }
   }
 
-  getLoginInfo = () => {
-    //Check if I have logined
-    console.log('Check if I have logined')
-    $.get('/getLoginInfo', (res) => {
-      if(res.err != null){
-        Toast.info('獲取登錄信息失敗: ' + res.err)
-      }else{
-        this.setState({
-          userinfo: res.userinfo
-        })
-      }
-    })
-  }
-
   render(){
     const navRightElements = (() => {
       const result = []
       const comma = (<p className="margin-right-small" key="99">, </p>)
-      if(this.state.userinfo != null){ //Logined
-        const welcome = (<p key="1">歡迎, {this.state.userinfo.nick} </p>)
+      if(this.props.context.userinfo != null){ //Logined
+        const welcome = (<p key="1">歡迎, {this.props.context.userinfo.nick} </p>)
         const orderList = (<p key="2" className="link">訂單一覽</p>)
         result.push(welcome, comma, orderList)
       }else{
@@ -103,13 +89,14 @@ class HomePage extends React.Component{
         </div>
 
         <RegisterTab successCallback={() => {
-          this.getLoginInfo();
+          // this.getLoginInfo();
+          this.props.getLoginInfo()
         }} navBack={() => {
           this.setState({currentTab: tabs.main});
         }} className={this.state.currentTab == tabs.register ? "" : "invisible"}></RegisterTab>
 
         <LoginTab successCallback={() => {
-          this.getLoginInfo();
+          this.props.getLoginInfo();
         }} navBack={() => {
           this.setState({currentTab: tabs.main});
         }} className={this.state.currentTab == tabs.login ? "" : "invisible"}></LoginTab>

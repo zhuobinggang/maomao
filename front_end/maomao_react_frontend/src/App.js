@@ -4,6 +4,7 @@ import Home from './HomePage';
 import YahooItemShow from './YahooItemShow';
 import MercariItemShow from './MercariItemShow';
 import MercariSearch from './MercariSearchPage';
+import { Toast } from 'antd-mobile';
 import $ from 'jquery'
 
 import './App.css';
@@ -23,6 +24,9 @@ class App extends React.Component{
       page: pages.home,
       initialItemId: null,
       viewCount: null,
+      context: {
+        userinfo: null
+      }, //全局變量
     }
   }
 
@@ -50,6 +54,9 @@ class App extends React.Component{
         viewCount: count
       })
     });
+
+    //嘗試登錄
+    this.getLoginInfo()
   }
 
   showItemInfo(value){
@@ -68,35 +75,81 @@ class App extends React.Component{
       initialItemId: null,
     })
   }
+
+  getLoginInfo = () => {
+    //Check if I have logined
+    console.log('Check if I have logined')
+    $.get('/getLoginInfo', (res) => {
+      if(res.err != null){
+        Toast.info('獲取登錄信息失敗: ' + res.err)
+      }else{
+        const context = {...this.state.context}
+        context.userinfo = res.userinfo
+        this.setState({ context })
+      }
+    })
+  }
+
   render(){
-    switch(this.state.page){
-      case pages.home: return <Home viewCount={this.state.viewCount} navToYahooItemShow={() => this.setState({
-        page: pages.yahooItemShow
-      })} navToMercariItemShow={() => this.setState({
-        page: pages.mercariItemShow
-      })} navToMercariSearch={() => this.setState({
-        page: pages.mercariSearch
-      })} />
-      case pages.yahooItemShow: return <YahooItemShow itemId={this.state.initialItemId} navToHome={() => {
-        this.setState({
-          page: pages.home,
-        })
-        this.clearInitialItemId()
-      }} />
-      case pages.mercariItemShow: return <MercariItemShow itemId={this.state.initialItemId} navToHome={() => {
-        this.setState({
-          page: pages.home,
-        })
-        this.clearInitialItemId()
-      }} />
-      case pages.mercariSearch: return <MercariSearch navToHome={() => {
-        this.setState({
-          page: pages.home,
-        })
-        this.clearInitialItemId()
-      }} ></MercariSearch>
-      default: return <Home />
-    }
+
+    return (
+      <div>
+        <div className={this.state.page == pages.home ? 'visible': 'invisible'}><Home context={this.state.context} getLoginInfo={() => {this.getLoginInfo()}} viewCount={this.state.viewCount} navToYahooItemShow={() => this.setState({
+            page: pages.yahooItemShow
+          })} navToMercariItemShow={() => this.setState({
+            page: pages.mercariItemShow
+          })} navToMercariSearch={() => this.setState({
+            page: pages.mercariSearch
+          })} /></div>
+        <div className={this.state.page == pages.yahooItemShow ? 'visible': 'invisible'}><YahooItemShow itemId={this.state.initialItemId} navToHome={() => {
+          this.setState({
+            page: pages.home,
+          })
+          this.clearInitialItemId()
+        }} /></div>
+        <div className={this.state.page == pages.mercariItemShow ? 'visible': 'invisible'}><MercariItemShow itemId={this.state.initialItemId} navToHome={() => {
+          this.setState({
+            page: pages.home,
+          })
+          this.clearInitialItemId()
+        }} /></div>
+        <div className={this.state.page == pages.mercariSearch ? 'visible': 'invisible'}><MercariSearch navToHome={() => {
+          this.setState({
+            page: pages.home,
+          })
+          this.clearInitialItemId()
+        }} ></MercariSearch></div>
+      </div>
+    )
+
+    // switch(this.state.page){
+    //   case pages.home: return <Home viewCount={this.state.viewCount} navToYahooItemShow={() => this.setState({
+    //     page: pages.yahooItemShow
+    //   })} navToMercariItemShow={() => this.setState({
+    //     page: pages.mercariItemShow
+    //   })} navToMercariSearch={() => this.setState({
+    //     page: pages.mercariSearch
+    //   })} />
+    //   case pages.yahooItemShow: return <YahooItemShow itemId={this.state.initialItemId} navToHome={() => {
+    //     this.setState({
+    //       page: pages.home,
+    //     })
+    //     this.clearInitialItemId()
+    //   }} />
+    //   case pages.mercariItemShow: return <MercariItemShow itemId={this.state.initialItemId} navToHome={() => {
+    //     this.setState({
+    //       page: pages.home,
+    //     })
+    //     this.clearInitialItemId()
+    //   }} />
+    //   case pages.mercariSearch: return <MercariSearch navToHome={() => {
+    //     this.setState({
+    //       page: pages.home,
+    //     })
+    //     this.clearInitialItemId()
+    //   }} ></MercariSearch>
+    //   default: return <Home />
+    // }
   }
 }
 

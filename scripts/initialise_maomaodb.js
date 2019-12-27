@@ -28,6 +28,16 @@ function initialize(){
       table.dateTime('created_time')
       table.dateTime('updated_time')
     })
+  }).then(() => {
+    return knex.schema.createTableIfNotExists('order', table => {
+      table.increments('id')
+      table.string('username')
+      table.string('item_url')
+      table.string('item_title')
+      table.integer('state')
+      table.dateTime('created_time')
+      table.dateTime('updated_time')
+    })
   }).finally(() => {
     knex.destroy()
   })

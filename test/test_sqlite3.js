@@ -99,12 +99,29 @@ function getUserByUsernameAndPass(username, password){
   })
 }
 
+function createOrder(username, title, url){
+  const sql = `insert into order(id, username, item_title, item_url, state, created_time, updated_time) values(null, ?, ?, ?, 1, datetime("now"), datetime("now"))`;
+  console.log(sql)
+  return knex.raw(sql, [username, title, url]).then(() => {
+    knex.destroy()
+  })
+}
+
+function readAllOrder(){
+  return knex('order').select('*').then(result => {
+    console.log(result)
+  })
+}
+
+createOrder('kobako', '你爸爸', 'www.baidu.com');
+// readAllOrder()
+
 // getUserByUsernameAndPass('kobako2', '124')
 // insertUserWithMd5pass('kobako2', '123')
 
 // test_register('kobako9', 'dd', 'kobako')
 
-getAllUsers()
+// getAllUsers()
 
 // rawInsert()
 // initialize()
