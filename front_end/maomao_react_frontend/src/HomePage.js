@@ -3,7 +3,7 @@ import {Flex, Grid, WhiteSpace, WingBlank, Button, Toast } from 'antd-mobile';
 import RegisterTab from './RegisterTab';
 import LoginTab from './LoginTab';
 import $ from 'jquery';
-import OrdersTab from './components/OrdersTab';
+import OrdersPage from './components/OrdersPage';
 
 const tabs = {
   main: 1,
@@ -28,9 +28,9 @@ class HomePage extends React.Component{
       if(this.props.context.userinfo != null){ //Logined
         const welcome = (<p key="1">歡迎, {this.props.context.userinfo.nick} </p>)
         const orderList = (<p key="2" className="link" onClick={() => {
-          // this.setState({
-          //   currentTab: tabs.orders
-          // })
+          this.setState({
+            currentTab: tabs.orders
+          })
         }}>訂單一覽</p>)
         result.push(welcome, comma, orderList)
       }else{
@@ -103,13 +103,20 @@ class HomePage extends React.Component{
 
         <LoginTab successCallback={() => {
           this.props.getLoginInfo();
+          this.setState({currentTab: tabs.main});
         }} navBack={() => {
           this.setState({currentTab: tabs.main});
         }} className={this.state.currentTab == tabs.login ? "" : "invisible"}></LoginTab>
 
-        <OrdersTab navBack={() => {
-          this.setState({currentTab: tabs.main});
-        }} className={this.state.currentTab == tabs.orders ? "" : "invisible"}></OrdersTab>
+        {/* 由於order tab需要在加載時進行數據獲取操作，所以應當作爲page處理 */}
+        {this.state.currentTab == tabs.orders ? 
+          <OrdersPage navBack={() => {
+            this.setState({currentTab: tabs.main});
+          }}></OrdersPage>
+          :
+          <div/>
+        }
+        
 
       </div>
     )

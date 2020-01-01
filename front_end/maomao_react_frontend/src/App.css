@@ -138,3 +138,7 @@
   color: blue;
   text-decoration: underline;
 }
+
+.img-cover{
+  object-fit: cover;
+}

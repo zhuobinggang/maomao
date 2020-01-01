@@ -114,7 +114,7 @@ function readAllOrder(){
 }
 
 function getOrdersByUserName(username){
-  return knex('order').where({ username }).then(result => {
+  return knex('order').where({ username }).orderBy('created_time', 'desc').then(result => {
     console.log(result)
   })
 }

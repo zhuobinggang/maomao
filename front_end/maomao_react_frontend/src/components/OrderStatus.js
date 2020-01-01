@@ -8,9 +8,15 @@ class OrderStatus extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+
+      order: null,
       username: '',
       password: '',
     }
+  }
+
+  stateFromOrderState = () => {
+    return 0
   }
 
   render(){
@@ -21,11 +27,14 @@ class OrderStatus extends React.Component{
         onLeftClick={() => this.props.navBack()}
       >訂單詳情</NavBar>
 
+      <WhiteSpace/>
+
       <WingBlank>
-        <Steps size="small" current={1}>
-          <Step title="Finished" description="This is description" />
-          <Step title="In Progress" description="This is description" />
-          <Step title="Waiting" description="This is description" />
+        <Steps size="small" current={this.stateFromOrderState()}>
+          <Step title="等待支付" description="貓貓網客服會向您選擇的付款id發起收款" />
+          <Step title="等待賣家發貨" description="..." />
+          <Step title="賣家已發貨" description="(發貨單號會顯示在這裏)" />
+          <Step title="已收貨" description="交易結束, 如需更多幫助請咨詢客服哦" />
         </Steps>
       </WingBlank>
     </div>

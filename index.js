@@ -199,7 +199,7 @@ app.post('/user/login', (req, res) => {
 })
 
 function getOrdersByUserName(username){
-  return knex('order').where({ username })
+  return knex('order').where({ username }).orderBy('created_time', 'desc')
 }
 
 app.get('/orders', (req, res) => {

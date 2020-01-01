@@ -13,7 +13,7 @@ function getItemInfo(aid){
       explain: $('.ProductExplanation__commentBody').text().trim(),
       imgs: (() => {
         const result = []
-        $('.ProductImage__thumbnail').each((id, item) => {
+        $('.ProductImage__inner').each((id, item) => {
           const img = $(item).find('img')
           result.push(img.attr('src'))
         })

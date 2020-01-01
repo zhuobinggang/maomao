@@ -106,7 +106,7 @@ class MercariSearch extends React.Component{
                 window.theItem = data
               }}>
                 <div className="merica-item-box-img">
-                  <img style={{width: '100%', height: '100%'}} src={data.src}></img>
+                  <img className="img-cover" style={{width: '100%', height: '100%'}} src={data.src}></img>
                 </div>
                 <div className="merica-item-box-price">
                   {data.sold ? '卖掉了' : data.price + '円'}
@@ -147,13 +147,17 @@ class MercariSearch extends React.Component{
           </WingBlank>
         </div>
 
-        {this.state.enterDetail ? 
-          (<MercariItemShow itemId={this.state.mid} navToHome={() => {
+
+        <div className={this.state.enterDetail ? "visible" : 'invisible'}>
+          <MercariItemShow 
+            itemId={this.state.mid} navToHome={() => {
             this.setState({
               enterDetail: false
             })
-          }} />) : <div />
-        }
+          }} />
+        </div>
+
+
 
         <WhiteSpace />
 
