@@ -12,6 +12,7 @@ const knex = require('knex')({
   })
 });
 const session = require('express-session')
+const mailer = require('./mailer')
 
 const app = express()
 
@@ -217,6 +218,16 @@ function createOrder(username, title, url,  payinfoId, addressId,){
   return knex.raw(sql, [username, title, url, payinfoId, addressId])
 }
 
+function getOrderDetailById(id){
+  return knex.where({
+    'order.id': id
+  }).from('order').leftJoin('payinfo', 'order.payinfo_id', 'payinfo.id').leftJoin('address', 'order.address_id', 'address.id');
+}
+
+function getLastOrderDetail(){
+  return knex.select('*').from('order').leftJoin('payinfo', 'order.payinfo_id', 'payinfo.id').leftJoin('address', 'order.address_id', 'address.id').orderBy('id', 'desc').limit(1);
+}
+
 app.post('/buy', (req, res) => {
   //Check if logined
   if(req.session.userinfo != null){
@@ -226,6 +237,13 @@ app.post('/buy', (req, res) => {
     const addressId = req.body['addressId']
     const payinfoId = req.body['payinfoId']
     return createOrder(username, title, url, payinfoId, addressId).then(() => {
+      //Send mail to my email
+      return getLastOrderDetail();
+    }).then((orderDetails) => {
+      const orderDetail = orderDetails[0];
+      const detail = JSON.stringify(orderDetail);
+      mailer.sendEmail('zhuobinggang@gmail.com', '有人買東西啦!', detail);
+    }).then(() => {
       res.json({
         ok: 1
       })

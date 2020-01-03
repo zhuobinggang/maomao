@@ -2,3 +2,4 @@
 yahooauc.txt
 **/static
 **/*.sqlite
+**/*.config.js

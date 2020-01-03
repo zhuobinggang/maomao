@@ -8,6 +8,7 @@
     "express-session": "^1.17.0",
     "http-proxy": "^1.18.0",
     "knex": "^0.20.4",
+    "nodemailer": "^6.4.2",
     "pug": "^2.0.4",
     "redbird": "^0.9.1",
     "sqlite3": "^4.1.1",

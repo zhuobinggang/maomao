@@ -150,13 +150,26 @@ function readAllOrderLeftjoinPayinfoAndAddress(){
   })
 }
 
+function getOrderDetailById(id){
+  return knex.where({
+    'order.id': id
+  }).from('order').leftJoin('payinfo', 'order.payinfo_id', 'payinfo.id').leftJoin('address', 'order.address_id', 'address.id');
+}
+
+function getLastOrderDetail(){
+  return knex.select('*').from('order').leftJoin('payinfo', 'order.payinfo_id', 'payinfo.id').leftJoin('address', 'order.address_id', 'address.id').orderBy('id', 'desc').limit(1);
+}
+
 // readAllAddress()
+// createPayinfo('kobakoisme', 'alipay', 'test').then(res => {
+//   console.log(res)
+// })
 
 // createPayinfo('kobakoisme', 'alipay', 'test').then(res => {
 //   knex.destroy()
 // })
 // readAllPayinfo()
-readAllOrderLeftjoinPayinfoAndAddress()
+// readAllOrderLeftjoinPayinfoAndAddress()
 
 // createAddress('kobakoisme', '东京都江户川').then(() => {
 //   knex.destroy()
@@ -164,6 +177,13 @@ readAllOrderLeftjoinPayinfoAndAddress()
 
 // createOrder('kobako', '你爸爸', 'www.baidu.com');
 // readAllOrder()
+// getOrderDetailById(6).then(res => {
+//   console.log(res)
+// })
+
+getLastOrderDetail().then(res => {
+  console.log(res)
+})
 
 // getOrdersByUserName('kobakoisme')
 
