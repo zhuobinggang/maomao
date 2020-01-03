@@ -212,9 +212,9 @@ app.get('/orders', (req, res) => {
   }
 })
 
-function createOrder(username, title, url){
-  const sql = 'insert into `order`(id, username, item_title, item_url, state, created_time, updated_time) values(null, ?, ?, ?, 1, datetime("now"), datetime("now"))';
-  return knex.raw(sql, [username, title, url])
+function createOrder(username, title, url,  payinfoId, addressId,){
+  const sql = 'insert into `order`(id, username, item_title, item_url, state, created_time, updated_time, payinfo_id, address_id) values(null, ?, ?, ?, 1, datetime("now"), datetime("now"), ?, ?)';
+  return knex.raw(sql, [username, title, url, payinfoId, addressId])
 }
 
 app.post('/buy', (req, res) => {
@@ -223,10 +223,91 @@ app.post('/buy', (req, res) => {
     const username = req.session.userinfo.username
     const title = req.body['title']
     const url = req.body['url']
-    return createOrder(username, title, url).then(() => {
+    const addressId = req.body['addressId']
+    const payinfoId = req.body['payinfoId']
+    return createOrder(username, title, url, payinfoId, addressId).then(() => {
       res.json({
         ok: 1
       })
+    })
+  }else{
+    res.json({
+      err: '您還沒登錄'
+    })
+  }
+})
+
+function createAddress(username, address){
+  return knex('address').insert({
+    username, address
+  })
+}
+
+app.post('/address/add', (req, res) => {
+  if(req.session.userinfo != null){
+    const username = req.session.userinfo.username
+    const address = req.body['address']
+    return createAddress(username, address).then(() => {
+      res.json({
+        ok: 1
+      })
+    })
+  }else{
+    res.json({
+      err: '您還沒登錄'
+    })
+  }
+})
+
+function createPayinfo(username, pay_method, pay_id){
+  return knex('payinfo').insert({
+    username, pay_method, pay_id
+  })
+}
+
+app.post('/payinfo/add', (req, res) => {
+  if(req.session.userinfo != null){
+    const username = req.session.userinfo.username
+    const pay_method = req.body['pay_method']
+    const pay_id = req.body['pay_id']
+    return createPayinfo(username, pay_method, pay_id).then(() => {
+      res.json({
+        ok: 1
+      })
+    })
+  }else{
+    res.json({
+      err: '您還沒登錄'
+    })
+  }
+})
+
+function readAllAddress(username){
+  return knex('address').where({username})
+}
+
+function readAllPayinfo(username){
+  return knex('payinfo').where({username})
+}
+
+app.get('/address/list', (req, res) => {
+  if(req.session.userinfo != null){
+    const username = req.session.userinfo.username
+    return readAllAddress(username).then(addresses => {
+      res.json({addresses})
+    })
+  }else{
+    res.json({
+      err: '您還沒登錄'
+    })
+  }
+})
+
+app.get('/payinfo/list', (req, res) => {
+  if(req.session.userinfo != null){
+    const username = req.session.userinfo.username
+    return readAllPayinfo(username).then(payinfos => {
+      res.json({ payinfos})
     })
   }else{
     res.json({

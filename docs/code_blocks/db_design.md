@@ -21,4 +21,11 @@
 
 根據上述分析設定state為: 1 待支付 2 等待賣家發貨 3 賣家已發貨 4 已收貨 5 已退款
 
-## 
+## payment
+1. username
+2. pay_method(alipay, wechat)
+3. pay_id
+
+## address
+1. username
+2. address

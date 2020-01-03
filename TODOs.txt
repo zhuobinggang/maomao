@@ -166,10 +166,17 @@
     確定現在的完成度
 		[X] 訂單按照日期倒序
 		[X] 將所有訂單顯示到訂單一覽, 按日期倒序
+		[X] add adress & payinfo tables
+		[X] add adress & payinfo backend api
+		[X] add select payinfo page, including payinfo add page
+		    思考，如何通過組件，獲取一個用戶交互的返回值？
+				在react裏面，絕不應當出現這種await的情況，用回調解決就完事了
 		[ ] 登錄成功自動返回
-		[ ] 顯示訂單詳情, 現在只有一個state字段，思考能用它做什麽
-		[ ] 增加pay_id表: id, pay_method(alipay, wechat), pay_id, usename
+		[X] 顯示訂單詳情, 現在只有一個state字段，思考能用它做什麽
+		[X] 增加pay_id表: id, pay_method(alipay, wechat), pay_id, usename
 		[ ] 返回的服務器日期，用js轉換為中國時間
 		[ ] 防止多次點擊導致的訂單多次添加問題, 通過url和username來判斷
 		    在createOrder首先導入這個邏輯，判斷是否生效
     [ ] 只顯示有效訂單，設定有效時間為24小時, 防止多次點擊的話，要加上非有效訂單這個判斷條件
+		[X] alter table order add colomns of payinfo_id & address_id
+		[ ] 購買後發送郵件給我

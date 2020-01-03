@@ -119,10 +119,54 @@ function getOrdersByUserName(username){
   })
 }
 
+function createAddress(username, address){
+  return knex('address').insert({
+    username, address
+  })
+}
+
+function createPayinfo(username, pay_method, pay_id){
+  return knex('payinfo').insert({
+    username, pay_method, pay_id
+  })
+}
+
+function readAllAddress(){
+  return knex('address').select('*').then(res => {
+    console.log(res)
+  })
+}
+
+function readAllPayinfo(){
+  return knex('payinfo').select('*').then(res => {
+    console.log(res)
+  })
+}
+
+function readAllOrderLeftjoinPayinfoAndAddress(){
+  return knex.select('*').from('order').leftJoin('payinfo', 'order.payinfo_id', 'payinfo.id').leftJoin('address', 'order.address_id', 'address.id')
+  .then(res => {
+    console.log(res)
+  })
+}
+
+// readAllAddress()
+
+// createPayinfo('kobakoisme', 'alipay', 'test').then(res => {
+//   knex.destroy()
+// })
+// readAllPayinfo()
+readAllOrderLeftjoinPayinfoAndAddress()
+
+// createAddress('kobakoisme', '东京都江户川').then(() => {
+//   knex.destroy()
+// })
+
 // createOrder('kobako', '你爸爸', 'www.baidu.com');
 // readAllOrder()
 
-getOrdersByUserName('kobakoisme')
+// getOrdersByUserName('kobakoisme')
+
 
 // getUserByUsernameAndPass('kobako2', '124')
 // insertUserWithMd5pass('kobako8', '123')

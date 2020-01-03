@@ -1,7 +1,16 @@
 import React from 'react';
 import { ActivityIndicator,Toast,Flex, SearchBar, WingBlank, NavBar, Icon, WhiteSpace, Carousel } from 'antd-mobile';
 import BottomPriceShow from './components/BottomPriceShow'
+import SelectPayinfoPage from './pages/SelectPayinfoPage'
+import SelectAddressPage from './pages/SelectAddressPage'
 const $ = require('jquery');
+
+
+const tabs = {
+  main: 1,
+  selectPayinfo: 2,
+  selectAddress: 3,
+}
 
 class MercariItemShow extends React.Component{
   constructor(props){
@@ -9,7 +18,10 @@ class MercariItemShow extends React.Component{
     this.state = {
       itemInfo: null,
       loading: false,
+      currentTab: tabs.main,
     }
+    this.payinfoId = null
+    this.addressId = null
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -67,11 +79,19 @@ class MercariItemShow extends React.Component{
   isAidWrong(){
     return this.state.itemInfo != null && this.state.itemInfo.err != null;
   }
+
+  getSelectedPayinfoId = () => {
+    return new Promise((resolve, reject) => {
+
+    })
+  }
   
   buy = () => {
     $.post('/buy', {
       title: this.state.itemInfo.itemName,
       url: `maomaojp.org:8088/?mid=${this.state.itemId}`,
+      addressId: this.addressId,
+      payinfoId: this.payinfoId,
     }, (res) => {
       if(res.err){
         Toast.info('下單錯誤: ' + res.err)
@@ -94,6 +114,7 @@ class MercariItemShow extends React.Component{
     return (
 
       <div>
+        <div className={this.state.currentTab == tabs.main ? 'visible': 'invisible'}>
         <NavBar
           mode="light"
           icon={<Icon type="left" />}
@@ -159,12 +180,50 @@ class MercariItemShow extends React.Component{
           (() => {
             if(this.isValidItem()){
               return (
-                <BottomPriceShow buyBtnClick={() => {this.buy()}} price={this.priceToRmb(this.state.itemInfo.itemPrice)}></BottomPriceShow>
+                <BottomPriceShow buyBtnClick={() => {
+                  this.setState({
+                    currentTab: tabs.selectPayinfo
+                  })
+                  // this.buy()
+                }} price={this.priceToRmb(this.state.itemInfo.itemPrice)}></BottomPriceShow>
               )
             }
           })()
         }
+        </div>
 
+        {this.state.currentTab == tabs.selectPayinfo ?
+          <SelectPayinfoPage navBack={() => {
+            this.setState({
+              currentTab: tabs.main
+            })
+          }} successCallback={(payinfoId) => {
+            this.payinfoId = payinfoId;
+            //切換到選擇郵寄方式tab
+            this.setState({
+              currentTab: tabs.selectAddress
+            })
+          }} ></SelectPayinfoPage>
+          :
+          <div/>
+        }
+
+        {this.state.currentTab == tabs.selectAddress ?
+          <SelectAddressPage navBack={() => {
+            this.setState({
+              currentTab: tabs.main
+            })
+          }} successCallback={(addressId) => {
+            this.addressId = addressId;
+            //TODO: 發送購買請求
+            this.setState({
+              currentTab: tabs.main
+            })
+            this.buy()
+          }} ></SelectAddressPage>
+          :
+          <div/>
+        }
       </div>
     )
   }

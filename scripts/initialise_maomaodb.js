@@ -38,6 +38,19 @@ function initialize(){
       table.dateTime('created_time')
       table.dateTime('updated_time')
     })
+  }).then(() => {
+    return knex.schema.createTableIfNotExists('payinfo', table => {
+      table.increments('id')
+      table.string('username')
+      table.string('pay_method')
+      table.string('pay_id')
+    })
+  }).then(() => {
+    return knex.schema.createTableIfNotExists('address', table => {
+      table.increments('id')
+      table.string('username')
+      table.string('address')
+    })
   }).finally(() => {
     knex.destroy()
   })
