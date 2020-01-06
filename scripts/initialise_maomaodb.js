@@ -37,6 +37,8 @@ function initialize(){
       table.integer('state')
       table.dateTime('created_time')
       table.dateTime('updated_time')
+      table.string('payinfo_id')
+      table.string('address_id')
     })
   }).then(() => {
     return knex.schema.createTableIfNotExists('payinfo', table => {

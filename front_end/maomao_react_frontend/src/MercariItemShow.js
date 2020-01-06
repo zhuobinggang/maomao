@@ -3,6 +3,7 @@ import { ActivityIndicator,Toast,Flex, SearchBar, WingBlank, NavBar, Icon, White
 import BottomPriceShow from './components/BottomPriceShow'
 import SelectPayinfoPage from './pages/SelectPayinfoPage'
 import SelectAddressPage from './pages/SelectAddressPage'
+import LoginTab from './LoginTab'
 const $ = require('jquery');
 
 
@@ -10,6 +11,7 @@ const tabs = {
   main: 1,
   selectPayinfo: 2,
   selectAddress: 3,
+  login: 4,
 }
 
 class MercariItemShow extends React.Component{
@@ -110,6 +112,25 @@ class MercariItemShow extends React.Component{
     }
   }
 
+  checkIfLogined = () => {
+    return new Promise((resolve, reject) => {
+      $.get('/getLoginInfo', (res) => {
+        if(res.err != null){
+          resolve(false)
+        }else{
+          resolve(true)
+        }
+      })
+    })
+  }
+
+  enterBuyTransaction = () => {
+    //跳转到选择支付方式页面
+    this.setState({
+      currentTab: tabs.selectPayinfo
+    })
+  }
+
   render(){
     return (
 
@@ -181,10 +202,16 @@ class MercariItemShow extends React.Component{
             if(this.isValidItem()){
               return (
                 <BottomPriceShow buyBtnClick={() => {
-                  this.setState({
-                    currentTab: tabs.selectPayinfo
+                  this.checkIfLogined().then(logined => {
+                    if(logined){
+                      this.enterBuyTransaction()
+                    }else{
+                      //TODO: 跳转到登录页面
+                      this.setState({
+                        currentTab: tabs.login
+                      })
+                    }
                   })
-                  // this.buy()
                 }} price={this.priceToRmb(this.state.itemInfo.itemPrice)}></BottomPriceShow>
               )
             }
@@ -224,6 +251,13 @@ class MercariItemShow extends React.Component{
           :
           <div/>
         }
+
+        <LoginTab successCallback={() => {
+          // this.setState({currentTab: tabs.main});
+          this.enterBuyTransaction()
+        }} navBack={() => {
+          this.setState({currentTab: tabs.main});
+        }} className={this.state.currentTab == tabs.login ? "" : "invisible"}></LoginTab>
       </div>
     )
   }

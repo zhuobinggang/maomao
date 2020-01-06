@@ -38,7 +38,7 @@ class LoginTab extends React.Component{
         if(res.err != null){
           Toast.info('登錄出錯: ' + res.err)
         }else{
-          Toast.success('登錄成功, 請點左上角返回')
+          Toast.success('登錄成功')
           me.props.successCallback();
         }
       })

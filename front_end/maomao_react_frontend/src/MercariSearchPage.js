@@ -84,7 +84,7 @@ class MercariSearch extends React.Component{
 
   
           <WingBlank>
-            <SearchBar value={this.state.keyword} onSubmit={() => {this.search()}}  placeholder="请输入搜索关键字" maxLength={30} onChange={(newKeyword) => {
+            <SearchBar value={this.state.keyword} onSubmit={() => {this.search()}}  placeholder="中文是搜不到日本商品的哦" maxLength={30} onChange={(newKeyword) => {
               this.setState({
                 keyword: newKeyword,
               })
