@@ -160,6 +160,16 @@ function getLastOrderDetail(){
   return knex.select('*').from('order').leftJoin('payinfo', 'order.payinfo_id', 'payinfo.id').leftJoin('address', 'order.address_id', 'address.id').orderBy('id', 'desc').limit(1);
 }
 
+function updateOrderState(id, state){
+  knex('order').where({id}).update({state}).finally(res => {
+    knex.destroy()
+  })
+}
+
+
+// updateOrderState(9, 2)
+// readAllOrder()
+
 // readAllAddress()
 // createPayinfo('kobakoisme', 'alipay', 'test').then(res => {
 //   console.log(res)
@@ -177,13 +187,13 @@ function getLastOrderDetail(){
 
 // createOrder('kobako', '你爸爸', 'www.baidu.com');
 // readAllOrder()
-// getOrderDetailById(6).then(res => {
+// getOrderDetailById(9).then(res => {
 //   console.log(res)
 // })
 
-getLastOrderDetail().then(res => {
-  console.log(res)
-})
+// getLastOrderDetail().then(res => {
+//   console.log(res)
+// })
 
 // getOrdersByUserName('kobakoisme')
 

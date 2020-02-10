@@ -334,6 +334,21 @@ app.get('/payinfo/list', (req, res) => {
   }
 })
 
+function updateOrderState(id, state){
+  return knex('order').where({id}).update({state})
+}
+
+app.patch('/order/:id', (req, res) => {
+  //TODO: 权限控制
+  //用body获取对应的信息
+  const id = req.params['id']
+  const state = req.body['state']
+  // console.log(id, state)
+  return updateOrderState(id, state).then(() => {
+    res.json({ ok: 1 })
+  })
+})
+
 app.listen(8088, () => console.log('Example app listening on port 8088!'))
 
 //Should be called when login or register successfully
