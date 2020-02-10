@@ -18,6 +18,9 @@
 3. 移动build文件夹: `mv build ../../static`
 3. 启动后端: `cd ../..` && `node index.js`
 
+## Google邮箱服务
+1. 复制模板文件 `cp mail.config.js.template.js mail.config.js` 
+2. 将`mail.config.js`内的用户名和密码替换成你自己的google账号
 
 ## 启动时可能会遇到的问题
 1. 防火墙开放问题，查询`centos8 open port`
