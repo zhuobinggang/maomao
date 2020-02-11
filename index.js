@@ -3,7 +3,8 @@ const yahooAucSpider = require('./spiders/yahooauc_item_spider')
 const mercariSpider = require('./spiders/merica_item_spider')
 const G = require('./global')
 const U = require('./utils')
-const stastics = require('./stastics')
+// const stastics = require('./stastics')
+const db = require('./db/sqlite')
 const compression = require('compression')
 const knex = require('knex')({
   client: 'sqlite3',
@@ -37,7 +38,7 @@ app.get('/stastics/view', (req, res) => {
   if(G.IS_TEST_ENV){
     res.send({count: 99999})
   }else{
-    stastics.incViewCount(req.ip).then(stastics.getTodayViewCnt).then(count => {
+    db.incViewCount(req.ip).then(db.getTodayViewCnt).then(count => {
       res.send({count})
     })
   }

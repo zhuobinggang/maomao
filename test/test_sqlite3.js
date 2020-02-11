@@ -19,7 +19,7 @@ function initialize(){
 }
 
 function showAllStastics(){
-  knex.select('id', 'ip', 'time').from('view_stastics').then(things => {
+  knex.select('id', 'ip', 'time').from('view_stastics').orderBy('time', 'desc').then(things => {
     console.log(things)
   }).finally(() => {
     knex.destroy()
@@ -169,6 +169,7 @@ function updateOrderState(id, state){
 
 // updateOrderState(9, 2)
 // readAllOrder()
+// insert()
 
 // readAllAddress()
 // createPayinfo('kobakoisme', 'alipay', 'test').then(res => {
@@ -224,3 +225,5 @@ function updateOrderState(id, state){
 // }).finally(() => {
 //   knex.destroy()
 // })
+
+showAllStastics()

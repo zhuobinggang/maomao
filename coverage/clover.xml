@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1581405935360" clover="3.2.0">
+  <project timestamp="1581405935360" name="All files">
+    <metrics statements="14" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="4" elements="22" coveredelements="11" complexity="0" loc="14" ncloc="14" packages="1" files="1" classes="1"/>
+    <file name="sqlite.js" path="D:\projects\maomao\db\sqlite.js">
+      <metrics statements="14" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="4"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="20" count="0" type="stmt"/>
+      <line num="21" count="0" type="stmt"/>
+      <line num="22" count="0" type="stmt"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="28" count="0" type="stmt"/>
+      <line num="29" count="0" type="stmt"/>
+      <line num="30" count="0" type="stmt"/>
+      <line num="34" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

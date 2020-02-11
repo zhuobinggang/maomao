@@ -5,12 +5,15 @@ const knex = require('knex')({
   })
 });
 
+function getCount(tableName){
+  return knex(tableName).count('*').then(result => {
+    return result[0]['count(*)']
+  })
+}
+
 function incViewCount(ip){
   const sql = `insert into view_stastics(ip, time) values("${ip}", datetime("now"))`;
-  // console.log(sql)
   return knex.raw(sql)
-  // return knex('view_stastics').insert({ip: ip, time: new Date().getTime()}).then(() => {
-  // })
 }
 
 function getTodayViewCnt(){
@@ -28,7 +31,8 @@ function getViewCount(){
   })
 }
 
-module.exports= {
+module.exports = {
+  getCount,
   incViewCount,
   getTodayViewCnt,
 }
