@@ -1,0 +1,2 @@
+[X] 1. To find the best way styling like a pro.
+[ ] 2. Publish the React Native Grid Component.
