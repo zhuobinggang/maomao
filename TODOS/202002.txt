@@ -1,0 +1,1 @@
+[ ] 1. Use redux to refactor the APP.js in front-end.
