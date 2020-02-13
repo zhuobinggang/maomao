@@ -4102,6 +4102,11 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha1-LMD+D7p0LZf9UnxCoTvsTusGJBw=
 
+react-native-grid-configurable@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/react-native-grid-configurable/download/react-native-grid-configurable-2.0.0.tgz#c04a44bf302e45d1c5fd18ce1e5c925d98deb82e"
+  integrity sha1-wEpEvzAuRdHF/RjOHlySXZjeuC4=
+
 react-native-view-shot@3.0.2:
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/react-native-view-shot/download/react-native-view-shot-3.0.2.tgz#daccaec5b8038a680b17533ff7e72876e68c7d0d"

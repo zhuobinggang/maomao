@@ -1,2 +1,7 @@
 [X] 1. To find the best way styling like a pro.
-[ ] 2. Publish the React Native Grid Component.
+[X] 2. Publish the React Native Grid Component.
+[ ] 3. Fetch the visit count from API and show it.
+[X] 4. Show the grid well.
+[X] 5. Update the grid component making the grid receive callback.
+[X] 6. Update the login api in backend using restful API and return a JWT-TOKEN
+[ ] 7. If I am logined, show my name in Home page.

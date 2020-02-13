@@ -4,6 +4,7 @@ const knex = require('knex')({
     filename: './maomao.sqlite'
   })
 });
+const U = require('../utils');
 
 function getCount(tableName){
   return knex(tableName).count('*').then(result => {
@@ -31,8 +32,23 @@ function getViewCount(){
   })
 }
 
+function getUsersByUsernameAndPass(username, password){
+  const md5Pass = U.md5hex(password)
+  return knex('user').where({
+    username, password: md5Pass
+  })
+}
+
+function isUserExist(username, password){
+  return getUsersByUsernameAndPass(username, password).then(users => {
+    return users.length > 0;
+  })
+}
+
 module.exports = {
   getCount,
   incViewCount,
   getTodayViewCnt,
+  getUsersByUsernameAndPass,
+  isUserExist,
 }

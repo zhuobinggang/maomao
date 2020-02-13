@@ -184,7 +184,7 @@ app.post('/user/login', (req, res) => {
   const username = req.body['username']
   const password = req.body['password'] 
 
-  return getUsersByUsernameAndPass(username, password).then(users => {
+  return db.getUsersByUsernameAndPass(username, password).then(users => {
     if(users.length < 1){
       res.json({
         err: '錯誤的用戶名或密碼'

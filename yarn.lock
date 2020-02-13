@@ -3026,6 +3026,11 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
+jwt-simple@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.npm.taobao.org/jwt-simple/download/jwt-simple-0.5.6.tgz#3357adec55b26547114157be66748995b75b333a"
+  integrity sha1-M1et7FWyZUcRQVe+ZnSJlbdbMzo=
+
 keypairs@^1.2.14:
   version "1.2.14"
   resolved "https://registry.npm.taobao.org/keypairs/download/keypairs-1.2.14.tgz#c971e8d03ae2d048fc6879117e0509bae6543887"
