@@ -204,7 +204,7 @@ function updateOrderState(id, state){
 
 // test_register('kobako9', 'dd', 'kobako')
 
-// getAllUsers()
+getAllUsers()
 
 // rawInsert()
 // initialize()
@@ -226,4 +226,4 @@ function updateOrderState(id, state){
 //   knex.destroy()
 // })
 
-showAllStastics()
+// showAllStastics()

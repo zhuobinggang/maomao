@@ -5,3 +5,6 @@
 [X] 5. Update the grid component making the grid receive callback.
 [X] 6. Update the login api in backend using restful API and return a JWT-TOKEN
 [ ] 7. If I am logined, show my name in Home page.
+[ ] 8. Finish login component & container
+  [ ] Press login then 1. fetch jwt and 2. set into the Storage
+[ ] 9. Fix the bug of missing key param of Grid component

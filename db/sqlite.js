@@ -40,6 +40,7 @@ function getUsersByUsernameAndPass(username, password){
 }
 
 function isUserExist(username, password){
+  console.log(username,password)
   return getUsersByUsernameAndPass(username, password).then(users => {
     return users.length > 0;
   })
@@ -51,4 +52,5 @@ module.exports = {
   getTodayViewCnt,
   getUsersByUsernameAndPass,
   isUserExist,
+  getViewCount,
 }
