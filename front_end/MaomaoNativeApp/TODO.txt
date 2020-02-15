@@ -1,10 +1,15 @@
 [X] 1. To find the best way styling like a pro.
 [X] 2. Publish the React Native Grid Component.
-[ ] 3. Fetch the visit count from API and show it.
+[X] 3. Fetch the visit count from API and show it.
 [X] 4. Show the grid well.
 [X] 5. Update the grid component making the grid receive callback.
 [X] 6. Update the login api in backend using restful API and return a JWT-TOKEN
-[ ] 7. If I am logined, show my name in Home page.
-[ ] 8. Finish login component & container
-  [ ] Press login then 1. fetch jwt and 2. set into the Storage
-[ ] 9. Fix the bug of missing key param of Grid component
+[X] 7. If I am logined, show my name in Home page.
+[X] 8. Finish login component & container
+  [X] Press login then 1. fetch jwt and 2. set into the Storage
+  [X] After fetching jwt, 1.  back to home page from login 2. request fo username, and 
+[X] 9. Fix the bug of missing key param of Grid component
+[ ] 10. Use i18in
+[ ] 11. Show imgs when press the third button by modal
+[ ] 12. Show the Modal when press the third button, then show the img in the center 
+        with the width fit to screen width

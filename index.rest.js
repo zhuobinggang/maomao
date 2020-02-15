@@ -28,9 +28,9 @@ app.get('/dd', (req,res) => {
 })
 
 app.get('/username', (req, res) => {
-  const token = req.params['jwt']
+  const token = req.query['jwt']
   try{
-    const {user, pass} = jwt.decode(token, secret)
+    const {user} = jwt.decode(token, secret)
     res.send(user)
   }catch(e){
     res.status(404).send()

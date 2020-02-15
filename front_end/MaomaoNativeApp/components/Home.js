@@ -1,29 +1,39 @@
-import React,{ useEffect } from 'react'
-import { Text, View, Button } from 'react-native';
+import React,{ useEffect, useState, } from 'react'
+import { Text, View, Button,  TouchableHighlight, ScrollView} from 'react-native';
 import Blank from './Blank';
 import Space from './Space';
 import Grid from 'react-native-grid-configurable';
+import Modal from './MyModal'
+// import { Header } from '@react-navigation/native';
 
-export default ({visitCount = 'Mock data', username, getUserName, getVisitCount, navigation}) => {
+// import ImageViewer from './ImageViewer';
+
+export default ({visitCount = 'Mock data', username, getUserName, getVisitCount, navigation, logined=false, imgViewerShow}) => {
   useEffect(() => {
     //DidMount
-    getUserName()
     getVisitCount()
   }, []);
 
-  const navBar = (<View style={{ flex: 1, flexDirection: 'row-reverse'}}>
+  useEffect(() => {
+    //DidMount and when logined changed
+    getUserName()
+    console.log('GET USER NAME')
+  }, [logined]);
+
+
+  const navBar = (<View style={{ flexDirection: 'row-reverse'}}>
     {username == null ? 
       <View style={{flexDirection: 'row'}}>
         <Button title="登陆" onPress={() => navigation.navigate('Login')} />
         <Space width={8} />
-        <Button title="注册" onPress={() => Alert.alert('注册')} />
+        <Button title="注册" onPress={() => navigation.navigate('Register')} />
       </View> :
       <Text>欢迎, {username}</Text>
     }
   </View>)
 
   return (
-    <View style={{paddingHorizontal: 16}}>
+    <ScrollView  style={{paddingHorizontal: 16}}>
         <Blank size='big'></Blank>
         {navBar}
         <Blank size='big'></Blank>
@@ -34,14 +44,19 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
           require('../assets/app_imgs/mercari.jpg'),
           require('../assets/app_imgs/yahooauc.png'),
           require('../assets/app_imgs/questionmark.jpg'),
-        ]}  callbacks={[() => {console.log('fuck')}, () => {console.log('fuck2')}]}></Grid>
+        ]}  callbacks={[() => {console.log('fuck')}, () => {console.log('fuck2')}, () => {
+          navigation.navigate('ImageViewer', )
+          const imgs = ['https://avatars3.githubusercontent.com/u/20993661?s=460&v=4', 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460']
+          imgViewerShow(imgs)
+        }]}></Grid>
 
         <Blank size='big'></Blank>
         <View><Text>今日访问次数: {visitCount}</Text></View>
         <Blank size='big'></Blank>
         <View><Text>欢迎来到猫猫网</Text></View>
 
-    </View>
+        {/** Modal for showing guide image */}
+    </ScrollView>
 
   );
 }

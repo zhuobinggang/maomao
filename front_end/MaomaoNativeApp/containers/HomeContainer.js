@@ -4,7 +4,9 @@ import actions from '../actions'
 import TYPES from '../TYPES'
 
 const shaper = (state, ownProps) => {
-  return { ...state.home, jwt: state.jwt}
+  console.log('+++++++++++++')
+  console.log(ownProps)
+  return { ...state.home, jwt: state.jwt, logined: state.logined}
 }
 
 const dispatcher = (dispatch, ownProps) => {
@@ -20,15 +22,36 @@ const dispatcher = (dispatch, ownProps) => {
         console.log('Get visit count failed')
       })
     },
-    getUserName: () => {
-      console.log('bb')
-      actions.getUserName(ownProps.jwt).then(username => {
-        dispatch(actions.getUserNameOK(username))
+    getUserName: (jwt) => {
+      actions.getUserName(jwt).then(username => {
+        dispatch({
+          type: TYPES.USER_NAME_GOT,
+          username
+        })
       }).catch(err => {
-        dispatch(actions.getUserNameFail(err))
+        console.warn('Get user name failed')
       })
     },
+    imgViewerShow: (imgs) => {
+      dispatch({
+        type: TYPES.IMG_VIEWER_SHOW,
+        imgs
+      })
+    }
   }
 }
 
-export default connect(shaper, dispatcher)(Home);
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  return {
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+    getUserName: () => {
+      console.log('IN mergeProps')
+      console.log(stateProps)
+      dispatchProps.getUserName(stateProps.jwt);
+    }
+  }
+}
+
+export default connect(shaper, dispatcher, mergeProps)(Home);

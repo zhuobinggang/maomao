@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {TextInput, StyleSheet, Text, View, Button } from 'react-native';
 import Blank from './Blank'
 
 
-export default ({navigation, login, loginButtonDead = false}) => {
+export default ({navigation, login, loginButtonDead = false, logined = false}) => {
   const [user, onChangeUser] = useState('');
   const [pass, onChangePass] = useState('');
+
+  useEffect(() => {
+    console.log('Update login page and there is some different in logined')
+    if(logined){
+      navigation.navigate('Home');
+    }
+  },[logined])
 
   return (<View style={style.container}>
     <Blank size='big'/>

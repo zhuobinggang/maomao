@@ -1,4 +1,3 @@
-import app from './app'
 import TYPES from '../TYPES'
 
 const MOCK_STR = 'Mock data'
@@ -6,20 +5,25 @@ const MOCK_STR = 'Mock data'
 const initialState = {
   home: {
     visitCount: MOCK_STR,
+    username: null,
   },
   login: {
     loginButtonDead: false,
   },
-  jwtToken: null,
+  logined: false,
+  jwt: null,
+  imgViewer: {
+    imgs: []
+  }
 }
 
-const jwtTokenGot = (action) => {
+const jwtTokenGot = (jwt, action) => {
   if(action.type == TYPES.JWT_TOKEN_GOT){
     console.log('fuckkkkkkk',)
     console.log(action)
     return action.jwt
   }else{
-    return null
+    return jwt
   }
 }
 
@@ -34,24 +38,53 @@ const loginReducer = (state,action) => {
       console.log('登陆失败')
       return {loginButtonDead: false}
     }
+  }else{
+    return state
   }
-  return state
 }
 
-const home = (_, action) => {
+const home = (home, action) => {
   if(action.type == TYPES.VISIT_COUNT_GOT){
     return {
+      ...home,
       visitCount: action.visitCount
     }
+  }else if(action.type == TYPES.USER_NAME_GOT){
+    return {
+      ...home,
+      username: action.username
+    }
+  }else{
+    return home
   }
 } 
+
+const logined = ({logined}, action) => {
+  if(action.type == TYPES.LOGINED){
+    return true
+  }else{
+    return logined
+  }
+}
+
+const imgViewer = (state, action) => {
+  if(action.type == TYPES.IMG_VIEWER_SHOW){
+    return {
+      ...state, imgs: action.imgs
+    }
+  }else{
+    return state
+  }
+}
 
 const reducer = (state = initialState, action) => {
   console.log(state)
   return {
-    jwtToken: jwtTokenGot(action),
+    jwt: jwtTokenGot(state.jwt, action),
     home: home(state.home, action),
     login: loginReducer(state.login, action),
+    logined: logined(state, action),
+    imgViewer: imgViewer(state.imgViewer, action),
   }
 }
 

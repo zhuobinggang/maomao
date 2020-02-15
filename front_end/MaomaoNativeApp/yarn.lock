@@ -4230,6 +4230,18 @@ react-native-grid-configurable@3.1.0:
   resolved "https://registry.npm.taobao.org/react-native-grid-configurable/download/react-native-grid-configurable-3.1.0.tgz#8e64d838290983bc9779fb56d715602b40d25e01"
   integrity sha1-jmTYOCkJg7yXeftW1xVgK0DSXgE=
 
+react-native-image-pan-zoom@^2.1.9:
+  version "2.1.11"
+  resolved "https://registry.npm.taobao.org/react-native-image-pan-zoom/download/react-native-image-pan-zoom-2.1.11.tgz#61bcb69219d95e76a9797d23e4a2e8e0bd654ae9"
+  integrity sha1-Yby2khnZXnapeX0j5KLo4L1lSuk=
+
+react-native-image-zoom-viewer@^2.2.27:
+  version "2.2.27"
+  resolved "https://registry.npm.taobao.org/react-native-image-zoom-viewer/download/react-native-image-zoom-viewer-2.2.27.tgz#fb3314c5dc86ac33da48cb31bf4920d97eecb6eb"
+  integrity sha1-+zMUxdyGrDPaSMsxv0kg2X7stus=
+  dependencies:
+    react-native-image-pan-zoom "^2.1.9"
+
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npm.taobao.org/react-native-iphone-x-helper/download/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"

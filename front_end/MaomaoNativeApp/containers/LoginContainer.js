@@ -3,8 +3,8 @@ import Login from '../components/Login'
 import actions from '../actions/index'
 import TYPES from '../TYPES'
 
-const shaper = ({login}, ownProps) => {
-  return login
+const shaper = ({login, logined}, ownProps) => {
+  return { ...login, logined }
 }
 
 const dispatcher = (dispatch, ownProps) => {
@@ -18,6 +18,7 @@ const dispatcher = (dispatch, ownProps) => {
         })
       }).then(jwt => {
         dispatch({type: TYPES.JWT_TOKEN_GOT, jwt})
+        dispatch({type: TYPES.LOGINED})
       }).catch(() => {
         dispatch({type: TYPES.LOGIN, status: 'fail'})
         console.log('Login fail')
