@@ -10,6 +10,13 @@
   [X] After fetching jwt, 1.  back to home page from login 2. request fo username, and 
 [X] 9. Fix the bug of missing key param of Grid component
 [ ] 10. Use i18in
-[ ] 11. Show imgs when press the third button by modal
-[ ] 12. Show the Modal when press the third button, then show the img in the center 
+[X] 11. Show imgs when press the third button by modal
+[X] 12. Show the Modal when press the third button, then show the img in the center 
         with the width fit to screen width
+[X] 13. Listen to the double click event.
+[ ] 14. Listen to drag event.
+[Xl 15. Set picture position by hand
+[X] 16. Test, if the state of the component change, will pressIn function persist or 
+    call out PressOut immediately? A: Will Persist
+[ ] 17. In ImageViewer, use props to set Image into the center
+[ ] 18. Add layout listener

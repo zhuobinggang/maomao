@@ -44,7 +44,7 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
           require('../assets/app_imgs/mercari.jpg'),
           require('../assets/app_imgs/yahooauc.png'),
           require('../assets/app_imgs/questionmark.jpg'),
-        ]}  callbacks={[() => {console.log('fuck')}, () => {console.log('fuck2')}, () => {
+        ]}  callbacks={[() => {navigation.navigate('Test')}, () => {console.log('fuck2')}, () => {
           navigation.navigate('ImageViewer', )
           const imgs = ['https://avatars3.githubusercontent.com/u/20993661?s=460&v=4', 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460']
           imgViewerShow(imgs)

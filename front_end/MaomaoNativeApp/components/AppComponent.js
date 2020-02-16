@@ -4,6 +4,7 @@ import Login from '../containers/LoginContainer'
 import { StyleSheet, Text, View } from 'react-native';
 import Register from './Register'
 import ImgViewer from '../containers/ImgViewerContainer'
+import Test from './GestureExample'
 
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -24,6 +25,7 @@ export default ({takeOutJwtToken}) => {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ImageViewer" component={ImgViewer} />
+          <Stack.Screen name="Test" component={Test} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
