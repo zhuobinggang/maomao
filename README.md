@@ -8,9 +8,13 @@
 ### 后端
 `node index.js`
 
+> 迁移声明: 为了提高服务器性能以及安全性，后续将改用index.rest.js作为后端入口，用REST API + jwt-token替代原有基于session cookie的API
+
 ### 前端
 1. cd `front_end/maomao_react_frontend` &  `yarn install`
 2. yarn start
+
+> 迁移声明: 为了在安卓和IOS上获得更好的体验，后续将改用front_end/MaomaoNativeApp作为前端入口，使用React Native + Redux替代掉原有基于React + Ant Design Mobile组件库的前端技术栈
 
 ## 生产环境
 1. 打包: cd `front_end/maomao_react_frontend`, `yarn build --nomaps`
@@ -18,7 +22,7 @@
 3. 移动build文件夹: `mv build ../../static`
 3. 启动后端: `cd ../..` && `node index.js`
 
-## Google邮箱服务
+## Google邮箱服务(在用户下单时发邮件通知自己)
 1. 复制模板文件 `cp mail.config.js.template.js mail.config.js` 
 2. 将`mail.config.js`内的用户名和密码替换成你自己的google账号
 

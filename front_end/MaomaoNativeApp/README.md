@@ -1,5 +1,5 @@
 ## Introduction
-猫猫网前端第一弹: React.js + Ant Design Mobile
+猫猫网前端第二弹: React Native + Redux
 
 ## Usage
 

@@ -14,9 +14,17 @@
 [X] 12. Show the Modal when press the third button, then show the img in the center 
         with the width fit to screen width
 [X] 13. Listen to the double click event.
-[ ] 14. Listen to drag event.
+[X] 14. Listen to drag event.
 [Xl 15. Set picture position by hand
 [X] 16. Test, if the state of the component change, will pressIn function persist or 
     call out PressOut immediately? A: Will Persist
-[ ] 17. In ImageViewer, use props to set Image into the center
-[ ] 18. Add layout listener
+[X] 17. In ImageViewer, use props to set Image into the center
+[X] 18. Add layout listener
+[X] 19. when drag, move the picture by top and left
+[X] 20. Test: if state will always keep updated?
+        in press callback, log the imgX, then reset imgX, then press again ,to see 
+        if the imgX moved.
+        A: Will not keep.
+[X] 21. Double click zoom in
+[ ] 22. Disable the drag down effect of react navigation
+[ ] 23. Run the app on android.
