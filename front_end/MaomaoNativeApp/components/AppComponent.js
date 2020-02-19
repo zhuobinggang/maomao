@@ -2,9 +2,9 @@ import React,{useEffect} from 'react';
 import HomeWithUserNameAndVisitCount from '../containers/HomeContainer';
 import Login from '../containers/LoginContainer'
 import { StyleSheet, Text, View } from 'react-native';
-import Register from './Register'
+import Register from '../containers/RegisterContainer'
 import ImgViewer from '../containers/ImgViewerContainer'
-import Test from './GestureExample'
+import Test from './Indicator'
 import MercariSearch from '../containers/MercariSearchContainer'
 import MercariItem from '../containers/MercariItemContainer'
 

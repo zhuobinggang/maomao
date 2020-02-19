@@ -7,7 +7,7 @@ import Grid from 'react-native-grid-configurable';
 
 // import ImageViewer from './ImageViewer';
 
-export default ({visitCount = 'Mock data', username, getUserName, getVisitCount, navigation, logined=false, imgViewerShow}) => {
+export default ({visitCount = 'Mock data', username, getUserName, getVisitCount, navigation, logined=false, imgViewerShow, test= () => {}}) => {
   useEffect(() => {
     //DidMount
     getVisitCount()
@@ -50,7 +50,7 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
           } )
           imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
         }, () => {
-          navigation.navigate('MercariItem');
+          navigation.navigate('Test');
         }]}></Grid>
 
         <Blank size='big'></Blank>

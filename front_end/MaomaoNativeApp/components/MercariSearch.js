@@ -3,12 +3,13 @@ import SearchBar from './SearchBar';
 import { Text, View, Button,  TouchableHighlight, ScrollView} from 'react-native';
 import {Blank} from './Space';
 import Grid from 'react-native-grid-configurable';
+import Indicator from './Indicator';
 
 function shouldShowPaginator(currentPage, hasNext){
   return hasNext || currentPage > 1
 }
 
-export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage = 1, hasNextPage = false}) => {
+export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage = 1, hasNextPage = false, openDetails=[], loading}) => {
   const keywordSearched = keyword;
   const searchBarHeight = 40;
   const paginatorHeight = 40;
@@ -16,8 +17,7 @@ export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage
 
   const [keywordChanging, changeKeywordChanging] =  useState(keywordSearched);
 
-  
-  return (<View style={{position: 'absolute', top: 0, left: 8, bottom: 0, right: 8,}}>
+  const content = (<View style={{position: 'absolute', top: 0, left: 8, bottom: 0, right: 8,}}>
     <Blank size={padding}/>
     <SearchBar changeKeyword={changeKeywordChanging} height={searchBarHeight} keyword={keywordChanging} onPress={searchStart} buttonText='搜索' placeholder='中文恐怕搜不到哦, 请输入日语或英文' />
 
@@ -27,6 +27,7 @@ export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage
         height={70}  
         imgSrcs={imgSrcs} 
         titles={prices} 
+        callbacks={openDetails}
         paddingBetweenRows={8}></Grid>
     </View>
 
@@ -48,6 +49,11 @@ export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage
         }
       </View>   
     }
-
   </View>)
+  
+  return (
+    <View style={{flex: 1}}>
+      {loading ? <Indicator/> : content}
+    </View>
+  ) 
 }

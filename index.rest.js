@@ -24,6 +24,60 @@ app.post('/login', (req, res) => {
   })
 })
 
+app.post('/user/register', (req, res) => {
+  if(G.IS_TEST_ENV){
+    setSessionUserInfo(req, 'kobako', 'kobako')
+    res.json({ok: 1, msg: '測試環境'})
+  }else{
+
+  }
+})
+
+const validators = {
+  username: /[_a-zA-Z]\w{7,15}/,
+  password: /[_a-zA-Z]\w{7,15}/,
+}
+
+function isValidInput(input){
+  if(!validators.username.test(input.username)){
+    console.info('用戶名必須為: 8到16位,字母開頭的字符串')
+    return false
+  }else if(!validators.password.test(input.password)){
+    console.info('密碼必須為: 8到16位,字母開頭的字符串')
+    return false
+  }else if(input.nick.length < 2 || input.nick.length > 8){
+    console.info('昵稱必須為: 2到8位')
+    return false
+  }else{
+    return true
+  }
+}
+
+app.post('/register', (req, res) => {
+  const username = req.body['username']
+  const nick = req.body['nick']
+  const password = req.body['password']
+  //用正則對用戶信息進行限制
+  if(isValidInput({username, nick, password})){
+    //Md5
+    const md5Pass = U.md5hex(password)
+    knex('user').where({username}).then(users => {
+      if(users.length > 0){ //Repeated
+        res.status(400).send('用户名重复')
+      }else{
+        const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
+        //使用prepared parameter防止sql注入
+        return knex.raw(sql, [nick, username, md5Pass]).then(() => {
+          setSessionUserInfo(req, username, nick)
+          res.status(200).send()
+        })
+      }
+    })
+  }else{
+    res.status(400).send('輸入不符合規範, 請重新檢查')
+  }
+})
+
 app.get('/dd', (req,res) => {
   res.send('dd')
 })

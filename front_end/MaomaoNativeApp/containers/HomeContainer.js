@@ -42,6 +42,9 @@ const dispatcher = (dispatch, ownProps) => {
         bgColor: 'green',
       })
     },
+    test: () => {
+      actions.fetchItemData(dispatch, 'm66184399648')
+    }
   }
 }
 

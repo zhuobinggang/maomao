@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native';
 import TYPES from '../TYPES'
 import variables from '../VARS'
+const V = variables;
 
 const TAKE_OUT_JWT_TOKEN = 'TAKE_OUT_JWT_TOKEN'
 const TAKE_OUT_JWT_OK = 'TAKE_OUT_JWT_OK'
@@ -102,6 +103,52 @@ const setJwt = (jwt) => {
   return AsyncStorage.setItem('jwt', jwt)
 }
 
+function isValidMid(mid){
+  //TODO: 
+  return mid != null && mid != '';
+}
+
+const fetchItemData = (dispatch, mid) => {
+  if(isValidMid(mid)){
+    dispatch({
+      type: TYPES.MERCARI_ITEM_GETTING,
+    });
+    fetch(`${V.SERVER}/mercari/item/${mid}`).then(res => {
+      if(res.status == 404){
+        return Promise.reject('No this item')
+      }else{
+        return res.json()
+      }
+    }).then(item => {
+      //TODO: do something on the item
+      window.item = item;
+      dispatch({
+        type: TYPES.MERCARI_ITEM_GOT,
+        ...item,
+      });
+    })
+  }else{
+    console.warn('Not valid item id')
+  }
+}
+
+function register(user, pass, nick){
+  return fetch(`${V.SERVER}/register`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({username: user, password: pass, nick}),
+  }).then(res => {
+    if(res.status != 200){
+      return Promise.reject(res.text())
+    }else{
+      return
+    }
+  })
+}
+
 export default {
   jwtTokenGot,
   login,
@@ -115,4 +162,7 @@ export default {
   getVisitCount, 
   getVisitCountOK, 
   getVisitCountFail, 
+
+  fetchItemData,
+  register,
 }

@@ -3,42 +3,17 @@ import View from '../components/MercariItem'
 import TYPES from '../TYPES';
 import V from '../VARS'
 
-function isValidMid(mid){
-  //TODO: 
-  return mid != null && mid != '';
-}
-
 const stateToProps = (state, _) => {
-  return state.mercariItem
+  return {
+    ...state.mercariItem,
+    imgSrcs: state.mercariItem.imgs.map(src => {
+      return `${V.SERVER}${src}`
+    }),
+  }
 }
 
 const dispatchToProps = (dispatch, _) => {
-  //TEST
-  window.setMid = (mid) => {
-    dispatch({
-      type: TYPES.SET_MERCARI_ITEM_ID,
-      mid
-    })
-  }
-
-  return {
-    fetchItemData: (mid) => {
-      if(isValidMid(mid)){
-        console.log('dd')
-        fetch(`${V.SERVER}/mercari/item/${mid}`).then(res => {
-          if(res.status == 404){
-            return Promise.reject('No this item')
-          }else{
-            return res.json()
-          }
-        }).then(item => {
-          //TODO: do something on the item
-        })
-      }else{
-        console.warn('Not valid item id')
-      }
-    }
-  }
+  return { }
 }
 
 export default connect(stateToProps, dispatchToProps)(View)

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import MercariSearch from '../components/MercariSearch';
-import V from '../VARS'
+import V from '../VARS';
 import TYPES from '../TYPES';
+import actions from '../actions/index';
 
 function RmbFromJpyString(priceString){
   priceString = String(priceString);
@@ -22,6 +23,9 @@ const stateToProps = (state) => {
       }else{
         return `${rmb}元`
       }
+    }),
+    mids: state.mercariSearch.items.map(item => {
+      return item.mid;
     })
   };
 }
@@ -34,6 +38,9 @@ const dispatchToProps = (dispatch) => {
       }else if(isNaN(page)){
         console.warn('Wrong page num');
       }else{
+        dispatch({
+          type: TYPES.SEARCH_START
+        })
         fetch(`${V.SERVER}/mercari/search/keyword/${keyword}/page/${page}`).then(res => {
           return res.json()
         }).then(({items, currentPage, hasNextPage}) => {
@@ -46,10 +53,35 @@ const dispatchToProps = (dispatch) => {
           })
         }).catch(e => {
           console.warn('Searching failed')
+          dispatch({
+            type: TYPES.SEARCHED,
+            items: [],
+            currentPage: 1,
+            hasNextPage: false,
+            keyword: '',
+          })
         })
       }
+    },
+    fetchItemData: (mid) => {
+      actions.fetchItemData(dispatch, mid)
     },
   }
 }
 
-export default connect(stateToProps, dispatchToProps)(MercariSearch)
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  return {
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+    openDetails: stateProps.mids.map(mid => {
+      return () => {
+        dispatchProps.fetchItemData(mid)
+        ownProps.navigation.navigate('MercariItem')
+        //Show indicator here
+      }
+    }),
+  }
+}
+
+export default connect(stateToProps, dispatchToProps, mergeProps)(MercariSearch)

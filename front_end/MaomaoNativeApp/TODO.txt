@@ -46,8 +46,11 @@
   [X] If there will be bugs using static images through package?
       TOFIX: Make the picture sizeMode to contain!
   [X] Refine: Add a setting option to hide the footer
-[ ] 35. Set titles well
-[ ] 36. Add Merica Search Page, get data by fetch
+[X] 35. Set titles well
+[X] 36. Add Merica Search Page, get data by fetch
   [X] Show Items By ListView. Test if the ListView will work when it become longer than screen height
-  [ ] Test: Put something over the target picture.
-  [ ] Show price
+  [X] Show price.
+[ ] 37. 2020/02/19 Should Do
+  [X] Add indicator when loading data.
+  [ ] Register page.
+  [ ] Click image should show it by viewer.

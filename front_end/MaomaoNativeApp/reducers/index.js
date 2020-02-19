@@ -24,10 +24,24 @@ const initialState = {
     currentPage: 1,
     hasNextPage: false,
     keyword: '',
+    loading: false,
   },
   mercariItem: {
+    itemName: '', 
+    itemWording: '',
+    itemPrice: '', 
+    itemTax: '', 
+    itemShippingFee: '', 
+    itemDescription: '', 
+    likes: '', 
+    imgs: [], 
+    sold: false,
     mid: '',
-  }
+    loading: false,
+  },
+  register: {
+    loading: false, 
+  },
 }
 
 const jwtTokenGot = (jwt, action) => {
@@ -97,17 +111,37 @@ const imgViewer = (state, {
   }
 }
 
-const mercariSearch = (state, {type, items, currentPage, hasNextPage,keyword}) => {
-  if(type == TYPES.SEARCHED){
-    return {items, currentPage, hasNextPage, keyword};
+const mercariSearch = (state, action) => {
+  if(action.type == TYPES.SEARCHED){
+    return {...state, ...action, loading: false, };
+  }else if(action.type == TYPES.SEARCH_START){
+    return {...state, loading: true};
   }else{
-    return state;
+    return state
   }
 }
 
 const mercariItem = (state, action) => {
-  if(action.type == TYPES.SET_MERCARI_ITEM_ID){
-    return {...state, mid: action.mid}
+  if(action.type == TYPES.MERCARI_ITEM_GOT){
+    return {...state, ...action, loading: false}
+  }else if(action.type == TYPES.MERCARI_ITEM_GETTING){
+    return {...state, loading: true}
+  }else{
+    return state
+  }
+}
+
+const register = (state, action) => {
+  if(action.type == TYPES.REGISTER){
+    if(action.status == 'pending'){
+      return {...state, loading: true}
+    }else if(action.status == 'ok'){
+      return {...state, loading: false}
+    }else if(action.status == 'fail'){
+      return {...state, loading: false}
+    }else{
+      return state
+    }
   }else{
     return state
   }
@@ -123,6 +157,7 @@ const reducer = (state = initialState, action) => {
     imgViewer: imgViewer(state.imgViewer, action),
     mercariSearch: mercariSearch(state.mercariSearch, action),
     mercariItem: mercariItem(state.mercariItem, action),
+    register: register(state.register, action),
   }
 }
 
