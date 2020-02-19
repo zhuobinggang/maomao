@@ -134,5 +134,5 @@ function isValidMid(mid){
 module.exports = {
   getItemInfo,
   getSearchResult,
-  isValidId,
+  isValidMid,
 }
