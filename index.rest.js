@@ -5,6 +5,7 @@ const jwt = require('jwt-simple')
 const db = require('./db/sqlite')
 const mercari = require('./spiders/merica_item_spider')
 const secret = 'maomao.org by kobako'
+const U = require('./utils')
 
 const bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
