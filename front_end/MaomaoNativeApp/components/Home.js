@@ -39,15 +39,18 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
         <View style={{}}><Text>海淘，就上猫猫网</Text></View>
         <Blank size='big'></Blank>
 
-        <Grid cols={3} height={90} titles={['煤炉商品搜索','雅虎商品查看','购买流程', ]} imgSrcs={[
+        <Grid cols={3} height={90} titles={['煤炉商品搜索','雅虎商品查看','购买流程', '测试用']} imgSrcs={[
           require('../assets/app_imgs/mercari.jpg'),
           require('../assets/app_imgs/yahooauc.png'),
+          require('../assets/app_imgs/questionmark.jpg'),
           require('../assets/app_imgs/questionmark.jpg'),
         ]}  callbacks={[() => {navigation.navigate('MercariSearch')}, () => {console.log('fuck2')}, () => {
           navigation.navigate('ImageViewer', {
             title: '猫猫网购物流程'
           } )
           imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
+        }, () => {
+          navigation.navigate('MercariItem');
         }]}></Grid>
 
         <Blank size='big'></Blank>

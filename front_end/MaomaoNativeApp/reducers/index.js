@@ -24,6 +24,9 @@ const initialState = {
     currentPage: 1,
     hasNextPage: false,
     keyword: '',
+  },
+  mercariItem: {
+    mid: '',
   }
 }
 
@@ -102,6 +105,14 @@ const mercariSearch = (state, {type, items, currentPage, hasNextPage,keyword}) =
   }
 }
 
+const mercariItem = (state, action) => {
+  if(action.type == TYPES.SET_MERCARI_ITEM_ID){
+    return {...state, mid: action.mid}
+  }else{
+    return state
+  }
+}
+
 const reducer = (state = initialState, action) => {
   console.log(state)
   return {
@@ -110,7 +121,8 @@ const reducer = (state = initialState, action) => {
     login: loginReducer(state.login, action),
     logined: logined(state, action),
     imgViewer: imgViewer(state.imgViewer, action),
-    mercariSearch: mercariSearch(state.mercariSearch, action)
+    mercariSearch: mercariSearch(state.mercariSearch, action),
+    mercariItem: mercariItem(state.mercariItem, action),
   }
 }
 

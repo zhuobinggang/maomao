@@ -6,6 +6,8 @@ const USER_NAME_GOT = 'USER_NAME_GOT'
 const IMG_VIEWER_SHOW = 'IMG_VIEWER_SHOW'
 const SEARCHED = 'SEARCHED'
 
+const SET_MERCARI_ITEM_ID = 'SET_MERCARI_ITEM_ID'
+
 
 export default {
   JWT_TOKEN_GOT,
@@ -15,4 +17,5 @@ export default {
   USER_NAME_GOT,
   IMG_VIEWER_SHOW,
   SEARCHED,
+  SET_MERCARI_ITEM_ID,
 }

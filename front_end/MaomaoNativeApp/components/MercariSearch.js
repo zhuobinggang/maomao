@@ -19,7 +19,7 @@ export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage
   
   return (<View style={{position: 'absolute', top: 0, left: 8, bottom: 0, right: 8,}}>
     <Blank size={padding}/>
-    <SearchBar changeTextCallback={changeKeywordChanging} height={searchBarHeight} keyword={keywordSearched} onPress={searchStart} buttonText='搜索' placeholder='中文恐怕搜不到哦, 请输入日语或英文' />
+    <SearchBar changeKeyword={changeKeywordChanging} height={searchBarHeight} keyword={keywordChanging} onPress={searchStart} buttonText='搜索' placeholder='中文恐怕搜不到哦, 请输入日语或英文' />
 
     <View style={{position: 'absolute', top: searchBarHeight + padding, left: 8, bottom: shouldShowPaginator(currentPage, hasNextPage)? paginatorHeight : 0, right: 8,}}>
       <Grid 

@@ -82,9 +82,13 @@ const jwtTokenGot = (jwt) => {
 }
 
 const login = (user, pass) => {
-  return fetch(url, {
+  return fetch(`${variables.SERVER}/login`, {
     method: 'POST',
-    body: {user,pass}
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({user,pass}),
   }).then(res => {
     if(res.status == 200){
       return res.text()

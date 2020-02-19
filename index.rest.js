@@ -53,4 +53,19 @@ app.get('/mercari/search/keyword/:keyword/page/:page', (req, res) => {
   })
 })
 
+app.get('/mercari/item/:mid', (req, res) => {
+  const id = req.params['mid'];
+  if(mercari.isValidId(id)){
+    mercari.getItemInfo(id).then(info => {
+      if(info.err){
+        res.status(404).send(info.err)
+      }else{
+        res.json(info)
+      }
+    })
+  }else{
+    res.status(404).send('Bad id provied')
+  }
+})
+
 app.listen(8089, () => console.log('The refactored express '))

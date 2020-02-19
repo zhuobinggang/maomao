@@ -6,6 +6,7 @@ import Register from './Register'
 import ImgViewer from '../containers/ImgViewerContainer'
 import Test from './GestureExample'
 import MercariSearch from '../containers/MercariSearchContainer'
+import MercariItem from '../containers/MercariItemContainer'
 
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -28,6 +29,7 @@ export default ({takeOutJwtToken}) => {
           <Stack.Screen name="ImageViewer" options={{ title: '图片查看器' }} component={ImgViewer} />
           <Stack.Screen name="Test" options={{ title: '测试' }} component={Test} />
           <Stack.Screen name="MercariSearch" options={{ title: '煤炉商品搜索' }} component={MercariSearch} />
+          <Stack.Screen name="MercariItem" options={{ title: '煤炉商品详情' }} component={MercariItem} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
