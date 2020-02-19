@@ -53,4 +53,4 @@ app.get('/mercari/search/keyword/:keyword/page/:page', (req, res) => {
   })
 })
 
-app.listen(8088, () => console.log('The refactored express '))
+app.listen(8089, () => console.log('The refactored express '))
