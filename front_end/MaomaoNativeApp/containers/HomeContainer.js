@@ -12,8 +12,8 @@ const shaper = (state, ownProps) => {
 const dispatcher = (dispatch, ownProps) => {
   return {
     getVisitCount: () => {
-      console.log('dd')
       actions.getVisitCount().then(visitCount => {
+        console.log('VISITCOUNT:', visitCount)
         dispatch({
           type: TYPES.VISIT_COUNT_GOT,
           visitCount
@@ -32,12 +32,16 @@ const dispatcher = (dispatch, ownProps) => {
         console.warn('Get user name failed')
       })
     },
-    imgViewerShow: (imgs) => {
+    imgViewerShow: (img) => {
       dispatch({
         type: TYPES.IMG_VIEWER_SHOW,
-        imgs
+        imgs: [img],
+        footer: 32,
+        footerColor: 'red',
+        footerTextColor: 'yellow',
+        bgColor: 'green',
       })
-    }
+    },
   }
 }
 

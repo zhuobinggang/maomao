@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import {AsyncStorage} from 'react-native';
 import TYPES from '../TYPES'
 import variables from '../VARS'
@@ -30,12 +29,12 @@ const takeOutJwtOK = (jwt) => {
 }
 
 const getUserName =  (jwt) => {
-  return new Promise((resolve, reject) => {
-    $.get(`${variables.SERVER}/username`, {jwt}).done(username => {
-      resolve(username)
-    }).fail(() => {
-      reject('错误的用户名或密码')
-    })
+  return fetch(`${variables.SERVER}/username?jwt=${jwt || ''}`).then(res => {
+    if(res.status == 200){
+      return res.text()
+    }else{
+      return Promise.reject('No logined')
+    }
   })
 }
 
@@ -53,13 +52,12 @@ const getUserNameFail = (err) => {
 }
 
 const getVisitCount = () =>{
-  return new Promise((resolve, reject) => {
-    console.log('FUUUUUK')
-    $.get(`${variables.SERVER}/visits/count`).done(count => {
-      resolve(count)
-    }).fail(() => {
-      reject('Server or network error')
-    })
+  return fetch(`${variables.SERVER}/visits/count`).then(count => {
+    if(count.status == 200){
+      return count.text()
+    }else{
+      return Promise.reject()
+    }
   })
 }
 const getVisitCountOK = (visitCount) => {
@@ -84,16 +82,15 @@ const jwtTokenGot = (jwt) => {
 }
 
 const login = (user, pass) => {
-  return new Promise((resolve, reject) => {
-    const url = `${variables.SERVER}/login`;
-    console.log(url)
-    $.post(url, {user, pass})
-      .done(jwt => {
-        resolve(jwt)
-      })
-      .fail(() => {
-        reject()
-      })
+  return fetch(url, {
+    method: 'POST',
+    body: {user,pass}
+  }).then(res => {
+    if(res.status == 200){
+      return res.text()
+    }else{
+      return Promise.reject()
+    }
   })
 }
 
@@ -114,6 +111,4 @@ export default {
   getVisitCount, 
   getVisitCountOK, 
   getVisitCountFail, 
-
-
 }

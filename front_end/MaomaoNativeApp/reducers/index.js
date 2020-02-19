@@ -13,7 +13,16 @@ const initialState = {
   logined: false,
   jwt: null,
   imgViewer: {
-    imgs: []
+    imgs: [],
+    bgColor: null,
+    footer: null,
+    footerColor: null,
+    footerTextColor: null,
+  },
+  mercariSearch: {
+    items: [],
+    currentPage: 1,
+    hasNextPage: false,
   }
 }
 
@@ -67,13 +76,28 @@ const logined = ({logined}, action) => {
   }
 }
 
-const imgViewer = (state, action) => {
-  if(action.type == TYPES.IMG_VIEWER_SHOW){
+const imgViewer = (state, {
+  type, 
+  imgs = [], 
+  bgColor= null,
+  footer= null, 
+  footerColor= null, 
+  footerTextColor= null
+}) => {
+  if(type == TYPES.IMG_VIEWER_SHOW){
     return {
-      ...state, imgs: action.imgs
+      ...state, imgs, bgColor, footer, footerColor, footerTextColor
     }
   }else{
     return state
+  }
+}
+
+const mercariSearch = (state, {type, items, currentPage, hasNextPage}) => {
+  if(type == TYPES.SEARCHED){
+    return {items, currentPage, hasNextPage};
+  }else{
+    return state;
   }
 }
 
@@ -85,6 +109,7 @@ const reducer = (state = initialState, action) => {
     login: loginReducer(state.login, action),
     logined: logined(state, action),
     imgViewer: imgViewer(state.imgViewer, action),
+    mercariSearch: mercariSearch(state.mercariSearch, action)
   }
 }
 

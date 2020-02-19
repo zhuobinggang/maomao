@@ -26,5 +26,27 @@
         if the imgX moved.
         A: Will not keep.
 [X] 21. Double click zoom in
-[ ] 22. Disable the drag down effect of react navigation
-[ ] 23. Run the app on android.
+[X] 22. Disable the drag down effect of react navigation
+[X] 23. Run the app on android.
+[X] 24. Auto ajust the position of picture
+[X] 25. If the offset bigger than a threshold, show last or next image.
+[X] 26. Keep correct when change imgIndex
+[X] 27. MyModal.js : Do not depend on screen but the container, Maybe just use 100%?
+[X] 28. Listen the imgIndex, when being changed reset imgX/Y imgWidth/Height and place
+        centre.
+[X] 29. Add bottom bar to show pagination
+[X] 30. Test: If there is a sister node, will 100 percent height ignore it?
+        Yes, will ignore it
+[X] 31. If toggle, should place the img center and do not detect changeing image.
+[X] 32. If toggle, should zoom in to the real size of the picture
+[X] 33. Publish the ImgViewer
+[X] 34. ImageViewer bug shooting
+  [X] When there is only one img
+      TOFIX: Make the threshold detect not work!
+  [X] If there will be bugs using static images through package?
+      TOFIX: Make the picture sizeMode to contain!
+  [X] Refine: Add a setting option to hide the footer
+[ ] 35. Set titles well
+[ ] 36. Add Merica Search Page, get data by jquery
+  [ ] Show Items By ListView. Test if the ListView will work when it become longer than screen height
+  [ ] Test: Put something over the target picture.

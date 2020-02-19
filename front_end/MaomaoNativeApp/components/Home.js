@@ -3,7 +3,6 @@ import { Text, View, Button,  TouchableHighlight, ScrollView} from 'react-native
 import Blank from './Blank';
 import Space from './Space';
 import Grid from 'react-native-grid-configurable';
-import Modal from './MyModal'
 // import { Header } from '@react-navigation/native';
 
 // import ImageViewer from './ImageViewer';
@@ -44,10 +43,11 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
           require('../assets/app_imgs/mercari.jpg'),
           require('../assets/app_imgs/yahooauc.png'),
           require('../assets/app_imgs/questionmark.jpg'),
-        ]}  callbacks={[() => {navigation.navigate('Test')}, () => {console.log('fuck2')}, () => {
-          navigation.navigate('ImageViewer', )
-          const imgs = ['https://avatars3.githubusercontent.com/u/20993661?s=460&v=4', 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460']
-          imgViewerShow(imgs)
+        ]}  callbacks={[() => {navigation.navigate('MercariSearch')}, () => {console.log('fuck2')}, () => {
+          navigation.navigate('ImageViewer', {
+            title: '猫猫网购物流程'
+          } )
+          imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
         }]}></Grid>
 
         <Blank size='big'></Blank>

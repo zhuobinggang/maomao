@@ -2,8 +2,9 @@ const express = require('express')
 const app = express()
 app.use(express.static('static'))
 const jwt = require('jwt-simple')
-const secret = 'maomao.org by kobako'
 const db = require('./db/sqlite')
+const mercari = require('./spiders/merica_item_spider')
+const secret = 'maomao.org by kobako'
 
 const bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -41,6 +42,14 @@ app.get('/visits/count', (req, res) => {
   db.getViewCount().then(count => {
     console.log(count)
     res.status(200).send(String(count))
+  })
+})
+
+app.get('/mercari/search/keyword/:keyword/page/:page', (req, res) => {
+  const keyword = req.params['keyword'];
+  const page = req.query['page'] || 1;
+  mercari.getSearchResult(keyword, page).then(result => {
+    res.json(result)
   })
 })
 

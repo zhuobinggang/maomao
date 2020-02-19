@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Register from './Register'
 import ImgViewer from '../containers/ImgViewerContainer'
 import Test from './GestureExample'
+import MercariSearch from '../containers/MercariSearchContainer'
 
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -20,12 +21,13 @@ export default ({takeOutJwtToken}) => {
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeWithUserNameAndVisitCount} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="ImageViewer" component={ImgViewer} />
-          <Stack.Screen name="Test" component={Test} />
+        <Stack.Navigator screenOptions={{gestureEnabled: false}}>
+          <Stack.Screen name="Home" options={{ title: '猫猫网' }} component={HomeWithUserNameAndVisitCount} />
+          <Stack.Screen name="Login" options={{ title: '登陆' }} component={Login} />
+          <Stack.Screen name="Register" options={{ title: '注册' }} component={Register} />
+          <Stack.Screen name="ImageViewer" options={{ title: '图片查看器' }} component={ImgViewer} />
+          <Stack.Screen name="Test" options={{ title: '测试' }} component={Test} />
+          <Stack.Screen name="MercariSearch" options={{ title: '煤炉商品搜索' }} component={MercariSearch} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

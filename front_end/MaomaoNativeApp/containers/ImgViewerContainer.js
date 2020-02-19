@@ -1,5 +1,7 @@
+import React,{useEffect} from 'react'
 import { connect } from 'react-redux'
-import ImgViewer from '../components/ImageViewer'
+// import ImgViewer from '../components/ImageViewer'
+import ImageViewer from 'react-native-image-viewer-web'
 import actions from '../actions'
 import TYPES from '../TYPES'
 
@@ -11,4 +13,11 @@ const dispatcher = (dispatch) => {
   return {}
 }
 
-export default connect(shaper, dispatcher)(ImgViewer);
+const MyViewer = (props) => {
+  useEffect(() => {
+    props.navigation.setOptions({ title: '猫猫网购物流程' })
+  },[]);
+  return <ImageViewer {...props} />
+}
+
+export default connect(shaper, dispatcher)(MyViewer);

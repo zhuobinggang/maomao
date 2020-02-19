@@ -4,6 +4,7 @@ const LOGINED = 'LOGINED'
 const VISIT_COUNT_GOT = 'VISIT_COUNT_GOT'
 const USER_NAME_GOT = 'USER_NAME_GOT'
 const IMG_VIEWER_SHOW = 'IMG_VIEWER_SHOW'
+const SEARCHED = 'SEARCHED'
 
 
 export default {
@@ -13,4 +14,5 @@ export default {
   VISIT_COUNT_GOT,
   USER_NAME_GOT,
   IMG_VIEWER_SHOW,
+  SEARCHED,
 }
