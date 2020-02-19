@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import View from '../components/MercariItem'
 import TYPES from '../TYPES';
+import V from '../VARS'
 
 function isValidMid(mid){
   //TODO: 
@@ -23,7 +24,8 @@ const dispatchToProps = (dispatch, _) => {
   return {
     fetchItemData: (mid) => {
       if(isValidMid(mid)){
-        fetch(`/mercari/item/${mid}`).then(res => {
+        console.log('dd')
+        fetch(`${V.SERVER}/mercari/item/${mid}`).then(res => {
           if(res.status == 404){
             return Promise.reject('No this item')
           }else{

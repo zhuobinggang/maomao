@@ -127,7 +127,12 @@ function getSearchResult(keyword='', page=1){
   })
 }
 
+function isValidMid(mid){
+  return /(m[0-9]{8,})/.test(mid)
+}
+
 module.exports = {
   getItemInfo,
   getSearchResult,
+  isValidId,
 }
