@@ -47,7 +47,7 @@ app.get('/visits/count', (req, res) => {
 
 app.get('/mercari/search/keyword/:keyword/page/:page', (req, res) => {
   const keyword = req.params['keyword'];
-  const page = req.query['page'] || 1;
+  const page = req.params['page'] || 1;
   mercari.getSearchResult(keyword, page).then(result => {
     res.json(result)
   })

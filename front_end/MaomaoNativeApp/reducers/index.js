@@ -23,6 +23,7 @@ const initialState = {
     items: [],
     currentPage: 1,
     hasNextPage: false,
+    keyword: '',
   }
 }
 
@@ -93,9 +94,9 @@ const imgViewer = (state, {
   }
 }
 
-const mercariSearch = (state, {type, items, currentPage, hasNextPage}) => {
+const mercariSearch = (state, {type, items, currentPage, hasNextPage,keyword}) => {
   if(type == TYPES.SEARCHED){
-    return {items, currentPage, hasNextPage};
+    return {items, currentPage, hasNextPage, keyword};
   }else{
     return state;
   }

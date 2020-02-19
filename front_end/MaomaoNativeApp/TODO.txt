@@ -47,6 +47,7 @@
       TOFIX: Make the picture sizeMode to contain!
   [X] Refine: Add a setting option to hide the footer
 [ ] 35. Set titles well
-[ ] 36. Add Merica Search Page, get data by jquery
-  [ ] Show Items By ListView. Test if the ListView will work when it become longer than screen height
+[ ] 36. Add Merica Search Page, get data by fetch
+  [X] Show Items By ListView. Test if the ListView will work when it become longer than screen height
   [ ] Test: Put something over the target picture.
+  [ ] Show price
