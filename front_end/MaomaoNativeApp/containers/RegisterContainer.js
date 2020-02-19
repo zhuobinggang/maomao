@@ -13,7 +13,8 @@ const dispatcher = (dispatch, ownProps) => {
       dispatch({type: TYPES.REGISTER, status: 'pending'})
       actions.register(user, pass, nick).then(() => {
         dispatch({type: TYPES.REGISTER, status: 'ok'})
-        //TODO: Auto login
+        //Auto login
+        actions.login(dispatch, user, pass)
       }).catch(() => {
         dispatch({type: TYPES.REGISTER, status: 'fail'})
         console.log('Register fail')

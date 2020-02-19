@@ -36,10 +36,7 @@ const dispatcher = (dispatch, ownProps) => {
       dispatch({
         type: TYPES.IMG_VIEWER_SHOW,
         imgs: [img],
-        footer: 32,
-        footerColor: 'red',
-        footerTextColor: 'yellow',
-        bgColor: 'green',
+        bgColor: 'black',
       })
     },
     test: () => {

@@ -18,7 +18,7 @@ export default ({navigation, login, loginButtonDead = false, logined = false}) =
     <Blank size='big'/>
     <TextInput style={style.input} placeholder='点击输入用户名' value={user} onChangeText={onChangeUser} />
     <Blank size='small'/>
-    <TextInput style={style.input} placeholder='点击输入密码' value={pass} onChangeText={onChangePass} />
+    <TextInput secureTextEntry={true} style={style.input} placeholder='点击输入密码' value={pass} onChangeText={onChangePass} />
     <Blank size='big'/>
     <Button
       title="登陆"

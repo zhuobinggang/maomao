@@ -82,7 +82,23 @@ const jwtTokenGot = (jwt) => {
   }
 }
 
-const login = (user, pass) => {
+const login = (dispatch, user, pass) => {
+  dispatch({type: TYPES.LOGIN, status: 'dispending'})
+  loginRequest(user, pass).then((jwt) => {
+    dispatch({type: TYPES.LOGIN, status: 'ok'})
+    return setJwt(jwt).then(() => {
+      return jwt
+    })
+  }).then(jwt => {
+    dispatch({type: TYPES.JWT_TOKEN_GOT, jwt})
+    dispatch({type: TYPES.LOGINED})
+  }).catch(() => {
+    dispatch({type: TYPES.LOGIN, status: 'fail'})
+    console.log('Login fail')
+  })
+}
+
+const loginRequest = (user, pass) => {
   return fetch(`${variables.SERVER}/login`, {
     method: 'POST',
     headers: {

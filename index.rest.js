@@ -124,4 +124,12 @@ app.get('/mercari/item/:mid', (req, res) => {
   }
 })
 
+app.post('/views', (req, res) => {
+  db.incViewCount(req.ip).then(() => {
+    res.status(200).send()
+  }).catch(() => {
+    res.status(500).send()
+  })
+})
+
 app.listen(8089, () => console.log('The refactored express '))

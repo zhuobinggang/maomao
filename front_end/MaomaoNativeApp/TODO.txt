@@ -52,5 +52,5 @@
   [X] Show price.
 [ ] 37. 2020/02/19 Should Do
   [X] Add indicator when loading data.
-  [ ] Register page.
+  [X] Register page.
   [ ] Click image should show it by viewer.

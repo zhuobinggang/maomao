@@ -50,11 +50,11 @@ export default ({navigation, register, loading = false, logined = false}) => {
     <Blank size='big'/>
     <TextInput style={style.input} placeholder='点击输入用户名' value={user} onChangeText={onChangeUser} />
     <Blank size='small'/>
-    <TextInput style={style.input} placeholder='点击输入密码' value={pass} onChangeText={onChangePass} />
+    <TextInput secureTextEntry={true} style={style.input} placeholder='点击输入密码' value={pass} onChangeText={onChangePass} />
     <Blank size='small'/>
-    <TextInput style={style.input} placeholder='重复您的密码' value={pass2} onChangeText={onChangePass2} />
+    <TextInput secureTextEntry={true} textContentType='password' style={style.input} placeholder='重复您的密码' value={pass2} onChangeText={onChangePass2} />
     <Blank size='small'/>
-    <TextInput style={style.input} placeholder='点击输入昵称' value={nick} onChangeText={onChangeNick} />
+    <TextInput  style={style.input} placeholder='点击输入昵称' value={nick} onChangeText={onChangeNick} />
     <Blank size='big'/>
     <Button
       title="注册"
