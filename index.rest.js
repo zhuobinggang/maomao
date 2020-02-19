@@ -62,17 +62,18 @@ app.post('/register', (req, res) => {
   if(isValidInput({username, nick, password})){
     //Md5
     const md5Pass = U.md5hex(password)
-    knex('user').where({username}).then(users => {
+    db.getUsersByName(username).then(users => {
       if(users.length > 0){ //Repeated
         res.status(400).send('用户名重复')
+        return false
       }else{
-        const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
         //使用prepared parameter防止sql注入
-        return knex.raw(sql, [nick, username, md5Pass]).then(() => {
-          setSessionUserInfo(req, username, nick)
+        return db.insertUser(nick, username, md5Pass).then(() => {
           res.status(200).send()
         })
       }
+    }).catch(e => {
+      res.status(500).send('用户名重复')
     })
   }else{
     res.status(400).send('輸入不符合規範, 請重新檢查')

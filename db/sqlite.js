@@ -46,6 +46,17 @@ function isUserExist(username, password){
   })
 }
 
+function getUsersByName(username){
+  return knex('user').where({
+    username
+  }) 
+}
+
+function insertUser(nick, username, md5Pass){
+  const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
+  return knex.raw(sql, [nick, username, md5Pass])
+}
+
 module.exports = {
   getCount,
   incViewCount,
@@ -53,4 +64,6 @@ module.exports = {
   getUsersByUsernameAndPass,
   isUserExist,
   getViewCount,
+  getUsersByName,
+  insertUser,
 }
