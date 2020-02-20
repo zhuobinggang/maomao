@@ -9,7 +9,7 @@ function shouldShowPaginator(currentPage, hasNext){
   return hasNext || currentPage > 1
 }
 
-export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage = 1, hasNextPage = false, openDetails=[], loading}) => {
+const MercariSearch = ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage = 1, hasNextPage = false, openDetails=[], loading}) => {
   const keywordSearched = keyword;
   const searchBarHeight = 40;
   const paginatorHeight = 40;
@@ -34,18 +34,16 @@ export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage
     {shouldShowPaginator(currentPage, hasNextPage) &&
       <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: paginatorHeight, alignItems: 'center', flexDirection: 'row' }}>
         {currentPage > 1 &&
-          <TouchableHighlight onPress={() => {
+          <Button title='上一页' onPress={() => {
             searchStart(keywordChanging,parseInt(currentPage) - 1)
-          }}>
-            <Text style={{color: 'blue'}}>上一页</Text>
-          </TouchableHighlight>
+          } } />
         }
         {hasNextPage && 
-          <TouchableHighlight onPress={() => {
-            searchStart(keywordChanging,parseInt(currentPage)  + 1)
-          }} style={{position: 'absolute', right:0}}>
-            <Text style={{color: 'blue'}}>下一页</Text>
-          </TouchableHighlight>
+          <View style={{position: 'absolute', right:0}}>
+            <Button title="下一页" onPress={() => {
+              searchStart(keywordChanging,parseInt(currentPage)  + 1)
+            }}/>
+          </View>
         }
       </View>   
     }
@@ -57,3 +55,6 @@ export default ({searchStart, imgSrcs=[], prices = [], keyword = '', currentPage
     </View>
   ) 
 }
+
+MercariSearch.whyDidYouRender = true;
+export default  MercariSearch;

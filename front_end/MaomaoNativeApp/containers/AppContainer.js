@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import App from '../components/AppComponent'
 import actions from '../actions/index'
+import myAlert from '../Alert'
 
 const shaper = (state, ownProps) => {
   return state
@@ -12,7 +13,7 @@ const dispatcher = (dispatch, ownProps) => {
       actions.takeOutJwtToken().then(jwt => {
         dispatch(actions.takeOutJwtOK(jwt))
       }).catch(() => {
-        console.warn('There is no jwt in the storage')
+        myAlert('There is no jwt in the storage')
       })
     }
   }

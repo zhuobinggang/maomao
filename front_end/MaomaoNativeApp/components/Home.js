@@ -67,7 +67,7 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
         }]}></Grid> */}
 
         <Blank size='big'></Blank>
-        <View><Text>今日访问次数: {visitCount}</Text></View>
+        <View><Text>历史访问次数: {visitCount}</Text></View>
         <Blank size='big'></Blank>
         <View><Text>欢迎来到猫猫网</Text></View>
 

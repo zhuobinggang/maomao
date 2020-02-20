@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native';
 import TYPES from '../TYPES'
 import variables from '../VARS'
+import myAlert from '../Alert';
 const V = variables;
 
 const TAKE_OUT_JWT_TOKEN = 'TAKE_OUT_JWT_TOKEN'
@@ -94,7 +95,7 @@ const login = (dispatch, user, pass) => {
     dispatch({type: TYPES.LOGINED})
   }).catch(() => {
     dispatch({type: TYPES.LOGIN, status: 'fail'})
-    console.log('Login fail')
+    myAlert('Login fail')
   })
 }
 
@@ -144,7 +145,7 @@ const fetchItemData = (dispatch, mid) => {
       });
     })
   }else{
-    console.warn('Not valid item id')
+    myAlert('Not valid item id')
   }
 }
 

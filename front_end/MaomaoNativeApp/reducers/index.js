@@ -46,8 +46,6 @@ const initialState = {
 
 const jwtTokenGot = (jwt, action) => {
   if(action.type == TYPES.JWT_TOKEN_GOT){
-    console.log('fuckkkkkkk',)
-    console.log(action)
     return action.jwt
   }else{
     return jwt
@@ -59,10 +57,8 @@ const loginReducer = (state,action) => {
     if(action.status == 'dispending'){
       return {loginButtonDead: true}
     }else if(action.status == 'ok'){
-      console.log('登陆成功')
       return {loginButtonDead: true}
     }else if(action.status == 'fail'){
-      console.log('登陆失败')
       return {loginButtonDead: false}
     }
   }else{
@@ -148,7 +144,7 @@ const register = (state, action) => {
 }
 
 const reducer = (state = initialState, action) => {
-  console.log(state)
+  console.log('There is some difference here');
   return {
     jwt: jwtTokenGot(state.jwt, action),
     home: home(state.home, action),

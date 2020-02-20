@@ -3,6 +3,7 @@ import MercariSearch from '../components/MercariSearch';
 import V from '../VARS';
 import TYPES from '../TYPES';
 import actions from '../actions/index';
+import myAlert from '../Alert';
 
 function RmbFromJpyString(priceString){
   priceString = String(priceString);
@@ -34,9 +35,9 @@ const dispatchToProps = (dispatch) => {
   return {
     searchStart: (keyword, page=1) => {
       if(keyword == null || keyword == ''){
-        console.warn('Why search empty keyword?');
+        myAlert('Why search empty keyword?');
       }else if(isNaN(page)){
-        console.warn('Wrong page num');
+        myAlert('Wrong page num');
       }else{
         dispatch({
           type: TYPES.SEARCH_START
@@ -52,7 +53,7 @@ const dispatchToProps = (dispatch) => {
             keyword,
           })
         }).catch(e => {
-          console.warn('Searching failed')
+          myAlert('Searching failed')
           dispatch({
             type: TYPES.SEARCHED,
             items: [],

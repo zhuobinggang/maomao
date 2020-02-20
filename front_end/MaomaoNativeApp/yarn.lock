@@ -1211,6 +1211,13 @@
     lodash "^4.5.0"
     prop-types "^15.6.1"
 
+"@welldone-software/why-did-you-render@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@welldone-software/why-did-you-render/-/why-did-you-render-4.0.4.tgz#983faef183cad5f4a8fe37e8b0f9f5622688a367"
+  integrity sha512-s5NfsRO2SEQcsnBza8as4in32cklaYtN5jkrQUY84/Y0nMuo/9ReHCXGnLLjtTrxJu/vxnDx6CVQRMEA5lwbiw==
+  dependencies:
+    lodash "^4"
+
 abort-controller@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/abort-controller/download/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
@@ -3230,7 +3237,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.npm.taobao.org/lodash.throttle/download/lodash.throttle-4.1.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash.throttle%2Fdownload%2Flodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0:
+lodash@^4, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0:
   version "4.17.15"
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
@@ -4225,10 +4232,10 @@ react-native-gesture-handler@~1.5.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-grid-configurable@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npm.taobao.org/react-native-grid-configurable/download/react-native-grid-configurable-3.2.0.tgz#dd0c7a5ffbf9496cb3fe981b1deb43db2d01e8ff"
-  integrity sha1-3Qx6X/v5SWyz/pgbHetD2y0B6P8=
+react-native-grid-configurable@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-grid-configurable/-/react-native-grid-configurable-3.3.0.tgz#e1142c82ebbfc4103a18e92100f9a6dccfe445ed"
+  integrity sha512-7DPdBntlbqqDGkZxqwqKo4igvoh76GagIQzRQ3ExkNqraf11ZOriYbOdUUKjQ1dDSBk4etzDXZRjn+4S00wsZQ==
 
 react-native-image-pan-zoom@^2.1.9:
   version "2.1.11"

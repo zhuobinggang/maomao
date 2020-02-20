@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import Register from '../components/Register'
 import actions from '../actions/index'
 import TYPES from '../TYPES'
+import myAlert from '../Alert'
 
 const shaper = ({register, logined}, ownProps) => {
   return { ...register, logined }
@@ -17,7 +18,7 @@ const dispatcher = (dispatch, ownProps) => {
         actions.login(dispatch, user, pass)
       }).catch(() => {
         dispatch({type: TYPES.REGISTER, status: 'fail'})
-        console.log('Register fail')
+        myAlert('Register fail')
       })
     }
   }

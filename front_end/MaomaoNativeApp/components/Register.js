@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {TextInput, StyleSheet, Text, View, Button, Alert, Platform} from 'react-native';
-import Blank from './Blank'
+import {TextInput, StyleSheet, Text, View, Button,} from 'react-native';
+import myAlert from '../Alert';
+import Blank from './Blank';
 
 const validators = {
   username: /[_a-zA-Z]\w{7,15}/,
@@ -25,13 +26,6 @@ function isValidInput(user, pass, pass2, nick){
   }
 }
 
-function myAlert(alertText){
-  if(Platform.OS === 'web') {
-    alert(alertText)
-  }else{
-    Alert.alert(alertTitle, alertText)
-  }
-}
 
 export default ({navigation, register, loading = false, logined = false}) => {
   const [user, onChangeUser] = useState('');

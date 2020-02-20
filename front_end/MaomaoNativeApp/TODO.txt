@@ -50,7 +50,14 @@
 [X] 36. Add Merica Search Page, get data by fetch
   [X] Show Items By ListView. Test if the ListView will work when it become longer than screen height
   [X] Show price.
-[ ] 37. 2020/02/19 Should Do
+[X] 37. 2020/02/19 Should Do
   [X] Add indicator when loading data.
   [X] Register page.
+[ ] 38. 2020/02/20
+  [X] Fix bug register.
+  [X] Fix search page performance problem.
   [ ] Click image should show it by viewer.
+  [ ] Fix bug Alert on Android.
+  [ ] Add splash.png.
+  [ ] Publish web version.
+    [X] Tested

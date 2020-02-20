@@ -2,10 +2,9 @@ import { connect } from 'react-redux'
 import Home from '../components/Home'
 import actions from '../actions'
 import TYPES from '../TYPES'
+import myAlert from '../Alert'
 
 const shaper = (state, ownProps) => {
-  console.log('+++++++++++++')
-  console.log(ownProps)
   return { ...state.home, jwt: state.jwt, logined: state.logined}
 }
 
@@ -13,13 +12,12 @@ const dispatcher = (dispatch, ownProps) => {
   return {
     getVisitCount: () => {
       actions.getVisitCount().then(visitCount => {
-        console.log('VISITCOUNT:', visitCount)
         dispatch({
           type: TYPES.VISIT_COUNT_GOT,
           visitCount
         })
       }).catch(err => {
-        console.log('Get visit count failed')
+        myAlert('Get visit count failed')
       })
     },
     getUserName: (jwt) => {
@@ -29,7 +27,7 @@ const dispatcher = (dispatch, ownProps) => {
           username
         })
       }).catch(err => {
-        console.warn('Get user name failed')
+        console.log('Get user name failed, maybe have not login')
       })
     },
     imgViewerShow: (img) => {
@@ -51,8 +49,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...stateProps,
     ...dispatchProps,
     getUserName: () => {
-      console.log('IN mergeProps')
-      console.log(stateProps)
       dispatchProps.getUserName(stateProps.jwt);
     }
   }
