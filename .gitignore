@@ -14,3 +14,7 @@ yahooauc.txt
 **/static
 **/*.sqlite
 **/*.config.js
+
+# Ignore static
+/static_storage/**/*.png
+/static_storage/**/*.jpg
