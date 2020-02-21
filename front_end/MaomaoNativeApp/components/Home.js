@@ -7,7 +7,11 @@ import Grid from 'react-native-grid-configurable';
 
 // import ImageViewer from './ImageViewer';
 
-export default ({visitCount = 'Mock data', username, getUserName, getVisitCount, navigation, logined=false, imgViewerShow, test= () => {}}) => {
+export default ({
+  visitCount = 'Mock data', username, getUserName, getVisitCount, 
+  navigation, logined=false, imgViewerShow, 
+  searchStasticShow,
+}) => {
   useEffect(() => {
     //DidMount
     getVisitCount()
@@ -43,26 +47,19 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
           cols={2} 
           height={100} 
           titles={['煤炉商品搜索', '购物流程']} 
-          imgSrcs={[ require('../assets/app_imgs/mercari.jpg'), require('../assets/app_imgs/questionmark.jpg'),]}
-          callbacks={[() => {navigation.navigate('MercariSearch')}, () => {
-            navigation.navigate('ImageViewer');
-            imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
-          }]}>
+          imgSrcs={[ require('../assets/app_imgs/mercari.jpg'), require('../assets/app_imgs/questionmark.jpg'), require('../assets/app_imgs/questionmark.jpg')]}
+          callbacks={[
+            () => {navigation.navigate('MercariSearch')}, 
+            () => {
+              navigation.navigate('ImageViewer');
+              imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
+            }, 
+            () => {
+              navigation.navigate('SearchStasticShow');
+              actions.searchStasticShow(); //Emit Action
+            },
+          ]}>
         </Grid>
-
-        {/* <Grid cols={3} height={90} titles={['煤炉商品搜索','雅虎商品查看','购买流程', '测试用']} imgSrcs={[
-          require('../assets/app_imgs/mercari.jpg'),
-          require('../assets/app_imgs/yahooauc.png'),
-          require('../assets/app_imgs/questionmark.jpg'),
-          require('../assets/app_imgs/questionmark.jpg'),
-        ]}  callbacks={[() => {navigation.navigate('MercariSearch')}, () => {console.log('fuck2')}, () => {
-          navigation.navigate('ImageViewer', {
-            title: '猫猫网购物流程'
-          } )
-          imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
-        }, () => {
-          navigation.navigate('Test');
-        }]}></Grid> */}
 
         <Blank size='big'></Blank>
         <View><Text>历史访问次数: {visitCount}</Text></View>

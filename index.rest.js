@@ -133,4 +133,14 @@ app.post('/views', (req, res) => {
   })
 })
 
+app.get('/search/stastics', (req, res) => {
+  res.status(200).json([
+    {name: 'dd', num: 11}, 
+    {name: 'bb', num: 9}, 
+    {name:'cc', num: 5},
+  ])
+})
+
+
+
 app.listen(8089, () => console.log('The refactored express '))

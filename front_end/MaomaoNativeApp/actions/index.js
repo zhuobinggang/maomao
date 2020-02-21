@@ -177,6 +177,18 @@ const imgViewerShow = (dispatch, imgs, title, footer, index=0) => {
   })
 }
 
+const searchStasticShow = () => {
+  //fetch
+  return fetch(`${V.SERVER}/search/stastics`).then(res => {
+    if(res.status == 200){
+      return res.json()
+    }else{
+      err = '获取搜索统计数据失败'
+      return Promise.reject(err)
+    }
+  })
+}
+
 export default {
   jwtTokenGot,
   login,
@@ -194,4 +206,5 @@ export default {
   fetchItemData,
   register,
   imgViewerShow,
+  searchStasticShow,
 }

@@ -35,7 +35,18 @@ const dispatcher = (dispatch, ownProps) => {
     },
     test: () => {
       actions.fetchItemData(dispatch, 'm66184399648')
-    }
+    },
+    searchStasticShow: () => {
+      //Send request and emit action when result returned
+      actions.searchStasticShow().then(stastic => {
+        dispatch({
+          type: TYPES.SEARCH_STASTIC_GOT,
+          stastic
+        })
+      }).catch(err => {
+        myAlert(err)
+      })
+    },
   }
 }
 

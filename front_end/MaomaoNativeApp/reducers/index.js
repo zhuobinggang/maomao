@@ -44,6 +44,9 @@ const initialState = {
   register: {
     loading: false, 
   },
+  searchStasticShow: {
+    stastics: [],
+  }
 }
 
 const jwtTokenGot = (jwt, action) => {
@@ -141,6 +144,14 @@ const register = (state, action) => {
   }
 }
 
+const searchStasticShow = (state, action) => {
+  if(action.type == TYPES.SEARCH_STASTIC_GOT){
+    return {...state, ...action}
+  }else{
+    return state
+  }
+}
+
 const reducer = (state = initialState, action) => {
   console.log('There is some difference here');
   return {
@@ -152,6 +163,7 @@ const reducer = (state = initialState, action) => {
     mercariSearch: mercariSearch(state.mercariSearch, action),
     mercariItem: mercariItem(state.mercariItem, action),
     register: register(state.register, action),
+    searchStasticShow: searchStasticShow(state.searchStasticShow, action)
   }
 }
 
