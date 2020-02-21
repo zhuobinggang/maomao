@@ -146,6 +146,8 @@ const register = (state, action) => {
 
 const searchStasticShow = (state, action) => {
   if(action.type == TYPES.SEARCH_STASTIC_GOT){
+    console.log('HHHHHHHHH')
+    console.log(action)
     return {...state, ...action}
   }else{
     return state

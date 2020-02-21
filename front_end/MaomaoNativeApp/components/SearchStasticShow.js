@@ -1,9 +1,10 @@
 import React from 'react'
+import {View, Text} from 'react-native'
 
-return ({stastics}) => {
+export default ({stastics}) => {
   return <View>
     {stastics.map((item, index) => {
-      return [String(index), item.name, ':', item.count].join(' ')
+      return <Text>{[String(index), item.name, ':', item.count].join(' ')}</Text>
     })}
   </View>
 }

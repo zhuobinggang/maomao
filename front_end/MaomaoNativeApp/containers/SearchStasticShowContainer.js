@@ -1,4 +1,4 @@
-import {connect} from 'react-native'
+import { connect } from 'react-redux'
 import SearchStasticShow from '../components/SearchStasticShow'
 
 const stateToProp = (state) => {
@@ -9,4 +9,4 @@ const dispatchToProp = () => {
   return {}
 }
 
-return connect(stateToProp, dispatchToProp)(SearchStasticShow)
+export default connect(stateToProp, dispatchToProp)(SearchStasticShow)

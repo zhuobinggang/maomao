@@ -56,7 +56,7 @@ export default ({
             }, 
             () => {
               navigation.navigate('SearchStasticShow');
-              actions.searchStasticShow(); //Emit Action
+              searchStasticShow(); //Emit Action
             },
           ]}>
         </Grid>

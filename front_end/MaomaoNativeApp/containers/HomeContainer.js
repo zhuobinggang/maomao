@@ -38,10 +38,10 @@ const dispatcher = (dispatch, ownProps) => {
     },
     searchStasticShow: () => {
       //Send request and emit action when result returned
-      actions.searchStasticShow().then(stastic => {
+      actions.searchStasticShow().then(stastics => {
         dispatch({
           type: TYPES.SEARCH_STASTIC_GOT,
-          stastic
+          stastics
         })
       }).catch(err => {
         myAlert(err)
