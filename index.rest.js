@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 app.use(express.static('static'))
+app.use(express.static('static_storage'))
 const jwt = require('jwt-simple')
 const db = require('./db/sqlite')
 const mercari = require('./spiders/merica_item_spider')
