@@ -68,7 +68,7 @@ function getItemInfo(itemId){
     })();
 
     // 需要对图片进行代理
-    return getImgsOnLocal(orgImgs, './static/temp_imgs/').then(imgs => {
+    return getImgsOnLocal(orgImgs, './static_storage/temp_imgs/').then(imgs => {
       return {itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, imgs, sold}
     })
   }).catch(err => {
@@ -118,7 +118,7 @@ function getSearchResult(keyword='', page=1){
   }).then(result => {
     //Replace orgin src with local img src
     const orgSrcs = result.items.map(item => {return item.orgSrc})
-    return getImgsOnLocal(orgSrcs, './static/temp_thumb_imgs/', '/temp_thumb_imgs/').then(localSrcs => {
+    return getImgsOnLocal(orgSrcs, './static_storage/temp_thumb_imgs/', '/temp_thumb_imgs/').then(localSrcs => {
       localSrcs.forEach((src, id) => {
         result.items[id].src = src
       })
