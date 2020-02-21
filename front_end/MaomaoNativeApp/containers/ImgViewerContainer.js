@@ -15,7 +15,7 @@ const dispatcher = (dispatch) => {
 
 const MyViewer = (props) => {
   useEffect(() => {
-    props.navigation.setOptions({ title: '猫猫网购物流程' })
+    props.navigation.setOptions({ title: props.title })
   },[]);
   return <ImageViewer {...props} />
 }

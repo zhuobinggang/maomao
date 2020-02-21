@@ -1,5 +1,6 @@
-// const SERVER = 'http://localhost:8089';
-const SERVER = 'http://95.179.253.192:8089';
+import {Platform} from 'react-native';
+
+const SERVER = (Platform.OS != 'web' || __DEV__) ? 'http://95.179.253.192:8089' : '';
 
 export default {
   SERVER,

@@ -45,9 +45,7 @@ export default ({visitCount = 'Mock data', username, getUserName, getVisitCount,
           titles={['煤炉商品搜索', '购物流程']} 
           imgSrcs={[ require('../assets/app_imgs/mercari.jpg'), require('../assets/app_imgs/questionmark.jpg'),]}
           callbacks={[() => {navigation.navigate('MercariSearch')}, () => {
-            navigation.navigate('ImageViewer', {
-              title: '猫猫网购物流程'
-            } )
+            navigation.navigate('ImageViewer');
             imgViewerShow(require('../assets/app_imgs/shop_step_fsm.jpg'))
           }]}>
         </Grid>

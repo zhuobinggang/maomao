@@ -4232,10 +4232,10 @@ react-native-gesture-handler@~1.5.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-grid-configurable@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-grid-configurable/-/react-native-grid-configurable-3.3.0.tgz#e1142c82ebbfc4103a18e92100f9a6dccfe445ed"
-  integrity sha512-7DPdBntlbqqDGkZxqwqKo4igvoh76GagIQzRQ3ExkNqraf11ZOriYbOdUUKjQ1dDSBk4etzDXZRjn+4S00wsZQ==
+react-native-grid-configurable@~3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-grid-configurable/-/react-native-grid-configurable-3.4.0.tgz#afb30ebdc7cbfcee6997468724fa941b28545def"
+  integrity sha512-YI07Wd0hBHsHlA8Lw8VyTaIiwq7YZ8IQdmbg8TLnJWKlVNA0FVycm3Nf2s2ZIqq4ZbeRBnfVqq5JeU5rwtsfeg==
 
 react-native-image-pan-zoom@^2.1.9:
   version "2.1.11"

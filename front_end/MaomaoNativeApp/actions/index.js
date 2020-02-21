@@ -166,6 +166,17 @@ function register(user, pass, nick){
   })
 }
 
+const imgViewerShow = (dispatch, imgs, title, footer, index=0) => {
+  dispatch({
+    type: TYPES.IMG_VIEWER_SHOW,
+    imgs,
+    bgColor: 'black',
+    title,
+    footer,
+    index,
+  })
+}
+
 export default {
   jwtTokenGot,
   login,
@@ -182,4 +193,5 @@ export default {
 
   fetchItemData,
   register,
+  imgViewerShow,
 }

@@ -31,11 +31,7 @@ const dispatcher = (dispatch, ownProps) => {
       })
     },
     imgViewerShow: (img) => {
-      dispatch({
-        type: TYPES.IMG_VIEWER_SHOW,
-        imgs: [img],
-        bgColor: 'black',
-      })
+      actions.imgViewerShow(dispatch, [img], '猫猫网购物流程')
     },
     test: () => {
       actions.fetchItemData(dispatch, 'm66184399648')

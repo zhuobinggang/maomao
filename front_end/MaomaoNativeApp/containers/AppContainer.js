@@ -3,6 +3,11 @@ import App from '../components/AppComponent'
 import actions from '../actions/index'
 import myAlert from '../Alert'
 
+// React Native navigation performance refine
+// Before rendering any navigation stack
+import { enableScreens } from 'react-native-screens';
+enableScreens();
+
 const shaper = (state, ownProps) => {
   return state
 }

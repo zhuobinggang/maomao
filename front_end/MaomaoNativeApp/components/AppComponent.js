@@ -26,7 +26,7 @@ export default ({takeOutJwtToken}) => {
           <Stack.Screen name="Home" options={{ title: '猫猫网' }} component={HomeWithUserNameAndVisitCount} />
           <Stack.Screen name="Login" options={{ title: '登陆' }} component={Login} />
           <Stack.Screen name="Register" options={{ title: '注册' }} component={Register} />
-          <Stack.Screen name="ImageViewer" options={{ title: '图片查看器' }} component={ImgViewer} />
+          <Stack.Screen name="ImageViewer" options={{ title: '图片查看' }} component={ImgViewer} />
           <Stack.Screen name="Test" options={{ title: '测试' }} component={Test} />
           <Stack.Screen name="MercariSearch" options={{ title: '煤炉商品搜索' }} component={MercariSearch} />
           <Stack.Screen name="MercariItem" options={{ title: '煤炉商品详情' }} component={MercariItem} />

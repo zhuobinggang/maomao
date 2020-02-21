@@ -4,35 +4,51 @@ import {Blank} from './Space'
 import Grid from 'react-native-grid-configurable'
 import Indicator from './Indicator';
 
-export default ({itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, sold, imgSrcs = [], loading}) => {
-  const padding = 8;
-  const cols = 5;
-  const [imgWidth, setImgWidth] = useState(null)
 
-  const content = <ScrollView onLayout={({nativeEvent}) => {
-    const {width} = nativeEvent.layout;
-    setImgWidth(parseInt(width / cols) - 5);
-  }} style={{position: 'absolute', left: padding, right: padding, top:0, bottom:0,}}>
-    <Blank />
-    <Text style={styles.title}>{itemName}</Text>
-    <Blank />
-    {imgWidth && <Grid height={imgWidth} cols={cols} imgSrcs={imgSrcs} ></Grid>}
-    <Text>{itemWording}</Text>
-    <Blank />
-    <Text>{itemPrice}{itemTax && '(' + itemTax + ')'}{itemShippingFee && '(' + itemShippingFee + ')'}</Text>
-    <Blank />
-    <Text>喜欢该商品的人数: {likes}</Text>
-    <Blank />
-    <Text>{itemDescription}</Text>
-    <Blank />
-    <Text>{sold}</Text>
-  </ScrollView>
+export default class MercariItem extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      imgWidth: null,
+    }
+  }
 
-  return (
-    <View style={{flex: 1}}>
-      {loading ? <Indicator/> : content}
-    </View>
-  )
+  shouldComponentUpdate = (nextProps, _) => {
+    if(nextProps.itemName == this.props.itemName && nextProps.itemPrice == this.props.itemPrice){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  render(){
+    const {itemName, itemWording, itemPrice, itemTax, itemShippingFee, itemDescription, likes, sold, imgSrcs = [], loading, imgShowCbs} = this.props;
+    const padding = 8;
+    const cols = 5;
+    const imgWidth = parseInt((Dimensions.get('window').width - padding * 2) / cols) - 3
+
+    const content = <ScrollView style={{position: 'absolute', left: padding, right: padding, top:0, bottom:0,}}>
+      <Blank />
+      <Text style={styles.title}>{itemName}</Text>
+      <Blank />
+      {imgWidth && <Grid height={imgWidth} cols={cols} imgSrcs={imgSrcs} callbacks={imgShowCbs} ></Grid>}
+      <Text>{itemWording}</Text>
+      <Blank />
+      <Text>{itemPrice}{itemTax && itemTax}{itemShippingFee && '(' + itemShippingFee + ')'}</Text>
+      <Blank />
+      <Text>喜欢该商品的人数: {likes}</Text>
+      <Blank />
+      <Text>{itemDescription}</Text>
+      <Blank />
+      <Text>{sold}</Text>
+    </ScrollView>
+  
+    return (
+      <View style={{flex: 1}}>
+        {loading ? <Indicator/> : content}
+      </View>
+    )
+  }
 }
 
 const styles = {

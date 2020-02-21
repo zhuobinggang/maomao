@@ -53,11 +53,15 @@
 [X] 37. 2020/02/19 Should Do
   [X] Add indicator when loading data.
   [X] Register page.
-[ ] 38. 2020/02/20
+[X] 38. 2020/02/20
   [X] Fix bug register.
   [X] Fix search page performance problem.
-  [ ] Click image should show it by viewer.
-  [ ] Fix bug Alert on Android.
-  [ ] Add splash.png.
+  [X] Fix bug Alert on Android.
+  [X] Add splash.png.
+[ ] 39. 2020/02/21
+  [X] Click image should show it by viewer.
+  [X] If in web & dev mode, change url to remote, else use empty url.
+  [ ] Record search datas & export a api named search_data_analysis
   [ ] Publish web version.
     [X] Tested
+  [ ] Test: Use canvas on android

@@ -18,6 +18,8 @@ const initialState = {
     footer: null,
     footerColor: null,
     footerTextColor: null,
+    title: '图片查看器',
+    index: 0,
   },
   mercariSearch: {
     items: [],
@@ -91,16 +93,12 @@ const logined = ({logined}, action) => {
 }
 
 const imgViewer = (state, {
-  type, 
-  imgs = [], 
-  bgColor= null,
-  footer= null, 
-  footerColor= null, 
-  footerTextColor= null
+  type, imgs = [], bgColor= null, footer= null, footerColor= null, 
+  footerTextColor= null, title, index,
 }) => {
   if(type == TYPES.IMG_VIEWER_SHOW){
     return {
-      ...state, imgs, bgColor, footer, footerColor, footerTextColor
+      ...state, imgs, bgColor, footer, footerColor, footerTextColor, title, index,
     }
   }else{
     return state

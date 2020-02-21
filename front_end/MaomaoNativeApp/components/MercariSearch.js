@@ -55,6 +55,4 @@ const MercariSearch = ({searchStart, imgSrcs=[], prices = [], keyword = '', curr
     </View>
   ) 
 }
-
-MercariSearch.whyDidYouRender = true;
 export default  MercariSearch;
