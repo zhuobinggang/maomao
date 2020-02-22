@@ -53,6 +53,13 @@ function initialize(){
       table.string('username')
       table.string('address')
     })
+  }).then(() => {
+    return knex.schema.createTableIfNotExists('search', table => {
+      table.increments('id')
+      table.string('keyword')
+      table.string('time')
+      table.string('user')
+    })
   }).finally(() => {
     knex.destroy()
   })

@@ -17,11 +17,21 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.post('/login', (req, res) => {
   const user = req.body['user']
   const pass = req.body['pass']
-  return db.isUserExist(user, pass).then(exist => {
-    if(exist){
-      res.status(200).send(jwt.encode({user,pass}, secret))
-    }else{
+
+  // return db.isUserExist(user, pass).then(exist => {
+  //   if(exist){
+  //     res.status(200).send(jwt.encode({user,pass}, secret))
+  //   }else{
+  //     res.status(404).send()
+  //   }
+  // })
+
+  return db.getUsersByUsernameAndPass(user, pass).then(results => {
+    if(results.length < 1){
       res.status(404).send()
+    }else{
+      const {user, pass, nick} = results[0]
+      res.status(200).send(jwt.encode({user,pass}, secret))
     }
   })
 })
@@ -88,8 +98,8 @@ app.get('/dd', (req,res) => {
 app.get('/username', (req, res) => {
   const token = req.query['jwt']
   try{
-    const {user} = jwt.decode(token, secret)
-    res.send(user)
+    const {user,nick} = jwt.decode(token, secret)
+    res.send(nick)
   }catch(e){
     res.status(404).send()
   }
