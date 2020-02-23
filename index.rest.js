@@ -18,20 +18,12 @@ app.post('/login', (req, res) => {
   const user = req.body['user']
   const pass = req.body['pass']
 
-  // return db.isUserExist(user, pass).then(exist => {
-  //   if(exist){
-  //     res.status(200).send(jwt.encode({user,pass}, secret))
-  //   }else{
-  //     res.status(404).send()
-  //   }
-  // })
-
   return db.getUsersByUsernameAndPass(user, pass).then(results => {
     if(results.length < 1){
       res.status(404).send()
     }else{
-      const {user, pass, nick} = results[0]
-      res.status(200).send(jwt.encode({user,pass}, secret))
+      const {username, nick} = results[0]
+      res.status(200).send(jwt.encode({username,nick}, secret))
     }
   })
 })
@@ -98,7 +90,8 @@ app.get('/dd', (req,res) => {
 app.get('/username', (req, res) => {
   const token = req.query['jwt']
   try{
-    const {user,nick} = jwt.decode(token, secret)
+    const payload = jwt.decode(token, secret)
+    const {user,nick} = payload;
     res.send(nick)
   }catch(e){
     res.status(404).send()
