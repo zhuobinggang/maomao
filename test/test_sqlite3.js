@@ -182,6 +182,7 @@ function tryoutSearchRank(){
   })
 }
 
+tryoutSearchRank();
 
 // updateOrderState(9, 2)
 // readAllOrder()

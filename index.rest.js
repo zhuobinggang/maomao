@@ -143,13 +143,8 @@ app.post('/views', (req, res) => {
 })
 
 app.get('/search/stastics', (req, res) => {
-  // res.status(200).json([
-  //   {name: 'dd', num: 11}, 
-  //   {name: 'bb', num: 9}, 
-  //   {name:'cc', num: 5},
-  // ])
-  db.getSearchRank(7).then(res => {
-    res.json(res)
+  db.getSearchRank(7).then(result => {
+    res.json(result)
   }).catch(e => {
     res.status(400).send()
   });
