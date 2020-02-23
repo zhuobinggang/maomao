@@ -7,8 +7,13 @@ function md5hex(str /*: string */) {
 }
 
 function payloadFromJwt(jwtStr, secret){
-  //TODO: Maybe catch then fallback?
-  return jwt.decode(jwtStr, secret)
+  //Maybe catch then fallback?
+  try{
+    return jwt.decode(jwtStr, secret)
+  }catch(e){
+    console.error('Decode jwt error');
+    console.error(e);
+  }
 }
 
 function jwtFromObject(object, secret){

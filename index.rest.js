@@ -107,7 +107,7 @@ app.get('/visits/count', (req, res) => {
 app.get('/mercari/search/keyword/:keyword/page/:page', (req, res) => {
   const keyword = req.params['keyword'];
   const page = req.params['page'] || 1;
-  const payload = U.payloadFromJwt(req.query('jwt'));
+  const payload = U.payloadFromJwt(req.query['jwt']);
   const username = payload ? payload.user : '';
   return db.insertSearch(keyword, username).then(() => {
     return mercari.getSearchResult(keyword, page)
