@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 app.use(express.static('static'))
 app.use(express.static('static_storage'))
-const jwt = require('jwt-simple')
 const db = require('./db/sqlite')
 const mercari = require('./spiders/merica_item_spider')
 const secret = 'maomao.org by kobako'
@@ -22,8 +21,8 @@ app.post('/login', (req, res) => {
     if(results.length < 1){
       res.status(404).send()
     }else{
-      const {username, nick} = results[0]
-      res.status(200).send(jwt.encode({username,nick}, secret))
+      const {username, nick} = results[0];
+      res.status(200).send(U.jwtFromObject({user: username,nick}, secret));
     }
   })
 })
@@ -90,7 +89,7 @@ app.get('/dd', (req,res) => {
 app.get('/username', (req, res) => {
   const token = req.query['jwt']
   try{
-    const payload = jwt.decode(token, secret)
+    const payload = U.payloadFromJwt(token, secret);
     const {user,nick} = payload;
     res.send(nick)
   }catch(e){
@@ -108,8 +107,15 @@ app.get('/visits/count', (req, res) => {
 app.get('/mercari/search/keyword/:keyword/page/:page', (req, res) => {
   const keyword = req.params['keyword'];
   const page = req.params['page'] || 1;
-  mercari.getSearchResult(keyword, page).then(result => {
-    res.json(result)
+  const payload = U.payloadFromJwt(req.query('jwt'));
+  const username = payload ? payload.user : '';
+  return db.insertSearch(keyword, username).then(() => {
+    return mercari.getSearchResult(keyword, page)
+  }).then(result => {
+    res.json(result);
+  }).catch(err => {
+    console.error('Maybe insert search or get search result failed');
+    res.status(400).send('Something wrong with the server');
   })
 })
 

@@ -53,12 +53,26 @@ function getUsersByName(username){
 }
 
 function insertUser(nick, username, md5Pass){
-  const sql = `insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))`;
+  const sql = 'insert into user(nick, username, password, created_time, updated_time) values(?, ?, ?, datetime("now"), datetime("now"))';
   return knex.raw(sql, [nick, username, md5Pass])
+}
+
+function insertSearch(keyword, username){
+  const sql = 'insert into search(keyword, user, time) values(?, ?, datetime("now"))';
+  return knex.raw(sql, [keyword, username, ]);
+}
+
+function getAllSearch(){
+  return knex('search').select('*');
+}
+
+function getLastFrom(table){
+  return knex(table).orderBy('id', 'desc').first()
 }
 
 module.exports = {
   getCount,
+  getLastFrom,
   incViewCount,
   getTodayViewCnt,
   getUsersByUsernameAndPass,
@@ -66,4 +80,6 @@ module.exports = {
   getViewCount,
   getUsersByName,
   insertUser,
+  insertSearch,
+  getAllSearch,
 }

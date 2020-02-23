@@ -204,7 +204,7 @@ function updateOrderState(id, state){
 
 // test_register('kobako9', 'dd', 'kobako')
 
-getAllUsers()
+// getAllUsers()
 
 // rawInsert()
 // initialize()

@@ -13,3 +13,16 @@ test('The count will be added by one after inserting', () => {
     expect(newCount == oldCount + 1).toBe(true)
   })
 })
+
+test('Insert search should work', () => {
+  const [orgKeyword, orgUsername] = ['cnm', 'kobako'];
+  return db.insertSearch(orgKeyword, orgUsername).then(() => {
+    return db.getLastFrom('search');
+  }).then(lastOne => {
+    expect(lastOne).not.toBeNull();
+    //Confirmed the field name true
+    const {keyword, user} = lastOne;
+    expect(keyword).toBe(orgKeyword);
+    expect(user).toBe(orgUsername);
+  })
+})
