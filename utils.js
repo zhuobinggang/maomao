@@ -11,13 +11,18 @@ function payloadFromJwt(jwtStr, secret){
   try{
     return jwt.decode(jwtStr, secret)
   }catch(e){
-    console.error('Decode jwt error');
-    console.error(e);
+    console.error('Decode jwt error: ', jwtStr);
+    return null;
   }
 }
 
 function jwtFromObject(object, secret){
-  return jwt.encode(object, secret);
+  try{
+    return  jwt.encode(object, secret);
+  }catch(e){
+    console.error('Encode object to jwt error: ', object);
+    return null
+  }
 }
 
 

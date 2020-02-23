@@ -70,6 +70,11 @@ function getLastFrom(table){
   return knex(table).orderBy('id', 'desc').first()
 }
 
+function getSearchRank(rowNum){
+  const sql = 'select keyword as name, count(*) as num from search group by keyword order by num desc limit ?';
+  return knex.raw(sql, [rowNum]);
+}
+
 module.exports = {
   getCount,
   getLastFrom,
@@ -82,4 +87,6 @@ module.exports = {
   insertUser,
   insertSearch,
   getAllSearch,
+  getSearchRank,
 }
+

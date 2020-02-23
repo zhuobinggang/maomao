@@ -1,4 +1,5 @@
 const U = require('../utils')
+const db = require('../db/sqlite')
 
 const knex = require('knex')({
   client: 'sqlite3',
@@ -163,6 +164,21 @@ function getLastOrderDetail(){
 function updateOrderState(id, state){
   knex('order').where({id}).update({state}).finally(res => {
     knex.destroy()
+  })
+}
+
+function tryoutSearchRank(){
+  return Promise.all([
+    db.insertSearch('cnm 111', 'kobako'),
+    db.insertSearch('cnm 222', 'kobako'),
+    db.insertSearch('cnm 111', 'kobako'),
+    db.insertSearch('cnm 222', 'kobako'),
+    db.insertSearch('cnm 333', 'kobako'),
+    db.insertSearch('cnm 111', 'kobako'),
+  ]).then(() => {
+    return db.getSearchRank(3);
+  }).then(res => {
+    console.log(res)
   })
 }
 

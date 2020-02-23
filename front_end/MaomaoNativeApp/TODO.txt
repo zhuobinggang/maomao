@@ -65,6 +65,6 @@
 [ ] 40. 2020/02/23
   [X] Test login api(Should return jwt with nickname infomation)
   [ ] Record search datas & export a api named search_data_analysis. 
-      [ ] Create table search(id, keyword, time, user)
+      [X] Create table search(id, keyword, time, user)
   [ ] Test: Use canvas on android
   [ ] Use a script to generate container&component file
