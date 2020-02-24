@@ -62,9 +62,17 @@
   [X] Click image should show it by viewer.
   [X] If in web & dev mode, change url to remote, else use empty url.
   [X] Publish web version. [X] Tested
-[ ] 40. 2020/02/23
-  [X] Test login api(Should return jwt with nickname infomation)
-  [ ] Record search datas & export a api named search_data_analysis. 
-      [X] Create table search(id, keyword, time, user)
-  [ ] Test: Use canvas on android
-  [ ] Use a script to generate container&component file
+[X] 40. 2020/02/23
+  [X] Test login api(Should return jwt with nickname infomation).
+  [X] Record search datas & export a api named search_data_analysis. 
+  [X] Test: Use canvas on android.
+      But there is a expo-pixi for using pixi.js.
+  [X] Decide to use what in the next step of showing stastics.
+      Maybe the 'react-native-chart-kit'
+[X] 41. 2020/02/24
+  [X] Add a bar chart to show the stastics.
+[ ] 42. 2020/02/25
+  [ ] Use a script to generate container&component file.
+  [ ] To send pull request
+    [ ] Fix the bug of code 'barRadius: this.props.chartConfig.barRadius || 0'
+    [ ] Fix the bug of label format function not work

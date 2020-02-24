@@ -8,6 +8,7 @@ import Test from './Indicator'
 import MercariSearch from '../containers/MercariSearchContainer'
 import MercariItem from '../containers/MercariItemContainer'
 import SearchStasticShow from '../containers/SearchStasticShowContainer'
+import WebViewSample from './WebViewSample'
 
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -32,6 +33,7 @@ export default ({takeOutJwtToken}) => {
           <Stack.Screen name="MercariSearch" options={{ title: '煤炉商品搜索' }} component={MercariSearch} />
           <Stack.Screen name="MercariItem" options={{ title: '煤炉商品详情' }} component={MercariItem} />
           <Stack.Screen name="SearchStasticShow" options={{ title: '搜索统计分析' }} component={SearchStasticShow} />
+          {/* <Stack.Screen name="SearchStasticShow" options={{ title: '搜索统计分析' }} component={WebViewSample} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </View>
