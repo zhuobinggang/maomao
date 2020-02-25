@@ -34,21 +34,15 @@ export default ({stastics}) => {
         height={chartHeight}
         yAxisSuffix={'次'}
         fromZero={true}
-        formatXLabel={(xValue) => {
-          console.log('----')
-        }}
-        formatYLabel={(numStr) => {
-          console.log('++++++')
-          console.log(numStr)
-          if(numStr == parseInt(numStr)){
-            const dotIndex = numStr.search(/\./);
-            return numStr.slice(0, dotIndex)
-          }else{
-            return numStr
-          }
-        }}
-        // yAxisLabel="$"
         chartConfig={{
+          formatYLabel:(numStr) => {
+            if(numStr == parseInt(numStr)){
+              const dotIndex = numStr.search(/\./);
+              return numStr.slice(0, dotIndex)
+            }else{
+              return numStr
+            }
+          },
           backgroundColor: '#000000',
           backgroundGradientFrom: '#1E2923',
           backgroundGradientTo: '#08130D',
