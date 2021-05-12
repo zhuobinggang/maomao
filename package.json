@@ -9,7 +9,7 @@
     "http-proxy": "^1.18.0",
     "jwt-simple": "^0.5.6",
     "knex": "^0.20.4",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "pug": "^2.0.4",
     "redbird": "^0.9.1",
     "sqlite3": "^4.1.1",
